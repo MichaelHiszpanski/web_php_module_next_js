@@ -1,0 +1,47 @@
+@font-face {
+  font-family: "Jaro";
+  src: url("/fonts/Jaro-Regular-VariableFont_opsz.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Jaro";
+  src: url("/fonts/Jaro-Medium-VariableFont_opsz.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Jaro";
+  src: url("/fonts/Jaro-Bold-VariableFont_opsz.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Jost-Italic";
+  src: url("/fonts/Jost-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: 200 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Jost-Variable";
+  src: url("/fonts/Jost-VariableFont_wght.ttf") format("truetype");
+  font-weight: 200 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Orbitron-Variable";
+  src: url("/fonts/Orbitron-VariableFont_wght.ttf") format("truetype");
+  font-weight: 200 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "PermanentMarker";
+  src: url("/fonts/PermanentMarker-Regular.ttf") format("truetype");
+  font-weight: 200 800;
+  font-style: normal;
+}
