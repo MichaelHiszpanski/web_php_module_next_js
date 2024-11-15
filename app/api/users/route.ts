@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const sql = neon(`${process.env.DATABASE_URL}`);
 
-export async function getAllUsers(req: Request) {
+export async function GET(req: Request) {
   try {
     const allUsers = await sql`
       SELECT * FROM Users;
