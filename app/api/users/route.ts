@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const sql = neon(`${process.env.DATABASE_URL}`);
 
-export async function GET(req: Request) {
+export async function GETAllUsers(req: Request) {
   try {
     const allUsers = await sql`
       SELECT * FROM Users;
@@ -21,7 +21,7 @@ export async function GET(req: Request) {
   }
 }
 
-export async function postAddUser(req: Request) {
+export async function POSTAddUser(req: Request) {
   try {
     const { UserEmail, UserPassword, RoleId } = await req.json();
 
@@ -47,7 +47,7 @@ export async function postAddUser(req: Request) {
   }
 }
 
-export async function putUpdateUser(req: Request) {
+export async function PUTUpdateUser(req: Request) {
   try {
     const { UserID, UserEmail, UserPassword, RoleId } = await req.json();
 
@@ -75,7 +75,7 @@ export async function putUpdateUser(req: Request) {
   }
 }
 
-export async function deleteUser(req: Request) {
+export async function DELETEUser(req: Request) {
   try {
     const { UserID } = await req.json();
 
@@ -102,7 +102,7 @@ export async function deleteUser(req: Request) {
   }
 }
 
-export async function getUser(req: Request) {
+export async function GETUser(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("UserID");
