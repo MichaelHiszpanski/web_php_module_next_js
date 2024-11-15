@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     `;
 
     return NextResponse.json({
-      message: "User added successfully!",
+      message: "success",
       userId: result[0].UserID,
     });
   } catch (error: any) {
@@ -44,7 +44,7 @@ export async function PUT(req: Request) {
       return NextResponse.json({ message: "User not found!" }, { status: 404 });
     }
 
-    return NextResponse.json({ message: "User updated successfully!" });
+    return NextResponse.json({ message: "success" });
   } catch (error: any) {
     console.error("Error updating user to DB:", error);
     return NextResponse.json(
@@ -71,7 +71,7 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ message: "User not found!" }, { status: 404 });
     }
 
-    return NextResponse.json({ message: "User deleted successfully!" });
+    return NextResponse.json({ message: "success" });
   } catch (error: any) {
     console.error("Error deleting user to DB:", error);
     return NextResponse.json(
