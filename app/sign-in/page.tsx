@@ -5,6 +5,7 @@ import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import CustomInput from "@/src/components/custom-input/CustomInput";
 import Link from "next/link";
+import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
 
 function SignIn() {
   const router = useRouter();
@@ -48,8 +49,8 @@ function SignIn() {
   };
 
   return (
-    <div className="flex flex-col  items-center">
-      <h1 className="text-3xl md:text-5xl font-orbitron_variable my-10 px-10">
+    <div className="flex flex-col  items-center z-50">
+      <h1 className="text-3xl md:text-5xl font-orbitron_variable my-10 px-10 z-50">
         Sign-In
       </h1>
       <form
@@ -68,12 +69,7 @@ function SignIn() {
           onInputChange={(e) => setPassword(e.target.value)}
         />
         {error && <div className="text-red-500">{error}</div>}{" "}
-        <button
-          className="w-full bg-blue-500 p-2 rounded-lg text-white"
-          type="submit"
-        >
-          Sign in
-        </button>
+        <ButtonPrimary title={"Sign-In!"} type="submit" />
       </form>
 
       <div>

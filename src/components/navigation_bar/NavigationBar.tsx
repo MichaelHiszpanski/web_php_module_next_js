@@ -1,6 +1,11 @@
 "use client";
 import React, { FC, useState, useRef, useEffect } from "react";
-import { logo, wave_one } from "@/src/consts/images";
+import {
+  logo,
+  wave_down_three,
+  wave_one,
+  wave_up_two,
+} from "@/src/consts/images";
 import Image from "next/image";
 import { navigationItems } from "@/src/consts/navigation_list";
 import NavigationLinkButton from "../buttons/NavigationLinkButton";
@@ -20,7 +25,7 @@ const NavigationBar: FC = () => {
   return (
     <nav className="w-full relative h-[100px] flex flex-row justify-evenly items-center">
       <Image
-        src={wave_one}
+        src={wave_down_three}
         alt="bg"
         className=" w-full absolute top-0 md:top-[-60px]  select-none overflow-hidden "
         style={{

@@ -5,6 +5,7 @@ import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import AnimatedDropdown from "@/src/components/custom-dropdown/CustomDropDown";
 import CustomInput from "@/src/components/custom-input/CustomInput";
+import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
 
 export default function Page() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -82,8 +83,8 @@ export default function Page() {
   }
 
   return (
-    <div className="flex flex-col  items-center">
-      <h1 className="text-3xl md:text-5xl font-orbitron_variable my-10 px-10">
+    <div className="flex flex-col  items-center ">
+      <h1 className="text-3xl md:text-5xl font-orbitron_variable my-10 px-10 z-50">
         Sign up
       </h1>
       <form
@@ -107,15 +108,8 @@ export default function Page() {
           options={["Student", "Teacher"]}
           onSelect={(option: any) => setRole(option)}
         />
-        <div>
-          <button
-            className="w-full bg-blue-500 p-2 rounded-lg text-white my-5"
-            type="submit"
-            disabled={!role}
-          >
-            Continue
-          </button>
-        </div>
+
+        <ButtonPrimary title={"Sign-Up!"} type="submit" />
       </form>
     </div>
   );
