@@ -4,8 +4,9 @@ import * as React from "react";
 import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import CustomInput from "@/src/components/custom-input/CustomInput";
+import Link from "next/link";
 
-export default function SignIn() {
+function SignIn() {
   const router = useRouter();
 
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -48,7 +49,7 @@ export default function SignIn() {
 
   return (
     <div className="flex flex-col  items-center">
-      <h1 className="text-3xl md:text-5xl font-orbitron_variable my-10">
+      <h1 className="text-3xl md:text-5xl font-orbitron_variable my-10 px-10">
         Sign-In
       </h1>
       <form
@@ -76,9 +77,13 @@ export default function SignIn() {
       </form>
 
       <div>
-        Don`t dont have an account? Please{" "}
-        <span className="text-colorFour">Sign-Up</span>
+        Don`t dont have an account? Please
+        <Link href={"/sign-up"}>
+          <span className="text-colorFour ml-2 cursor-pointer">Sign-Up !</span>
+        </Link>
       </div>
     </div>
   );
 }
+
+export default SignIn;
