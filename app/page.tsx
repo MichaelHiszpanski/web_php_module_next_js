@@ -1,9 +1,8 @@
-// app/page.tsx
 "use client";
+import { NextPage } from "next";
+import React, { useState } from "react";
 
-import { useState } from "react";
-
-export default function Page() {
+const Home: NextPage = ({}) => {
   const [comment, setComment] = useState("");
   const [message, setMessage] = useState("");
 
@@ -29,7 +28,8 @@ export default function Page() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      {/* <div>
+     <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Write a comment"
@@ -41,6 +41,12 @@ export default function Page() {
       </form>
 
       {message && <p>{message}</p>}
+     </div> */}
+      <div>
+        <h1>School Manager</h1>
+      </div>
     </div>
   );
-}
+};
+
+export default Home;
