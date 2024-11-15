@@ -3,25 +3,25 @@ import { NextResponse } from "next/server";
 
 const sql = neon(`${process.env.DATABASE_URL}`);
 
-export async function GETAllUsers(req: Request) {
-  try {
-    const allUsers = await sql`
-      SELECT * FROM Users;
-    `;
-    return NextResponse.json(allUsers);
-  } catch (error: any) {
-    console.error("Error retrieving all users from DB:", error);
-    return NextResponse.json(
-      {
-        error: "Failed to retrieve all users from DB",
-        detail: error.message,
-      },
-      { status: 500 }
-    );
-  }
-}
+// export async function GETAllUsers(req: Request) {
+//   try {
+//     const allUsers = await sql`
+//       SELECT * FROM Users;
+//     `;
+//     return NextResponse.json(allUsers);
+//   } catch (error: any) {
+//     console.error("Error retrieving all users from DB:", error);
+//     return NextResponse.json(
+//       {
+//         error: "Failed to retrieve all users from DB",
+//         detail: error.message,
+//       },
+//       { status: 500 }
+//     );
+//   }
+// }
 
-export async function POSTAddUser(req: Request) {
+export async function POST(req: Request) {
   try {
     const { UserEmail, UserPassword, RoleId } = await req.json();
 
@@ -47,7 +47,7 @@ export async function POSTAddUser(req: Request) {
   }
 }
 
-export async function PUTUpdateUser(req: Request) {
+export async function PUT(req: Request) {
   try {
     const { UserID, UserEmail, UserPassword, RoleId } = await req.json();
 
@@ -75,7 +75,7 @@ export async function PUTUpdateUser(req: Request) {
   }
 }
 
-export async function DELETEUser(req: Request) {
+export async function DELETE(req: Request) {
   try {
     const { UserID } = await req.json();
 
@@ -102,7 +102,7 @@ export async function DELETEUser(req: Request) {
   }
 }
 
-export async function GETUser(req: Request) {
+export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("UserID");
