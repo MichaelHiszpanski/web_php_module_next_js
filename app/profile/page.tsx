@@ -3,12 +3,7 @@ import { useState, useEffect } from "react";
 import { SignUp, UserProfile } from "@clerk/nextjs";
 import PagesStylesWrapper from "@/src/utils/wrappers/PagesStylesWrapper";
 
-interface Props {
-  userExists?: boolean;
-}
-interface State {}
-
-const Profile: NextPage<Props, State> = ({ userExists }) => {
+const Profile: NextPage = () => {
   return (
     <PagesStylesWrapper>
       <div className="flex mt-[100px] w-full h-full  items-center justify-center bg-gradient-to-r from-white to-colorTwo">
