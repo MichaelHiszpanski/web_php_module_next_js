@@ -26,7 +26,7 @@ const NavigationBar: FC = () => {
 
   return (
     <nav className="w-full relative h-[100px] flex flex-row justify-evenly items-center">
-      <Image
+      {/* <Image
         src={wave_down_three}
         alt="bg"
         className=" w-full absolute top-0 md:top-[-60px]  select-none overflow-hidden "
@@ -36,7 +36,7 @@ const NavigationBar: FC = () => {
         }}
         onDragStart={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
-      />
+      /> */}
       <div className="flex flex-row md:justify-evenly items-center w-full h-full z-50">
         <Image
           src={logo}
