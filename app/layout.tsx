@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import NavigationBar from "@/src/components/navigation_bar/NavigationBar";
 import Footer from "@/src/components/footer/Footer";
+import { StoreProvider } from "@/src/utils/tools/mobX_store_provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +34,7 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <NavigationBar />
-          {children}
+          <StoreProvider>{children}</StoreProvider>
 
           <Footer />
         </body>

@@ -1,20 +1,10 @@
 "use client";
 import SidePanel from "@/src/components/dashboard/side-panel/SidePanel";
-import { useUser } from "@clerk/nextjs";
 import { NextPage } from "next";
 import React, { useState } from "react";
 
-const Dashboard: NextPage = () => {
+const NewGroup: NextPage = () => {
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(true);
-  const { isLoaded, isSignedIn } = useUser();
-
-  if (!isLoaded) return <div>Loading...</div>;
-  if (!isSignedIn) {
-    if (typeof window !== "undefined") {
-      window.location.href = "/sign-in";
-    }
-    return null;
-  }
   return (
     <div className="flex flex-row min-h-screen bg-red-500">
       <SidePanel isBoardOpen={isBoardOpen} setIsBoardOpen={setIsBoardOpen} />
@@ -31,4 +21,4 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export default Dashboard;
+export default NewGroup;
