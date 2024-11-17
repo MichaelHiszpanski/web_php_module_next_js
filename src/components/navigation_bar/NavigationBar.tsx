@@ -10,16 +10,18 @@ import Image from "next/image";
 import { navigationItems } from "@/src/consts/navigation_list";
 import NavigationLinkButton from "../buttons/NavigationLinkButton";
 import useOutsideClick from "../../utils/tools/useOutsideClick";
-
+import { useMediaQuery } from "react-responsive";
 import { useRouter } from "next/navigation";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 const NavigationBar: FC = () => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
+  const { isSignedIn } = useUser();
   useOutsideClick(navRef, () => setIsModalOpen(false));
-
+  const isMobileSize = useMediaQuery({ maxWidth: 767 });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
@@ -40,7 +42,11 @@ const NavigationBar: FC = () => {
           src={logo}
           alt="logo"
           className="w-24 h-24 cursor-pointer select-none"
-          onClick={() => {}}
+          onClick={() => {
+            if (isMobileSize) {
+              setIsModalOpen(!isModalOpen);
+            }
+          }}
         />
 
         {navigationItems.map((element) => (
@@ -51,13 +57,9 @@ const NavigationBar: FC = () => {
             className=" hidden md:flex"
           />
         ))}
-        {isAuthenticated ? (
-          <button
-            onClick={() => {}}
-            className="md:flex hidden  rounded-xl font-bold hover:scale-110 select-none font-orbitron_variable text-xl"
-          >
-            Log Out
-          </button>
+        {isSignedIn && <UserButton afterSignOutUrl="/" />}
+        {isSignedIn ? (
+          <></>
         ) : (
           <NavigationLinkButton
             name="Sign In"
@@ -73,7 +75,6 @@ const NavigationBar: FC = () => {
             ref={navRef}
           >
             <div className="flex flex-col justify-center items-center text-black ">
-              {/* <h2 className="text-lg font-bold mb-2 text-black">Navigation</h2> */}
               {navigationItems.map((element) => (
                 <NavigationLinkButton
                   key={element.name}
@@ -82,13 +83,8 @@ const NavigationBar: FC = () => {
                 />
               ))}
 
-              {isAuthenticated ? (
-                <button
-                  onClick={() => {}}
-                  className="flex md:hidden  rounded-xl font-bold hover:scale-110 select-none font-orbitron_variable text-xl"
-                >
-                  Log Out
-                </button>
+              {isSignedIn ? (
+                <UserButton afterSignOutUrl="/" />
               ) : (
                 <NavigationLinkButton name="Sign In" hrefLink="/sign-in" />
               )}

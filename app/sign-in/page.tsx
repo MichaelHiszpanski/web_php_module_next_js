@@ -14,13 +14,37 @@ function SignIn() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
+  const [emailError, setEmailError] = React.useState<string | null>(null);
+  const [passwordError, setPasswordError] = React.useState<string | null>(null);
+  const validateInputs = () => {
+    let isValid = true;
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address.");
+      isValid = false;
+    } else if (email.trim() === "") {
+      setEmailError("Email address cannot be empty.");
+      isValid = false;
+    } else {
+      setEmailError(null);
+    }
+
+    if (password.trim() === "") {
+      setPasswordError("Password cannot be empty.");
+      isValid = false;
+    } else {
+      setPasswordError(null);
+    }
+
+    return isValid;
+  };
   const handleSingIn = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!isLoaded) {
-      return;
-    }
+    if (!isLoaded) return;
+
+    if (!validateInputs()) return;
 
     setError(null);
 
@@ -61,12 +85,14 @@ function SignIn() {
           label={"Enter email address"}
           value={email}
           onInputChange={(e) => setEmail(e.target.value)}
+          error={emailError}
         />
         <CustomInput
           label={"Enter password"}
           keyboardType="password"
           value={password}
           onInputChange={(e) => setPassword(e.target.value)}
+          error={passwordError}
         />
         {error && <div className="text-red-500">{error}</div>}{" "}
         <ButtonPrimary title={"Sign-In!"} type="submit" />

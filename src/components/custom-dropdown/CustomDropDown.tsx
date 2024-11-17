@@ -4,12 +4,14 @@ interface DropdownProps {
   label: string;
   options: string[];
   onSelect: (option: string) => void;
+  error?: string | null;
 }
 
 const AnimatedDropdown: React.FC<DropdownProps> = ({
   label,
   options,
   onSelect,
+  error = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -31,7 +33,10 @@ const AnimatedDropdown: React.FC<DropdownProps> = ({
       </label>
       <div
         onClick={toggleDropdown}
-        className="cursor-pointer p-2 border rounded bg-white shadow-md text-gray-700 focus:outline-none"
+        //   className="cursor-pointer p-2 border rounded bg-white shadow-md text-gray-700 focus:outline-none"
+        className={`w-full p-2 border rounded ${
+          error ? "border-red-500" : "border-gray-300"
+        } focus:outline-none focus:ring-2 focus:ring-blue-500`}
       >
         {selectedOption || "Select an option"}
       </div>
@@ -55,6 +60,7 @@ const AnimatedDropdown: React.FC<DropdownProps> = ({
           ))}
         </ul>
       </div>
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
   );
 };

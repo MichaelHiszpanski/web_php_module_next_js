@@ -11,17 +11,23 @@ export default function Page() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [passwordConfirm, setPasswordConfirm] = React.useState("");
   const [username, setUsername] = React.useState("Michael");
   const [verifying, setVerifying] = React.useState(false);
   const [code, setCode] = React.useState("");
   const [role, setRole] = React.useState<string | null>(null);
   const router = useRouter();
-
+  const [emailError, setEmailError] = React.useState<string | null>(null);
+  const [passwordError, setPasswordError] = React.useState<string | null>(null);
+  const [passwordConfirmError, setPasswordConfirmError] = React.useState<
+    string | null
+  >(null);
+  const [roleError, setRoleError] = React.useState<string | null>(null);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!isLoaded || !role) return;
-
+    if (!isLoaded) return;
+    if (!validateInputs()) return;
     try {
       await signUp.create({
         emailAddress,
@@ -41,6 +47,47 @@ export default function Page() {
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2));
     }
+  };
+
+  const validateInputs = () => {
+    let isValid = true;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailAddress)) {
+      setEmailError("Please enter a valid email address.");
+      isValid = false;
+    } else if (emailAddress.trim() === "") {
+      setEmailError("Email address cannot be empty.");
+      isValid = false;
+    } else {
+      setEmailError(null);
+    }
+
+    if (password.trim() === "") {
+      setPasswordError("Password cannot be empty.");
+      isValid = false;
+    } else {
+      setPasswordError(null);
+    }
+    if (passwordConfirm.trim() === "") {
+      setPasswordConfirmError("Confirm password cannot be empty.");
+      isValid = false;
+    } else if (passwordConfirm !== password) {
+      setPasswordConfirmError(
+        "Yur confirmation password has to match a password"
+      );
+      isValid = false;
+    } else {
+      setPasswordConfirmError(null);
+    }
+    if (!role || role.trim() === "" || role === "Select your role") {
+      setRoleError("Please select your role.");
+      isValid = false;
+    } else {
+      setRoleError(null);
+    }
+
+    return isValid;
   };
 
   const handleVerify = async (e: React.FormEvent) => {
@@ -95,6 +142,7 @@ export default function Page() {
           label={"Enter email address"}
           value={emailAddress}
           onInputChange={(e) => setEmailAddress(e.target.value)}
+          error={emailError}
         />
 
         <CustomInput
@@ -102,11 +150,20 @@ export default function Page() {
           keyboardType="password"
           value={password}
           onInputChange={(e) => setPassword(e.target.value)}
+          error={passwordError}
+        />
+        <CustomInput
+          label={"Enter password"}
+          keyboardType="password"
+          value={passwordConfirm}
+          onInputChange={(e) => setPasswordConfirm(e.target.value)}
+          error={passwordConfirmError}
         />
         <AnimatedDropdown
           label="Select your role"
-          options={["Student", "Teacher"]}
+          options={["Select your role", "Student", "Teacher"]}
           onSelect={(option: any) => setRole(option)}
+          error={roleError}
         />
 
         <ButtonPrimary title={"Sign-Up!"} type="submit" />

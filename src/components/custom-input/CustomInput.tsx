@@ -6,7 +6,7 @@ interface Props {
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   keyboardType?: string;
-  error?: string;
+  error?: string | null;
 }
 
 const CustomInput: FC<Props> = ({

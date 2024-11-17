@@ -8,7 +8,7 @@ interface NavigationItem {
 // }
 export const navigationItems: NavigationItem[] = [
   { hrefLink: "/", name: "Home" },
-  { hrefLink: "/dashboard", name: "Docs" },
+  { hrefLink: "/dashboard", name: "Dashboard" },
   // { hrefLink: "/sign-up", name: "Sign Up" },
   { hrefLink: "/contact", name: "Contact" },
   // { hrefLink: "/sign-in", name: "Sign In" },
