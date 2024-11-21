@@ -1,7 +1,7 @@
 ---
 ## Deploy on Vercel
 
-Check the  link [Next.js deployment documentation](https://schoolmanager-mu.vercel.app/)
+Check the  link [Check out the Project...](https://schoolmanager-mu.vercel.app/)
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 ---
