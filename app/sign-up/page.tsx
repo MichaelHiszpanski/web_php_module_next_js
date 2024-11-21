@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import AnimatedDropdown from "@/src/components/custom-dropdown/CustomDropDown";
@@ -14,6 +14,7 @@ export default function Page() {
   const [passwordConfirm, setPasswordConfirm] = React.useState("");
   const [username, setUsername] = React.useState("Michael");
   const [verifying, setVerifying] = React.useState(false);
+
   const [code, setCode] = React.useState("");
   const [role, setRole] = React.useState<string | null>(null);
   const router = useRouter();
@@ -102,6 +103,7 @@ export default function Page() {
 
       if (signUpAttempt.status === "complete") {
         await setActive({ session: signUpAttempt.createdSessionId });
+
         router.push("/");
       } else {
         console.error(JSON.stringify(signUpAttempt, null, 2));
@@ -141,6 +143,7 @@ export default function Page() {
         <CustomInput
           label={"Enter email address"}
           value={emailAddress}
+          name="email"
           onInputChange={(e) => setEmailAddress(e.target.value)}
           error={emailError}
         />
@@ -148,6 +151,7 @@ export default function Page() {
         <CustomInput
           label={"Enter password"}
           keyboardType="password"
+          name="password"
           value={password}
           onInputChange={(e) => setPassword(e.target.value)}
           error={passwordError}
@@ -155,6 +159,7 @@ export default function Page() {
         <CustomInput
           label={"Enter password"}
           keyboardType="password"
+          name="confirmPassword"
           value={passwordConfirm}
           onInputChange={(e) => setPasswordConfirm(e.target.value)}
           error={passwordConfirmError}
@@ -162,7 +167,9 @@ export default function Page() {
         <AnimatedDropdown
           label="Select your role"
           options={["Select your role", "Student", "Teacher"]}
-          onSelect={(option: any) => setRole(option)}
+          onSelect={(option: any) => {
+            setRole(option);
+          }}
           error={roleError}
         />
 

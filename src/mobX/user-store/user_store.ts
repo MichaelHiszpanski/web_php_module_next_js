@@ -1,18 +1,28 @@
 import { makeAutoObservable } from "mobx";
 
 export class UserStore {
-  user = [];
+  user = {
+    email: "",
+    password: "",
+    userId: "",
+  };
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setUser(userDetails: any) {
-    this.user = userDetails;
+  setUser(
+    userDetails: Partial<{ email: string; password: string; userId: string }>
+  ) {
+    this.user = { ...this.user, ...userDetails };
   }
 
   clearUser() {
-    this.user = [];
+    this.user = {
+      email: "",
+      password: "",
+      userId: "",
+    };
   }
 }
 

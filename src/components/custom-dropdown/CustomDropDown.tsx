@@ -52,7 +52,7 @@ const AnimatedDropdown: React.FC<DropdownProps> = ({
           {options.map((option) => (
             <li
               key={option}
-              className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+              className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer z-50"
               onClick={() => selectOption(option)}
             >
               {option}

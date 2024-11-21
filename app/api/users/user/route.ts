@@ -5,11 +5,11 @@ const sql = neon(`${process.env.DATABASE_URL}`);
 
 export async function POST(req: Request) {
   try {
-    const { UserEmail, UserPassword, RoleId } = await req.json();
+    const { UserID, UserEmail, UserPassword, RoleId } = await req.json();
 
     const result = await sql`
-      INSERT INTO Users (UserEmail, UserPassword, RoleId)
-      VALUES (${UserEmail}, ${UserPassword}, ${RoleId})
+      INSERT INTO Users (UserID, UserEmail, UserPassword, RoleId)
+      VALUES (${UserID}, ${UserEmail}, ${UserPassword}, ${RoleId})
       RETURNING UserID;
     `;
 
@@ -110,6 +110,42 @@ export async function GET(req: Request) {
     return NextResponse.json(
       {
         error: "Failed to retrieve user from DB.",
+        detail: error.message,
+      },
+      { status: 500 }
+    );
+  }
+}
+export async function PATCH(req: Request) {
+  try {
+    const { UserID, RoleId } = await req.json();
+
+    if (!UserID || !RoleId) {
+      return NextResponse.json(
+        { error: "Please provide User - Role." },
+        { status: 400 }
+      );
+    }
+
+    const response = await sql`
+      UPDATE Users
+      SET RoleId = ${RoleId}
+      WHERE UserID = ${UserID}
+      RETURNING UserID, RoleId;
+    `;
+
+    if (response.length === 0) {
+      return NextResponse.json({ message: "User not found!" }, { status: 404 });
+    }
+
+    return NextResponse.json({
+      message: "Role updated successfully!",
+      user: response[0],
+    });
+  } catch (error: any) {
+    return NextResponse.json(
+      {
+        error: "Error updating User - Role",
         detail: error.message,
       },
       { status: 500 }

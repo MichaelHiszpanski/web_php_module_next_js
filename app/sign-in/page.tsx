@@ -1,17 +1,19 @@
 "use client";
 
 import * as React from "react";
-import { useSignIn } from "@clerk/nextjs";
+import { useSignIn, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import CustomInput from "@/src/components/custom-input/CustomInput";
 import Link from "next/link";
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
+import userStore from "@/src/mobX/user-store/user_store";
 
 function SignIn() {
   const router = useRouter();
 
   const { isLoaded, signIn, setActive } = useSignIn();
   const [email, setEmail] = React.useState("");
+  const { user, isSignedIn } = useUser();
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
   const [emailError, setEmailError] = React.useState<string | null>(null);
@@ -39,6 +41,51 @@ function SignIn() {
 
     return isValid;
   };
+  // const fetchUserData = async () => {
+  //   if (!user) return;
+
+  //   try {
+  //     const response = await fetch(`/api/users/user?UserID=${user.id}`, {
+  //       method: "GET",
+  //     });
+
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       await addUserToDB();
+  //       // if (errorData.message === "User not found!") {
+  //       //   await addUserToDB();
+  //       // }
+  //     }
+
+  //     const data = await response.json();
+  //   } catch (error) {
+  //     console.error("Error fetching user data:", error);
+  //   }
+  // };
+
+  const addUserToDB = async () => {
+    try {
+      const response = await fetch("/api/users/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          UserID: user!.id,
+          UserEmail: email,
+          UserPassword: password,
+          RoleId: 3,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error adding user to Users Table");
+      }
+    } catch (error) {
+      console.error("Error adding user to database:", error);
+    }
+  };
+
   const handleSingIn = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -56,7 +103,20 @@ function SignIn() {
 
       if (login.status === "complete") {
         await setActive({ session: login.createdSessionId });
-        router.push("/");
+
+        // if (isSignedIn) {
+        //   await addUserToDB();
+        //   router.push("/");
+        // } else {
+        //   await addUserToDB();
+        //   setError("2.User is not signed in, please try again.");
+        // }
+        userStore.setUser({
+          email: email,
+          password: password,
+          userId: "1",
+        });
+        router.push("/dashboard");
       } else {
         setError("Something went wrong, please try again!");
       }
@@ -84,12 +144,14 @@ function SignIn() {
         <CustomInput
           label={"Enter email address"}
           value={email}
+          name="email"
           onInputChange={(e) => setEmail(e.target.value)}
           error={emailError}
         />
         <CustomInput
           label={"Enter password"}
           keyboardType="password"
+          name="password"
           value={password}
           onInputChange={(e) => setPassword(e.target.value)}
           error={passwordError}

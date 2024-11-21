@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     const dropUsersTable = `DROP TABLE IF EXISTS Users CASCADE;`;
     const dropRolesTable = `DROP TABLE IF EXISTS Roles CASCADE;`;
     const dropGroupsTable = `DROP TABLE IF EXISTS Groups CASCADE;`;
-    const dropGroupMembersTable = `DROP TABLE IF EXISTS GroupMemebers CASCADE;`;
+    const dropGroupMembersTable = `DROP TABLE IF EXISTS GroupMembers CASCADE;`;
     const dropMessagesTable = `DROP TABLE IF EXISTS Messages CASCADE;`;
     const dropFilesTable = `DROP TABLE IF EXISTS Files CASCADE;`;
     await sql(dropUsersTable);
@@ -29,12 +29,21 @@ export async function POST(req: Request) {
       );
     `;
     await sql(createRolesTable);
+    const insertRoles = `
+    INSERT INTO Roles (RoleId, RoleDescription)
+    VALUES
+      (1, 'Student'),
+      (2, 'Teacher'),
+      (3, 'None')
+    ON CONFLICT (RoleId) DO NOTHING;
+  `;
+    await sql(insertRoles);
 
     const createUsersTable = `
       CREATE TABLE IF NOT EXISTS Users (
-        UserID INT PRIMARY KEY,
+        UserID VARCHAR(255) PRIMARY KEY,
         UserEmail VARCHAR(250) UNIQUE NOT NULL,
-        UserPassword VARCHAR(50) NOT NULL,
+        UserPassword VARCHAR(255) NOT NULL,
         RoleId INT,
         DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (RoleId) REFERENCES Roles(RoleId)
@@ -44,8 +53,8 @@ export async function POST(req: Request) {
 
     const createStudentsTable = `
       CREATE TABLE IF NOT EXISTS Students (
-        StudentID INT PRIMARY KEY,
-        UserID INT,
+        StudentID SERIAL PRIMARY KEY,
+        UserID VARCHAR(255) NOT NULL,
         FirstName VARCHAR(50) NOT NULL,
         LastName VARCHAR(100) NOT NULL,
         City VARCHAR(50),
@@ -59,8 +68,8 @@ export async function POST(req: Request) {
 
     const createTeachersTable = `
     CREATE TABLE IF NOT EXISTS Teachers (
-      TeacherID INT PRIMARY KEY,
-      UserID INT,
+      TeacherID SERIAL PRIMARY KEY,
+      UserID VARCHAR(255) NOT NULL,
       FirstName VARCHAR(50) NOT NULL,
       LastName VARCHAR(100) NOT NULL,
       City VARCHAR(50),
@@ -81,7 +90,7 @@ export async function POST(req: Request) {
       GroupDateCreated TIMESTAMP NOT NULL,
       TeacherID INT NOT NULL,
       Description VARCHAR(250),
-      FOREIGN KEY (TeacherID) REFERENCES Users(UserID)
+      FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID)
     );
     `;
     await sql(createGroupsTable);
@@ -89,7 +98,7 @@ export async function POST(req: Request) {
     CREATE TABLE IF NOT EXISTS GroupMembers (
       GroupMemberID INT PRIMARY KEY,
       GroupID INT NOT NULL,
-      UserID INT NOT NULL,
+      UserID VARCHAR(255) NOT NULL,
       Joined TIMESTAMP NOT NULL,
       FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
       FOREIGN KEY (UserID) REFERENCES Users(UserID)
@@ -100,7 +109,7 @@ export async function POST(req: Request) {
     CREATE TABLE IF NOT EXISTS Messages (
       MessageID INT PRIMARY KEY,
       GroupID INT NOT NULL,
-      UserID INT NOT NULL,
+      UserID VARCHAR(255) NOT NULL,
       MessageCreated TIMESTAMP NOT NULL,
       MessageContext TEXT NOT NULL,
       FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
@@ -112,7 +121,7 @@ export async function POST(req: Request) {
     CREATE TABLE IF NOT EXISTS Files (
       FileID INT PRIMARY KEY,
       GroupID INT NOT NULL,
-      UserID INT NOT NULL,
+      UserID VARCHAR(255) NOT NULL,
       Uploaded TIMESTAMP NOT NULL,
       FileSize INT NOT NULL,  -- File size in bytes
       FilePath VARCHAR(255) NOT NULL,

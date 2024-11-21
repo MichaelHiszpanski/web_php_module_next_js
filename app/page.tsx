@@ -28,20 +28,20 @@ const Home: NextPage = ({}) => {
 
   return (
     <div>
-      {/* <div>
-     <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Write a comment"
-          name="comment"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <div className="mt-[200px]">
+        {/* <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Write a comment"
+            name="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+          <button type="submit">Submit</button>
+        </form> */}
 
-      {message && <p>{message}</p>}
-     </div> */}
+        {message && <p>{message}</p>}
+      </div>
       <div>
         <h1>School Manager</h1>
       </div>

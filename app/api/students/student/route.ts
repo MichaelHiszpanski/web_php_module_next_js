@@ -15,6 +15,17 @@ export async function POST(req: Request) {
       HouseNumber,
     } = await req.json();
 
+    const userExists = await sql`
+      SELECT 1 FROM Users WHERE userid = ${UserID};
+    `;
+
+    if (userExists.length === 0) {
+      return NextResponse.json(
+        { error: `UserID does not exist in Users table ${UserID}` },
+        { status: 400 }
+      );
+    }
+
     const result = await sql`
       INSERT INTO Students (UserID, FirstName, LastName, City, Postcode, StreetName, HouseNumber)
       VALUES (${UserID}, ${FirstName}, ${LastName}, ${City}, ${Postcode}, ${StreetName}, ${HouseNumber})
@@ -112,32 +123,32 @@ export async function DELETE(req: Request) {
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const studentId = searchParams.get("StudentID");
+    const userId = searchParams.get("UserID");
 
-    if (!studentId) {
+    if (!userId) {
       return NextResponse.json(
-        { error: "StudentID is required" },
+        { error: "UserID is required" },
         { status: 400 }
       );
     }
 
     const student = await sql`
-        SELECT * FROM Students WHERE StudentID = ${studentId};
-      `;
+      SELECT * FROM Students WHERE UserID = ${userId};
+    `;
 
     if (student.length === 0) {
       return NextResponse.json(
-        { message: "Student not found!" },
+        { message: "Student not found by UserID! " },
         { status: 404 }
       );
     }
 
     return NextResponse.json(student[0]);
   } catch (error: any) {
-    console.error("Error retrieving student:", error);
+    console.error("Error getting student:", error);
     return NextResponse.json(
       {
-        error: "Failed to retrieve student",
+        error: "Failed to get student",
         detail: error.message,
       },
       { status: 500 }
