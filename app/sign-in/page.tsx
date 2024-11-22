@@ -7,8 +7,9 @@ import CustomInput from "@/src/components/custom-input/CustomInput";
 import Link from "next/link";
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
 import userStore from "@/src/mobX/user-store/user_store";
+import { NextPage } from "next";
 
-function SignIn() {
+const SignIn: NextPage = () => {
   const router = useRouter();
 
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -168,6 +169,6 @@ function SignIn() {
       </div>
     </div>
   );
-}
+};
 
 export default SignIn;

@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import AnimatedDropdown from "@/src/components/custom-dropdown/CustomDropDown";
 import CustomInput from "@/src/components/custom-input/CustomInput";
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
+import { NextPage } from "next";
 
-export default function Page() {
+const SignUp: NextPage = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -177,4 +178,6 @@ export default function Page() {
       </form>
     </div>
   );
-}
+};
+
+export default SignUp;

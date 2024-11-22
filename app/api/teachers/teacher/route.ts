@@ -5,11 +5,21 @@ const sql = neon(`${process.env.DATABASE_URL}`);
 
 export async function POST(req: Request) {
   try {
-    const { UserID, FirstName, LastName, Subject, Email } = await req.json();
+    const {
+      UserID,
+      FirstName,
+      LastName,
+      City,
+      Postcode,
+      StreetName,
+      HouseNumber,
+      Department,
+      Title,
+    } = await req.json();
 
     const result = await sql`
-      INSERT INTO Teachers (UserID, FirstName, LastName, Subject, Email)
-      VALUES (${UserID}, ${FirstName}, ${LastName}, ${Subject}, ${Email})
+      INSERT INTO Teachers (UserID, FirstName, LastName, City, Postcode, StreetName, HouseNumber, Department, Title)
+      VALUES (${UserID}, ${FirstName}, ${LastName}, ${City}, ${Postcode}, ${StreetName}, ${HouseNumber}, ${Department}, ${Title})
       RETURNING TeacherID;
     `;
 

@@ -2,18 +2,10 @@ import React, { FC, useState, ChangeEvent } from "react";
 import CustomInput from "../custom-input/CustomInput";
 import ButtonPrimary from "../buttons/button-primary/ButtonPrimary";
 import AnimatedDropdown from "../custom-dropdown/CustomDropDown";
+import { PersonalDetailModel } from "@/src/models/PersonalDetailsModel";
 
 interface Props {
-  onSubmit: (formData: {
-    name: string;
-    lastName: string;
-    street: string;
-    city: string;
-    postcode: string;
-    houseNumber: string;
-    role: string;
-    type?: string;
-  }) => void;
+  onSubmit: (formData: PersonalDetailModel) => void;
 }
 
 const Form: FC<Props> = ({ onSubmit }) => {
@@ -24,7 +16,8 @@ const Form: FC<Props> = ({ onSubmit }) => {
     city: "",
     postcode: "",
     houseNumber: "",
-    role: "",
+    userId: "",
+    department: "",
     type: "",
   });
   const [role, setRole] = React.useState<string | null>(null);

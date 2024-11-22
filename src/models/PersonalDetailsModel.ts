@@ -1,20 +1,21 @@
-export interface UserDetailsModel {
+export interface PersonalDetailModel {
   name: string;
   lastName: string;
   street: string;
   city: string;
   postcode: string;
   houseNumber: string;
-  role: string;
+  userId: string;
+  department?: string;
   type?: string;
 }
 
-export const defaultUserDetails: UserDetailsModel = {
+export const defaultPersonalDetails: PersonalDetailModel = {
   name: "",
   lastName: "",
   street: "",
   city: "",
   postcode: "",
   houseNumber: "",
-  role: "",
+  userId: "",
 };
