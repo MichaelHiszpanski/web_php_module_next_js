@@ -1,5 +1,5 @@
-import { PersonalDetailModel } from "../models/PersonalDetailsModel";
-import { UserDetailsModel } from "../models/UserDetailsModel";
+import { PersonalDetailModel } from "../../models/PersonalDetailsModel";
+import { UserDetailsModel } from "../../models/UserDetailsModel";
 
 export const getUser = async (userId: string) => {
   const response = await fetch(`/api/users/user?UserID=${userId}`, {

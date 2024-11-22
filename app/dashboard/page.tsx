@@ -18,7 +18,11 @@ import {
   UserDetailsModel,
   defaultUserDetails,
 } from "@/src/models/UserDetailsModel";
-import { getRoles, getUser, postUser } from "@/src/services/userRoutes";
+import { getRoles, getUser, postUser } from "@/src/services/routes/userRoutes";
+import {
+  addStudnetORTeacher,
+  getRoleNames,
+} from "@/src/services/api-calls/dashboard_api";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(true);
@@ -55,7 +59,7 @@ const Dashboard: NextPage = () => {
     };
 
     if (isSignedIn) {
-      getRoleNames();
+      getRoleNames(setRoles);
       fetchUserData();
       userStore.setUser({
         userId: user.id,
@@ -91,67 +95,12 @@ const Dashboard: NextPage = () => {
 
       if (response.ok) {
         setTimeout(() => {
-          addStudnetORTeacher(formData);
+          addStudnetORTeacher(formData, setUserData, userData);
         }, 2000);
-      } else {
-        throw new Error("Error adding user to Users Table");
       }
     } catch (error) {
       console.error("Error adding user to database:", error);
     }
-  };
-
-  const addStudnetORTeacher = async (formData: PersonalDetailModel) => {
-    setUserData({ ...userData, ...formData });
-    const setPath =
-      formData.userId === "Student" ? "students/student" : "teachers/teacher";
-    const studentBody = {
-      UserID: userStore.user.userId,
-      FirstName: formData.name,
-      LastName: formData.lastName,
-      City: formData.city,
-      Postcode: formData.postcode,
-      StreetName: formData.street,
-      HouseNumber: formData.houseNumber,
-    };
-    const teacherBody = {
-      UserID: userStore.user.userId,
-      FirstName: formData.name,
-      LastName: formData.lastName,
-      City: formData.city,
-      Postcode: formData.postcode,
-      StreetName: formData.street,
-      HouseNumber: formData.houseNumber,
-      Department: "Random",
-      Title: formData.type,
-    };
-    const body = formData.userId === "Student" ? studentBody : teacherBody;
-    try {
-      const response = await fetch(`/api/${setPath}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (response.ok) {
-        window.location.reload();
-      } else {
-        console.log("Something went wrong...!");
-      }
-    } catch (e) {}
-  };
-
-  const getRoleNames = async () => {
-    try {
-      const response = await getRoles();
-      if (response.ok) {
-        const rolesData = await response.json();
-
-        setRoles(rolesData);
-      }
-    } catch (error) {}
   };
 
   if (!isLoaded) return <div>Loading...</div>;

@@ -59,7 +59,7 @@ export async function PUT(req: Request) {
       );
     }
 
-    return NextResponse.json({ message: "Teacher updated successfully!" });
+    return NextResponse.json({ message: "success" });
   } catch (error: any) {
     console.error("Error updating teacher:", error);
     return NextResponse.json(
