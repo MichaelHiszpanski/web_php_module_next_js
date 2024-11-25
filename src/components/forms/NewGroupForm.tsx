@@ -25,7 +25,7 @@ const NewGroupForm: FC<Props> = ({ onSubmit }) => {
   };
 
   const validateInputs = () => {
-    let isValid = true;
+    const isValid = true;
 
     // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // if (!emailRegex.test(emailAddress)) {
