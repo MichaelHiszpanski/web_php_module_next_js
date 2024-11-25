@@ -82,12 +82,12 @@ const SignUp: NextPage = () => {
     } else {
       setPasswordConfirmError(null);
     }
-    if (!role || role.trim() === "" || role === "Select your role") {
-      setRoleError("Please select your role.");
-      isValid = false;
-    } else {
-      setRoleError(null);
-    }
+    // if (!role || role.trim() === "" || role === "Select your role") {
+    //   setRoleError("Please select your role.");
+    //   isValid = false;
+    // } else {
+    //   setRoleError(null);
+    // }
 
     return isValid;
   };
@@ -165,14 +165,14 @@ const SignUp: NextPage = () => {
           onInputChange={(e) => setPasswordConfirm(e.target.value)}
           error={passwordConfirmError}
         />
-        <AnimatedDropdown
+        {/* <AnimatedDropdown
           label="Select your role"
           options={["Select your role", "Student", "Teacher"]}
           onSelect={(option: any) => {
             setRole(option);
           }}
           error={roleError}
-        />
+        /> */}
 
         <ButtonPrimary title={"Sign-Up!"} type="submit" />
       </form>

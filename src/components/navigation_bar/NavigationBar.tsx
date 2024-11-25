@@ -2,6 +2,7 @@
 import React, { FC, useState, useRef, useEffect } from "react";
 import {
   logo,
+  logoEarth,
   wave_down_three,
   wave_one,
   wave_up_two,
@@ -39,7 +40,7 @@ const NavigationBar: FC = () => {
       /> */}
       <div className="flex flex-row md:justify-evenly items-center w-full h-full z-50">
         <Image
-          src={logo}
+          src={logoEarth}
           alt="logo"
           className="w-24 h-24 cursor-pointer select-none"
           onClick={() => {
