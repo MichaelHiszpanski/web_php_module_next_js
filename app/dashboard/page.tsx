@@ -18,7 +18,7 @@ import {
   UserDetailsModel,
   defaultUserDetails,
 } from "@/src/models/UserDetailsModel";
-import { getRoles, getUser, postUser } from "@/src/services/routes/userRoutes";
+import { getUser, postUser } from "@/src/services/routes/userRoutes";
 import {
   addStudnetORTeacher,
   getRoleNames,

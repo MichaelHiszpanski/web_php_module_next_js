@@ -29,7 +29,7 @@ const Home: NextPage = ({}) => {
   return (
     <div>
       <div className="mt-[200px]">
-        {/* <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Write a comment"
@@ -38,7 +38,7 @@ const Home: NextPage = ({}) => {
             onChange={(e) => setComment(e.target.value)}
           />
           <button type="submit">Submit</button>
-        </form> */}
+        </form>
 
         {message && <p>{message}</p>}
       </div>

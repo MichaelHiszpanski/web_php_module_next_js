@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import NavigationBar from "@/src/components/navigation_bar/NavigationBar";
 import Footer from "@/src/components/footer/Footer";
 import { StoreProvider } from "@/src/utils/tools/mobX_store_provider";
+import { ReactQueryProvider } from "./ReactQueryProdiver";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,16 +30,18 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <NavigationBar />
-          <StoreProvider>{children}</StoreProvider>
+      <ReactQueryProvider>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <NavigationBar />
+            <StoreProvider>{children}</StoreProvider>
 
-          <Footer />
-        </body>
-      </html>
+            <Footer />
+          </body>
+        </html>
+      </ReactQueryProvider>
     </ClerkProvider>
   );
 }

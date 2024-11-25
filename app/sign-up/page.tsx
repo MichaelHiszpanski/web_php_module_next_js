@@ -1,40 +1,75 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import AnimatedDropdown from "@/src/components/custom-dropdown/CustomDropDown";
 import CustomInput from "@/src/components/custom-input/CustomInput";
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
 import { NextPage } from "next";
+import { SignUpModel } from "@/src/models/SignUpModel";
 
 const SignUp: NextPage = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordConfirm, setPasswordConfirm] = React.useState("");
+  const [userData, setUserData] = React.useState<SignUpModel>({
+    userName: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  });
   const [username, setUsername] = React.useState("Michael");
   const [verifying, setVerifying] = React.useState(false);
 
   const [code, setCode] = React.useState("");
-  const [role, setRole] = React.useState<string | null>(null);
+
   const router = useRouter();
-  const [emailError, setEmailError] = React.useState<string | null>(null);
-  const [passwordError, setPasswordError] = React.useState<string | null>(null);
-  const [passwordConfirmError, setPasswordConfirmError] = React.useState<
-    string | null
-  >(null);
-  const [roleError, setRoleError] = React.useState<string | null>(null);
+  const [errors, setErrors] = useState<any>({
+    userName: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (errors[name]) {
+      setErrors((prev: any) => ({ ...prev, [name]: "" }));
+    }
+  };
+  // const [emailError, setEmailError] = React.useState<string | null>(null);
+  // const [passwordError, setPasswordError] = React.useState<string | null>(null);
+  // const [passwordConfirmError, setPasswordConfirmError] = React.useState<
+  //   string | null
+  // >(null);
+  // const [roleError, setRoleError] = React.useState<string | null>(null);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!isLoaded) return;
-    if (!validateInputs()) return;
+    // if (!isLoaded) return;
+    // if (!validateInputs()) return;
+    console.log("Submit clicked");
+    if (!isLoaded) {
+      console.log("Clerk not loaded");
+      return;
+    }
+    if (!validateInputs()) {
+      console.log("Validation failed");
+      return;
+    }
+
+    console.log("Validation passed");
     try {
       await signUp.create({
-        emailAddress,
-        username,
-        password,
+        emailAddress: userData.email,
+        username: userData.userName,
+        password: userData.password,
       });
 
       // await signUp.update({
@@ -53,42 +88,34 @@ const SignUp: NextPage = () => {
 
   const validateInputs = () => {
     let isValid = true;
-
+    const errorsList: any = {};
+    if (userData.userName.trim() === "") {
+      errorsList.userName = "Name cannot be empty.";
+      isValid = false;
+    }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailAddress)) {
-      setEmailError("Please enter a valid email address.");
+    if (!emailRegex.test(userData.email)) {
+      errorsList.email = "Please enter a valid email address.";
       isValid = false;
-    } else if (emailAddress.trim() === "") {
-      setEmailError("Email address cannot be empty.");
+    } else if (userData.email.trim() === "") {
+      errorsList.email = "Email address cannot be empty.";
       isValid = false;
-    } else {
-      setEmailError(null);
     }
 
-    if (password.trim() === "") {
-      setPasswordError("Password cannot be empty.");
+    if (userData.password.trim() === "") {
+      errorsList.password = "Password cannot be empty.";
       isValid = false;
-    } else {
-      setPasswordError(null);
     }
-    if (passwordConfirm.trim() === "") {
-      setPasswordConfirmError("Confirm password cannot be empty.");
-      isValid = false;
-    } else if (passwordConfirm !== password) {
-      setPasswordConfirmError(
-        "Yur confirmation password has to match a password"
-      );
-      isValid = false;
-    } else {
-      setPasswordConfirmError(null);
-    }
-    // if (!role || role.trim() === "" || role === "Select your role") {
-    //   setRoleError("Please select your role.");
-    //   isValid = false;
-    // } else {
-    //   setRoleError(null);
-    // }
 
+    if (userData.passwordConfirm.trim() === "") {
+      errorsList.confirmPassword = "Confirm password cannot be empty.";
+      isValid = false;
+    } else if (userData.passwordConfirm !== userData.password) {
+      errorsList.passwordConfirm =
+        "Yur confirmation password has to match a password";
+      isValid = false;
+    }
+    setErrors(errorsList);
     return isValid;
   };
 
@@ -142,28 +169,35 @@ const SignUp: NextPage = () => {
         className="w-full md:w-[620px] border-[0.5px] border-colorOne p-10 rounded-xl my-10"
       >
         <CustomInput
+          label={"User Name"}
+          value={userData.userName}
+          name="userName"
+          onInputChange={handleInputChange}
+          error={errors.userName}
+        />
+        <CustomInput
           label={"Enter email address"}
-          value={emailAddress}
+          value={userData.email}
           name="email"
-          onInputChange={(e) => setEmailAddress(e.target.value)}
-          error={emailError}
+          onInputChange={handleInputChange}
+          error={errors.email}
         />
 
         <CustomInput
           label={"Enter password"}
           keyboardType="password"
           name="password"
-          value={password}
-          onInputChange={(e) => setPassword(e.target.value)}
-          error={passwordError}
+          value={userData.password}
+          onInputChange={handleInputChange}
+          error={errors.password}
         />
         <CustomInput
           label={"Enter password"}
           keyboardType="password"
-          name="confirmPassword"
-          value={passwordConfirm}
-          onInputChange={(e) => setPasswordConfirm(e.target.value)}
-          error={passwordConfirmError}
+          name="passwordConfirm"
+          value={userData.passwordConfirm}
+          onInputChange={handleInputChange}
+          error={errors.passwordConfirm}
         />
         {/* <AnimatedDropdown
           label="Select your role"

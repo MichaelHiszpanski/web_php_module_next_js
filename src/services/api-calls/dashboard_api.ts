@@ -1,6 +1,7 @@
 import userStore from "@/src/mobX/user-store/user_store";
 import { PersonalDetailModel } from "@/src/models/PersonalDetailsModel";
-import { getRoles } from "../routes/userRoutes";
+
+import { useQuery } from "@tanstack/react-query";
 
 export const addStudnetORTeacher = async (
   formData: PersonalDetailModel,
@@ -47,16 +48,47 @@ export const addStudnetORTeacher = async (
     }
   } catch (e) {}
 };
-
-export const getRoleNames = async (
+export const getRoles = async (
   setRoles: React.Dispatch<React.SetStateAction<any>>
 ) => {
-  try {
-    const response = await getRoles();
-    if (response.ok) {
-      const rolesData = await response.json();
+  const response = await fetch(`/api/roles`, {
+    method: "GET",
+  });
+  if (response.ok) {
+    const rolesData = await response.json();
 
-      setRoles(rolesData);
-    }
-  } catch (error) {}
+    setRoles(rolesData);
+  }
+};
+// export const getRoleNames = async (
+//   setRoles: React.Dispatch<React.SetStateAction<any>>
+// ) => {
+//   try {
+//     const response = await getRoles();
+//     if (response.ok) {
+//       const rolesData = await response.json();
+
+//       setRoles(rolesData);
+//     }
+//   } catch (error) {}
+// };
+
+export const getRoleNames = (
+  setRoles: React.Dispatch<React.SetStateAction<any>>
+) => {
+  return useQuery({
+    queryKey: ["roles", setRoles],
+    queryFn: () => getRoles(setRoles),
+  });
+};
+
+export const usePostStudentOrTeacher = (
+  formData: PersonalDetailModel,
+  setUserData: React.Dispatch<React.SetStateAction<any>>,
+  userData: any
+) => {
+  return useQuery({
+    queryKey: ["newUser", formData, setUserData, userData],
+    queryFn: () => addStudnetORTeacher(formData, setUserData, userData),
+  });
 };

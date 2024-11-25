@@ -6,6 +6,7 @@ interface Props {
   value: string;
   name: string;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   keyboardType?: string;
   error?: string | null;
@@ -19,8 +20,11 @@ const CustomInput: FC<Props> = ({
   placeholder = "",
   keyboardType = "text",
   error = "",
+  onFocus = () => {},
 }) => {
   const [currentKeyboardType, setCurrentKeyboardType] = useState(keyboardType);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
   const showPassword = () => {
     setCurrentKeyboardType((prevType) =>
       prevType === "password" ? "text" : "password"
@@ -38,6 +42,11 @@ const CustomInput: FC<Props> = ({
           name={name}
           onChange={onChange}
           placeholder={placeholder}
+          onFocus={(e) => {
+            onFocus(e);
+            setIsFocused(true);
+          }}
+          onBlur={() => setIsFocused(false)}
           className={`w-full p-2 border rounded ${
             error ? "border-red-500" : "border-gray-300"
           } focus:outline-none focus:ring-2 focus:ring-blue-500`}
@@ -56,7 +65,9 @@ const CustomInput: FC<Props> = ({
           </button>
         )}
       </div>
-      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+      {error && error.length > 0 && (
+        <p className="text-red-500 text-xs mt-1">{error}</p>
+      )}
     </div>
   );
 };

@@ -11,12 +11,19 @@ const NewGroupForm: FC<Props> = ({ onSubmit }) => {
   const [groupData, setGroupData] = useState<NewGroupModel>({
     groupName: "",
     groupDescription: "",
-    teacherID: -99,
+  });
+  const [errors, setErrors] = useState<any>({
+    groupName: "",
+    groupDescription: "",
   });
 
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setGroupData({ ...groupData, [name]: value });
+
+    if (errors[name as keyof typeof errors]) {
+      setErrors({ ...errors, [name]: "" });
+    }
   };
 
   const handleSubmit = () => {
@@ -25,37 +32,18 @@ const NewGroupForm: FC<Props> = ({ onSubmit }) => {
   };
 
   const validateInputs = () => {
-    const isValid = true;
+    let isValid = true;
+    const errorsList: any = {};
 
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // if (!emailRegex.test(emailAddress)) {
-    //   setEmailError("Please enter a valid email address.");
-    //   isValid = false;
-    // } else if (emailAddress.trim() === "") {
-    //   setEmailError("Email address cannot be empty.");
-    //   isValid = false;
-    // } else {
-    //   setEmailError(null);
-    // }
-
-    // if (password.trim() === "") {
-    //   setPasswordError("Password cannot be empty.");
-    //   isValid = false;
-    // } else {
-    //   setPasswordError(null);
-    // }
-    // if (passwordConfirm.trim() === "") {
-    //   setPasswordConfirmError("Confirm password cannot be empty.");
-    //   isValid = false;
-    // } else if (passwordConfirm !== password) {
-    //   setPasswordConfirmError(
-    //     "Yur confirmation password has to match a password"
-    //   );
-    //   isValid = false;
-    // } else {
-    //   setPasswordConfirmError(null);
-    // }
-
+    if (groupData.groupName.trim() === "") {
+      errorsList.groupName = "Please provide group Name";
+      isValid = false;
+    }
+    if (groupData.groupDescription.trim() === "") {
+      errorsList.groupDescription = "Please provide group Description";
+      isValid = false;
+    }
+    setErrors(errorsList);
     return isValid;
   };
 
@@ -66,12 +54,14 @@ const NewGroupForm: FC<Props> = ({ onSubmit }) => {
         name="groupName"
         value={groupData.groupName}
         onInputChange={inputChange}
+        error={errors.groupName}
       />
       <CustomInput
         label="Group description"
-        name="description"
+        name="groupDescription"
         value={groupData.groupDescription}
         onInputChange={inputChange}
+        error={errors.groupDescription}
       />
 
       <ButtonPrimary title={"OK"} onClick={handleSubmit} />
