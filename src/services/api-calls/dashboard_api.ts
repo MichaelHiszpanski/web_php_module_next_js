@@ -73,7 +73,7 @@ export const getRoles = async (
 //   } catch (error) {}
 // };
 
-export const getRoleNames = (
+export const useRoleNames = (
   setRoles: React.Dispatch<React.SetStateAction<any>>
 ) => {
   return useQuery({
