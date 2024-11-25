@@ -1,14 +1,19 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import CustomModal from "../../custom-modal/CustomModal";
+import PersonalDetailsForm from "../../forms/PersonalDetailsForm";
 interface Props {
   isBoardOpen: boolean;
   setIsBoardOpen: (value: boolean) => void;
   isStudent?: boolean;
+  openSecondModal: () => void;
 }
 const SidePanel: FC<Props> = ({
   isBoardOpen,
   setIsBoardOpen,
   isStudent = true,
+  openSecondModal,
 }) => {
+  const handleFormSubmit = async (formData: any) => {};
   return (
     <div
       className={`min-h-screen  w-[250px] ${
@@ -23,6 +28,14 @@ const SidePanel: FC<Props> = ({
           Close X
         </button>
       </div>
+      {!isStudent && (
+        <div
+          className="mt-10 px-2 border-[0.5px] border-black bg-white text-colorOne rounded-xl mx-5 cursor-pointer"
+          onClick={openSecondModal}
+        >
+          Create new group.
+        </div>
+      )}
     </div>
   );
 };

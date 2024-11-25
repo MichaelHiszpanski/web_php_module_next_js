@@ -40,16 +40,29 @@ export async function POST(req: Request) {
     const { GroupID, GroupName, GroupDateCreated, TeacherID, Description } =
       await req.json();
 
+    const existingGroup = await sql`
+      SELECT GroupName 
+      FROM Groups 
+      WHERE GroupName = ${GroupName};
+    `;
+
+    if (existingGroup.length > 0) {
+      return NextResponse.json(
+        {
+          error: "Group name already exists",
+        },
+        { status: 409 }
+      );
+    }
+
     await sql`
         INSERT INTO Groups (
-          GroupID,
           GroupName,
           GroupDateCreated,
           TeacherID,
           Description
         )
         VALUES (
-          ${GroupID},
           ${GroupName},
           ${GroupDateCreated},
           ${TeacherID},

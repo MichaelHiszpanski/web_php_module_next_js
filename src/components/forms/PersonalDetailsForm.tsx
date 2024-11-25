@@ -8,7 +8,7 @@ interface Props {
   onSubmit: (formData: PersonalDetailModel) => void;
 }
 
-const Form: FC<Props> = ({ onSubmit }) => {
+const PersonalDetailsForm: FC<Props> = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -133,4 +133,4 @@ const Form: FC<Props> = ({ onSubmit }) => {
   );
 };
 
-export default Form;
+export default PersonalDetailsForm;

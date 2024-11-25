@@ -87,7 +87,7 @@ export async function POST(req: Request) {
     CREATE TABLE IF NOT EXISTS Groups (
       GroupID INT PRIMARY KEY,
       GroupName VARCHAR(100) NOT NULL,
-      GroupDateCreated TIMESTAMP NOT NULL,
+      DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       TeacherID INT NOT NULL,
       Description VARCHAR(250),
       FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID)
@@ -99,7 +99,7 @@ export async function POST(req: Request) {
       GroupMemberID INT PRIMARY KEY,
       GroupID INT NOT NULL,
       UserID VARCHAR(255) NOT NULL,
-      Joined TIMESTAMP NOT NULL,
+      DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
       FOREIGN KEY (UserID) REFERENCES Users(UserID)
     );
@@ -110,7 +110,7 @@ export async function POST(req: Request) {
       MessageID INT PRIMARY KEY,
       GroupID INT NOT NULL,
       UserID VARCHAR(255) NOT NULL,
-      MessageCreated TIMESTAMP NOT NULL,
+      DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       MessageContext TEXT NOT NULL,
       FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
       FOREIGN KEY (UserID) REFERENCES Users(UserID)
@@ -122,7 +122,7 @@ export async function POST(req: Request) {
       FileID INT PRIMARY KEY,
       GroupID INT NOT NULL,
       UserID VARCHAR(255) NOT NULL,
-      Uploaded TIMESTAMP NOT NULL,
+      DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FileSize INT NOT NULL,  -- File size in bytes
       FilePath VARCHAR(255) NOT NULL,
       FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
