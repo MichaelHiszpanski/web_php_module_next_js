@@ -1,37 +1,27 @@
 ---
+# The project is being carried out as part of the requirements for passing the Web Design course at The Open University.
+---
 ## Deploy on Vercel
 
-Check the  link [Check out the Project...](https://schoolmanager-mu.vercel.app/)
+Link: [Check out the Project](https://schoolmanager-mu.vercel.app/)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
 ---
 
-## Getting Started
+---
 
-First, run the development server:
+## Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### **PostgreSQL**
+PostgreSQL is a powerful, open-source object-relational database system known for its reliability and advanced features. It is used in this project for managing structured data efficiently. The database handles core data operations like storing user information, application settings, and other essential details.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **TanStack Query**
+TanStack Query (formerly React Query) is used to manage server-state in the project. It simplifies data fetching, caching, and synchronization with the backend, ensuring a seamless user experience while reducing boilerplate code for API integration.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### **Clerk for Authentication**
+Clerk is implemented in this project to handle user authentication and management. It provides features like secure sign-in/sign-up, session handling, and user profile management, ensuring robust security for the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
