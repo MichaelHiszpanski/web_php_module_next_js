@@ -8,7 +8,6 @@ export const addStudnetORTeacher = async (
   //   setUserData: React.Dispatch<React.SetStateAction<any>>,
   //   userData: any
 ) => {
-  //   setUserData({ ...userData, ...formData });
   const setPath =
     formData.role === "Student" ? "students/student" : "teachers/teacher";
   const studentBody = {
