@@ -28,8 +28,19 @@ const Home: NextPage = ({}) => {
 
   return (
     <div>
-      <div className="mt-[200px]">
-        <form onSubmit={handleSubmit}>
+      <div
+        className=" w-full h-full flex flex-col items-center"
+        style={{
+          backgroundImage: `url(/sch1.jpg)`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "100vh",
+        }}
+      >
+        <h1 className="text-7xl font-mono text-white font-bold mt-20">
+          School Manager
+        </h1>
+        {/* <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Write a comment"
@@ -38,13 +49,11 @@ const Home: NextPage = ({}) => {
             onChange={(e) => setComment(e.target.value)}
           />
           <button type="submit">Submit</button>
-        </form>
+        </form> */}
 
         {message && <p>{message}</p>}
       </div>
-      <div>
-        <h1>School Manager</h1>
-      </div>
+      <div></div>
     </div>
   );
 };
