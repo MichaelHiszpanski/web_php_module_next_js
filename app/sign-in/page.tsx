@@ -8,6 +8,7 @@ import Link from "next/link";
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
 import userStore from "@/src/mobX/user-store/user_store";
 import { NextPage } from "next";
+import { useState } from "react";
 
 const SignIn: NextPage = () => {
   const router = useRouter();
@@ -17,74 +18,39 @@ const SignIn: NextPage = () => {
   const { user, isSignedIn } = useUser();
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
-  const [emailError, setEmailError] = React.useState<string | null>(null);
-  const [passwordError, setPasswordError] = React.useState<string | null>(null);
+  // const [emailError, setEmailError] = React.useState<string | null>(null);
+  // const [passwordError, setPasswordError] = React.useState<string | null>(null);
+  const [errors, setErrors] = useState<any>({
+    email: "",
+    password: "",
+  });
+  const [userData, setUserData] = React.useState<{
+    email: string;
+    password: string;
+  }>({
+    email: "",
+    password: "",
+  });
+
   const validateInputs = () => {
     let isValid = true;
+    const errorsList: any = {};
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setEmailError("Please enter a valid email address.");
+    if (!emailRegex.test(userData.email)) {
+      errorsList.email = "Please enter a valid email address.";
       isValid = false;
-    } else if (email.trim() === "") {
-      setEmailError("Email address cannot be empty.");
+    } else if (userData.email.trim() === "") {
+      errorsList.email = "Email address cannot be empty.";
       isValid = false;
-    } else {
-      setEmailError(null);
     }
 
-    if (password.trim() === "") {
-      setPasswordError("Password cannot be empty.");
+    if (userData.password.trim() === "") {
+      errorsList.password = "Password cannot be empty.";
       isValid = false;
-    } else {
-      setPasswordError(null);
     }
 
     return isValid;
-  };
-  // const fetchUserData = async () => {
-  //   if (!user) return;
-
-  //   try {
-  //     const response = await fetch(`/api/users/user?UserID=${user.id}`, {
-  //       method: "GET",
-  //     });
-
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
-  //       await addUserToDB();
-  //       // if (errorData.message === "User not found!") {
-  //       //   await addUserToDB();
-  //       // }
-  //     }
-
-  //     const data = await response.json();
-  //   } catch (error) {
-  //     console.error("Error fetching user data:", error);
-  //   }
-  // };
-
-  const addUserToDB = async () => {
-    try {
-      const response = await fetch("/api/users/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          UserID: user!.id,
-          UserEmail: email,
-          UserPassword: password,
-          RoleId: 3,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error adding user to Users Table");
-      }
-    } catch (error) {
-      console.error("Error adding user to database:", error);
-    }
   };
 
   const handleSingIn = async (e: React.FormEvent) => {
@@ -98,23 +64,16 @@ const SignIn: NextPage = () => {
 
     try {
       const login = await signIn.create({
-        identifier: email,
-        password,
+        identifier: userData.email,
+        password: userData.password,
       });
 
       if (login.status === "complete") {
         await setActive({ session: login.createdSessionId });
 
-        // if (isSignedIn) {
-        //   await addUserToDB();
-        //   router.push("/");
-        // } else {
-        //   await addUserToDB();
-        //   setError("2.User is not signed in, please try again.");
-        // }
         userStore.setUser({
-          email: email,
-          password: password,
+          email: userData.email,
+          password: userData.password,
           userId: "1",
         });
         router.push("/dashboard");
@@ -144,20 +103,24 @@ const SignIn: NextPage = () => {
       >
         <CustomInput
           label={"Enter email address"}
-          value={email}
+          value={userData.email}
           name="email"
-          onInputChange={(e) => setEmail(e.target.value)}
-          error={emailError}
+          onInputChange={(e) =>
+            setUserData((prev) => ({ ...prev, email: e.target.value }))
+          }
+          error={errors.email}
         />
         <CustomInput
           label={"Enter password"}
           keyboardType="password"
           name="password"
-          value={password}
-          onInputChange={(e) => setPassword(e.target.value)}
-          error={passwordError}
+          value={userData.password}
+          onInputChange={(e) =>
+            setUserData((prev) => ({ ...prev, password: e.target.value }))
+          }
+          error={errors.password}
         />
-        {error && <div className="text-red-500">{error}</div>}{" "}
+        {error && <div className="text-red-500">{error}</div>}
         <ButtonPrimary title={"Sign-In!"} type="submit" />
       </form>
 

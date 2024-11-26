@@ -10,33 +10,30 @@ import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
 import { PersonalDetailModel } from "@/src/models/PersonalDetailsModel";
-import {
-  RolesResponseModel,
-  defaulrRolesResponseModel,
-} from "@/src/models/RolesResponseModel";
+
 import {
   UserDetailsModel,
   defaultUserDetails,
 } from "@/src/models/UserDetailsModel";
 import { getUser, postUser } from "@/src/services/routes/userRoutes";
-import {
-  addStudnetORTeacher,
-  getRoleNames,
-} from "@/src/services/api-calls/dashboard_api";
+import { usePostStudentOrTeacher } from "@/src/services/api-calls/dashboard_api";
 import NewGroupForm from "@/src/components/forms/NewGroupForm";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
-import { postNewGroup } from "@/src/services/routes/groupRoutes";
+import {
+  postNewGroup,
+  usePostNewGroup,
+} from "@/src/services/routes/groupRoutes";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(true);
   const [isStudent, setIsStudent] = useState<boolean>(true);
   const [userData, setUserData] = useState<any>(defaultUserDetails);
-  const [roles, setRoles] = useState<RolesResponseModel>(
-    defaulrRolesResponseModel
-  );
+
   const { isLoaded, isSignedIn, user } = useUser();
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isSecondModalOpen, setIsSecondModalOpen] = useState<boolean>(false);
+  const [formData, setFormData] = useState<PersonalDetailModel | null>(null);
+  const { data, isLoading, error } = usePostStudentOrTeacher(formData);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -44,7 +41,9 @@ const Dashboard: NextPage = () => {
 
       try {
         const response = await getUser(user.id);
-
+        userStore.setUser({
+          userId: user.id,
+        });
         if (!response.ok) {
           const errorData = await response.json();
           if (errorData.message === "User not found!") {
@@ -63,7 +62,6 @@ const Dashboard: NextPage = () => {
     };
 
     if (isSignedIn) {
-      getRoleNames(setRoles);
       fetchUserData();
       userStore.setUser({
         userId: user.id,
@@ -76,21 +74,19 @@ const Dashboard: NextPage = () => {
   }, [userData]);
 
   const handleFormSubmit = async (formData: PersonalDetailModel) => {
+    setFormData(formData);
     setUserData({ ...userData, ...formData });
     await addUserToDB(formData);
   };
+
   const handleSubmit = async (groupForm: NewGroupModel) => {
-    await postNewGroup(groupForm);
+    usePostNewGroup(groupForm);
   };
 
   const addUserToDB = async (formData: PersonalDetailModel) => {
     try {
       const role =
-        formData.userId == "Student"
-          ? 1
-          : formData.userId === "Teacher"
-          ? 2
-          : 3;
+        formData.role == "Student" ? 1 : formData.role === "Teacher" ? 2 : 3;
 
       const data: UserDetailsModel = {
         userid: userStore.user.userId,
@@ -102,7 +98,7 @@ const Dashboard: NextPage = () => {
 
       if (response.ok) {
         setTimeout(() => {
-          addStudnetORTeacher(formData, setUserData, userData);
+          usePostStudentOrTeacher(formData);
         }, 2000);
       }
     } catch (error) {

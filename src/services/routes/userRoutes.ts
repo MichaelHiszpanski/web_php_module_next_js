@@ -40,3 +40,16 @@ export const postStudentOrTeacher = async (
     body: JSON.stringify(formData),
   });
 };
+
+// export const useGetUser = (userId: string) => {
+//   return useQuery({
+//     queryKey: ["user", userId],
+//     queryFn: () => getUser(userId),
+//   });
+// };
+// export const usePostUser = (formData: UserDetailsModel) => {
+//   return useQuery({
+//     queryKey: ["newUser", formData],
+//     queryFn: () => postUser(formData),
+//   });
+// };

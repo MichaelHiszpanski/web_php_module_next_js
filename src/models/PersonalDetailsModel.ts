@@ -8,6 +8,7 @@ export interface PersonalDetailModel {
   userId: string;
   department?: string;
   type?: string;
+  role?: string;
 }
 
 export const defaultPersonalDetails: PersonalDetailModel = {

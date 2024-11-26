@@ -1,16 +1,16 @@
 import userStore from "@/src/mobX/user-store/user_store";
 import { PersonalDetailModel } from "@/src/models/PersonalDetailsModel";
-
+import { getRoles } from "../routes/userRoutes";
 import { useQuery } from "@tanstack/react-query";
 
 export const addStudnetORTeacher = async (
-  formData: PersonalDetailModel,
-  setUserData: React.Dispatch<React.SetStateAction<any>>,
-  userData: any
+  formData: PersonalDetailModel
+  //   setUserData: React.Dispatch<React.SetStateAction<any>>,
+  //   userData: any
 ) => {
-  setUserData({ ...userData, ...formData });
+  //   setUserData({ ...userData, ...formData });
   const setPath =
-    formData.userId === "Student" ? "students/student" : "teachers/teacher";
+    formData.role === "Student" ? "students/student" : "teachers/teacher";
   const studentBody = {
     UserID: userStore.user.userId,
     FirstName: formData.name,
@@ -48,47 +48,31 @@ export const addStudnetORTeacher = async (
     }
   } catch (e) {}
 };
-export const getRoles = async (
+
+export const getRoleNames = async (
   setRoles: React.Dispatch<React.SetStateAction<any>>
 ) => {
-  const response = await fetch(`/api/roles`, {
-    method: "GET",
-  });
-  if (response.ok) {
-    const rolesData = await response.json();
+  try {
+    const response = await getRoles();
+    if (response.ok) {
+      const rolesData = await response.json();
 
-    setRoles(rolesData);
-  }
+      setRoles(rolesData);
+    }
+  } catch (error) {}
 };
-// export const getRoleNames = async (
-//   setRoles: React.Dispatch<React.SetStateAction<any>>
-// ) => {
-//   try {
-//     const response = await getRoles();
-//     if (response.ok) {
-//       const rolesData = await response.json();
 
-//       setRoles(rolesData);
-//     }
-//   } catch (error) {}
-// };
-
-export const useRoleNames = (
-  setRoles: React.Dispatch<React.SetStateAction<any>>
-) => {
+export const useRoleNames = () => {
   return useQuery({
-    queryKey: ["roles", setRoles],
-    queryFn: () => getRoles(setRoles),
+    queryKey: ["roles"],
+    queryFn: () => getRoles(),
   });
 };
 
-export const usePostStudentOrTeacher = (
-  formData: PersonalDetailModel,
-  setUserData: React.Dispatch<React.SetStateAction<any>>,
-  userData: any
-) => {
+export const usePostStudentOrTeacher = (formData: PersonalDetailModel) => {
   return useQuery({
-    queryKey: ["newUser", formData, setUserData, userData],
-    queryFn: () => addStudnetORTeacher(formData, setUserData, userData),
+    queryKey: ["TeacherOrStudent", formData],
+    queryFn: () => addStudnetORTeacher(formData),
+    enabled: !!formData,
   });
 };

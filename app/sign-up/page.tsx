@@ -10,28 +10,23 @@ import { NextPage } from "next";
 import { SignUpModel } from "@/src/models/SignUpModel";
 
 const SignUp: NextPage = () => {
+  const router = useRouter();
   const { isLoaded, signUp, setActive } = useSignUp();
-  const [emailAddress, setEmailAddress] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwordConfirm, setPasswordConfirm] = React.useState("");
   const [userData, setUserData] = React.useState<SignUpModel>({
     userName: "",
     email: "",
     password: "",
     passwordConfirm: "",
   });
-  const [username, setUsername] = React.useState("Michael");
-  const [verifying, setVerifying] = React.useState(false);
-
-  const [code, setCode] = React.useState("");
-
-  const router = useRouter();
   const [errors, setErrors] = useState<any>({
     userName: "",
     email: "",
     password: "",
     passwordConfirm: "",
   });
+  const [verifying, setVerifying] = React.useState(false);
+  const [code, setCode] = React.useState("");
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData((prev) => ({
@@ -43,12 +38,7 @@ const SignUp: NextPage = () => {
       setErrors((prev: any) => ({ ...prev, [name]: "" }));
     }
   };
-  // const [emailError, setEmailError] = React.useState<string | null>(null);
-  // const [passwordError, setPasswordError] = React.useState<string | null>(null);
-  // const [passwordConfirmError, setPasswordConfirmError] = React.useState<
-  //   string | null
-  // >(null);
-  // const [roleError, setRoleError] = React.useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -89,6 +79,7 @@ const SignUp: NextPage = () => {
   const validateInputs = () => {
     let isValid = true;
     const errorsList: any = {};
+
     if (userData.userName.trim() === "") {
       errorsList.userName = "Name cannot be empty.";
       isValid = false;

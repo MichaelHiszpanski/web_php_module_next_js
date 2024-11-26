@@ -1,4 +1,5 @@
 import { NewGroupModel } from "@/src/models/NewGroupModel";
+import { useQuery } from "@tanstack/react-query";
 
 export const postNewGroup = async (groupData: NewGroupModel) => {
   const response = await fetch("/api/groups/group", {
@@ -11,4 +12,11 @@ export const postNewGroup = async (groupData: NewGroupModel) => {
     }),
   });
   return response;
+};
+
+export const usePostNewGroup = (groupData: NewGroupModel) => {
+  return useQuery({
+    queryKey: ["groupData", groupData],
+    queryFn: () => postNewGroup(groupData),
+  });
 };

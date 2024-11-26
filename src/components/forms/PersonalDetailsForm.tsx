@@ -19,6 +19,7 @@ const PersonalDetailsForm: FC<Props> = ({ onSubmit }) => {
     userId: "",
     department: "",
     type: "",
+    role: "",
   });
   const [role, setRole] = React.useState<string | null>(null);
   const [roleError, setRoleError] = React.useState<string | null>(null);
@@ -117,6 +118,7 @@ const PersonalDetailsForm: FC<Props> = ({ onSubmit }) => {
         onSelect={(option: any) => {
           setRole(option);
           setFormData((prev) => ({ ...prev, role: option }));
+          console.log("User role id", formData.role);
         }}
         error={roleError}
       />
