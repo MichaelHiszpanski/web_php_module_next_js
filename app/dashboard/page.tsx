@@ -39,45 +39,7 @@ const Dashboard: NextPage = () => {
   const [formData, setFormData] = useState<PersonalDetailModel | null>(null);
   const { data, isLoading, error } = usePostStudentOrTeacher(formData);
   const [groupForm, setGroupForm] = useState<NewGroupModel | null>(null);
-  // const response = usePostNewGroup(groupForm);
-  // const {
-  //   data: teacherResponse,
-  //   isLoading: isTeacherLoading,
-  //   error: teacherError,
-  // } = useGetTeacherId(user?.id ?? "");
 
-  const fetchTeacherID = async () => {
-    try {
-      const teacherResponse = await getTeacherID(userData.userid);
-      console.log("Teacher ID response:", teacherResponse);
-
-      const teacherId = teacherResponse?.TeacherID;
-
-      if (teacherId) {
-        setGroupForm((prev: NewGroupModel | null) => ({
-          ...prev,
-          teacherID: teacherId,
-          groupName: prev?.groupName ?? "",
-          groupDescription: prev?.groupDescription ?? "",
-        }));
-        console.log("Teacher ID set in state:", teacherId);
-      } else {
-        console.error("No Teacher ID found in response!");
-      }
-    } catch (error) {
-      console.error("Error fetching Teacher ID:", error);
-    }
-  };
-  // useEffect(() => {
-  //   if (groupForm?.teacherID) {
-  //     console.log("Teacher ID updated:", groupForm.teacherID);
-  //   }
-  // }, [groupForm?.teacherID]);
-  // const {
-  //   data: teacherData,
-  //   isLoading: isLoadingTeacherID,
-  //   error: errorteacherID,
-  // } = useGetTeacherId(userData.userid);
   useEffect(() => {
     const fetchUserData = async () => {
       if (!user) return;
@@ -116,21 +78,26 @@ const Dashboard: NextPage = () => {
     setIsStudent(userData.roleid === 1 ? true : false);
   }, [userData]);
 
-  const handleFormSubmit = async (formData: PersonalDetailModel) => {
-    setFormData(formData);
-    setUserData({ ...userData, ...formData });
-    await addUserToDB(formData);
-  };
+  const fetchTeacherID = async () => {
+    try {
+      const teacherResponse = await getTeacherID(userData.userid);
+      console.log("Teacher ID response:", teacherResponse);
 
-  const handleSubmit = async (groupForm: NewGroupModel) => {
-    console.log("Group Form:", groupForm);
-    if (!groupForm?.teacherID) {
-      console.error("Teacher ID is missing!");
-      return;
-    }
-    const response = await postNewGroup(groupForm);
-    if (response.message === "success") {
-      setIsSecondModalOpen(false);
+      const teacherId = teacherResponse?.TeacherID;
+
+      if (teacherId) {
+        setGroupForm((prev: NewGroupModel | null) => ({
+          ...prev,
+          teacherID: teacherId,
+          groupName: prev?.groupName ?? "",
+          groupDescription: prev?.groupDescription ?? "",
+        }));
+        console.log("Teacher ID set in state:", teacherId);
+      } else {
+        console.error("No Teacher ID found in response!");
+      }
+    } catch (error) {
+      console.error("Error fetching Teacher ID:", error);
     }
   };
 
@@ -161,19 +128,33 @@ const Dashboard: NextPage = () => {
     await fetchTeacherID();
     setIsSecondModalOpen(true);
   };
-  // const [loading, setLoading] = useState<boolean>(true);
 
-  // useEffect(() => {
-  //   if (groupForm?.teacherID) {
-  //     setLoading(false);
-  //   }
-  // }, [groupForm?.teacherID]);
+  const handleFormSubmit = async (formData: PersonalDetailModel) => {
+    setFormData(formData);
+    setUserData({ ...userData, ...formData });
+    await addUserToDB(formData);
+  };
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  const handleSubmit = async (groupForm: NewGroupModel) => {
+    console.log("Group Form:", groupForm);
+    if (!groupForm?.teacherID) {
+      console.error("Teacher ID is missing!");
+      return;
+    }
+    const response = await postNewGroup(groupForm);
+    if (response.message === "success") {
+      setIsSecondModalOpen(false);
+    }
+  };
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded)
+    return (
+      <div className="flex flex-col w-screen h-full items-center ">
+        <div className="w-full text-center text-5xl font-bold font-permanentMarker mt-[200px]">
+          Loading...
+        </div>
+      </div>
+    );
 
   if (!isSignedIn) {
     if (typeof window !== "undefined") {
