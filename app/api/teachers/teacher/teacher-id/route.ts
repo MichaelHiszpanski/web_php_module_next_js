@@ -14,14 +14,15 @@ export async function GET(req: Request) {
     }
 
     const result = await sql`
-        SELECT TeacherID 
-        FROM Teachers
-        WHERE UserID = ${userId};
-      `;
-    const rows = Array.isArray(result) ? result : [];
-    if (rows.length === 0) {
+    SELECT TeacherID 
+    FROM Teachers
+    WHERE UserID = ${userId};
+  `;
+    const rows = result.rows;
+
+    if (!rows.length) {
       return NextResponse.json(
-        { message: "No Teacher associated with this UserID!" },
+        { error: "No Teacher associated with this UserID!" },
         { status: 404 }
       );
     }

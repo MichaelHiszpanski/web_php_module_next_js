@@ -4,13 +4,15 @@ import ButtonPrimary from "../buttons/button-primary/ButtonPrimary";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 
 interface Props {
+  groupForm: NewGroupModel | null;
   onSubmit: (formData: NewGroupModel) => void;
 }
 
-const NewGroupForm: FC<Props> = ({ onSubmit }) => {
+const NewGroupForm: FC<Props> = ({ onSubmit, groupForm }) => {
   const [groupData, setGroupData] = useState<NewGroupModel>({
-    groupName: "",
-    groupDescription: "",
+    teacherID: groupForm?.teacherID,
+    groupName: groupForm?.groupName ?? "",
+    groupDescription: groupForm?.groupDescription ?? "",
   });
   const [errors, setErrors] = useState<any>({
     groupName: "",

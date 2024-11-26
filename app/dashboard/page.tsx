@@ -23,6 +23,10 @@ import {
   postNewGroup,
   usePostNewGroup,
 } from "@/src/services/routes/groupRoutes";
+import {
+  getTeacherID,
+  useGetTeacherId,
+} from "@/src/services/api-calls/checkStudentId";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(true);
@@ -34,7 +38,46 @@ const Dashboard: NextPage = () => {
   const [isSecondModalOpen, setIsSecondModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<PersonalDetailModel | null>(null);
   const { data, isLoading, error } = usePostStudentOrTeacher(formData);
+  const [groupForm, setGroupForm] = useState<NewGroupModel | null>(null);
+  // const response = usePostNewGroup(groupForm);
+  // const {
+  //   data: teacherResponse,
+  //   isLoading: isTeacherLoading,
+  //   error: teacherError,
+  // } = useGetTeacherId(user?.id ?? "");
 
+  const fetchTeacherID = async () => {
+    try {
+      const teacherResponse = await getTeacherID(userData.userid);
+      console.log("Teacher ID response:", teacherResponse);
+
+      const teacherId = teacherResponse?.TeacherID;
+
+      if (teacherId) {
+        setGroupForm((prev: NewGroupModel | null) => ({
+          ...prev,
+          teacherID: teacherId,
+          groupName: prev?.groupName ?? "",
+          groupDescription: prev?.groupDescription ?? "",
+        }));
+        console.log("Teacher ID set in state:", teacherId);
+      } else {
+        console.error("No Teacher ID found in response!");
+      }
+    } catch (error) {
+      console.error("Error fetching Teacher ID:", error);
+    }
+  };
+  // useEffect(() => {
+  //   if (groupForm?.teacherID) {
+  //     console.log("Teacher ID updated:", groupForm.teacherID);
+  //   }
+  // }, [groupForm?.teacherID]);
+  // const {
+  //   data: teacherData,
+  //   isLoading: isLoadingTeacherID,
+  //   error: errorteacherID,
+  // } = useGetTeacherId(userData.userid);
   useEffect(() => {
     const fetchUserData = async () => {
       if (!user) return;
@@ -80,7 +123,15 @@ const Dashboard: NextPage = () => {
   };
 
   const handleSubmit = async (groupForm: NewGroupModel) => {
-    usePostNewGroup(groupForm);
+    console.log("Group Form:", groupForm);
+    if (!groupForm?.teacherID) {
+      console.error("Teacher ID is missing!");
+      return;
+    }
+    const response = await postNewGroup(groupForm);
+    if (response.message === "success") {
+      setIsSecondModalOpen(false);
+    }
   };
 
   const addUserToDB = async (formData: PersonalDetailModel) => {
@@ -106,9 +157,21 @@ const Dashboard: NextPage = () => {
     }
   };
 
-  const openSecondModal = () => {
+  const openSecondModal = async () => {
+    await fetchTeacherID();
     setIsSecondModalOpen(true);
   };
+  // const [loading, setLoading] = useState<boolean>(true);
+
+  // useEffect(() => {
+  //   if (groupForm?.teacherID) {
+  //     setLoading(false);
+  //   }
+  // }, [groupForm?.teacherID]);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   if (!isLoaded) return <div>Loading...</div>;
 
@@ -168,9 +231,8 @@ const Dashboard: NextPage = () => {
             This is the second modal attached to the Dashboard component.
           </p>
           <NewGroupForm
-            onSubmit={(groupForm) => {
-              handleSubmit(groupForm);
-            }}
+            onSubmit={(groupForm) => handleSubmit(groupForm)}
+            groupForm={groupForm}
           />
         </div>
       </CustomModal>

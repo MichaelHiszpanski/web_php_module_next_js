@@ -37,7 +37,7 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   try {
-    const { GroupID, GroupName, GroupDateCreated, TeacherID, Description } =
+    const { GroupID, GroupName, DateCreated, TeacherID, Description } =
       await req.json();
 
     const existingGroup = await sql`
@@ -58,13 +58,13 @@ export async function POST(req: Request) {
     await sql`
         INSERT INTO Groups (
           GroupName,
-          GroupDateCreated,
+          DateCreated,
           TeacherID,
           Description
         )
         VALUES (
           ${GroupName},
-          ${GroupDateCreated},
+          ${DateCreated},
           ${TeacherID},
           ${Description || null}
         );

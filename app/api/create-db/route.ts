@@ -85,7 +85,7 @@ export async function POST(req: Request) {
     await sql(createTeachersTable);
     const createGroupsTable = `
     CREATE TABLE IF NOT EXISTS Groups (
-      GroupID INT PRIMARY KEY,
+      GroupID SERIAL PRIMARY KEY,
       GroupName VARCHAR(100) NOT NULL,
       DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       TeacherID INT NOT NULL,
@@ -96,7 +96,7 @@ export async function POST(req: Request) {
     await sql(createGroupsTable);
     const createGroupMembersTable = `
     CREATE TABLE IF NOT EXISTS GroupMembers (
-      GroupMemberID INT PRIMARY KEY,
+      GroupMemberID SERIAL PRIMARY KEY,
       GroupID INT NOT NULL,
       UserID VARCHAR(255) NOT NULL,
       DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -107,7 +107,7 @@ export async function POST(req: Request) {
     await sql(createGroupMembersTable);
     const createMessagesTable = `
     CREATE TABLE IF NOT EXISTS Messages (
-      MessageID INT PRIMARY KEY,
+      MessageID SERIAL PRIMARY KEY,
       GroupID INT NOT NULL,
       UserID VARCHAR(255) NOT NULL,
       DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -119,7 +119,7 @@ export async function POST(req: Request) {
     await sql(createMessagesTable);
     const createFilesTable = `
     CREATE TABLE IF NOT EXISTS Files (
-      FileID INT PRIMARY KEY,
+      FileID SERIAL PRIMARY KEY,
       GroupID INT NOT NULL,
       UserID VARCHAR(255) NOT NULL,
       DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
