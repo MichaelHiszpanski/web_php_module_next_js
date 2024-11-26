@@ -16,7 +16,10 @@ import {
   defaultUserDetails,
 } from "@/src/models/UserDetailsModel";
 import { getUser, postUser } from "@/src/services/routes/userRoutes";
-import { usePostStudentOrTeacher } from "@/src/services/api-calls/dashboard_api";
+import {
+  addStudnetORTeacher,
+  usePostStudentOrTeacher,
+} from "@/src/services/api-calls/dashboard_api";
 import NewGroupForm from "@/src/components/forms/NewGroupForm";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 import {
@@ -115,8 +118,9 @@ const Dashboard: NextPage = () => {
       const response = await postUser(data);
 
       if (response.ok) {
-        setTimeout(() => {
-          usePostStudentOrTeacher(formData);
+        setTimeout(async () => {
+          // usePostStudentOrTeacher(formData);
+          await addStudnetORTeacher(formData);
         }, 2000);
       }
     } catch (error) {
