@@ -174,6 +174,7 @@ const Dashboard: NextPage = () => {
         setIsBoardOpen={setIsBoardOpen}
         openSecondModal={openSecondModal}
         isStudent={isStudent}
+        teacherID={groupForm?.teacherID}
       />
 
       <div className="flex flex-col w-full items-center ">

@@ -15,6 +15,14 @@ export const postNewGroup = async (groupData: NewGroupModel) => {
   return response.json();
 };
 
+export const getGroups = async (teacherID: number) => {
+  const response = await fetch(`/api/groups/group?TeacherID=${teacherID}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  return response.json();
+};
+
 export const usePostNewGroup = (groupData: NewGroupModel) => {
   return useQuery({
     queryKey: ["groupData", groupData],

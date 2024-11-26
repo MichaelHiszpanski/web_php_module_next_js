@@ -6,12 +6,12 @@ const sql = neon(`${process.env.DATABASE_URL}`);
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
-    const teacherUserID = url.searchParams.get("UserID");
+    const teacherUserID = url.searchParams.get("TeacherID");
 
     if (!teacherUserID) {
       return NextResponse.json(
         {
-          error: "Missing UserID parameter",
+          error: "Missing TeacherID parameter",
         },
         { status: 400 }
       );
@@ -19,7 +19,7 @@ export async function GET(req: Request) {
 
     const groups = await sql`
       SELECT * FROM Groups
-      WHERE UserID = ${teacherUserID};
+      WHERE TeacherID = ${teacherUserID};
     `;
 
     return NextResponse.json(groups);
