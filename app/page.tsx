@@ -31,8 +31,8 @@ const Home: NextPage = ({}) => {
       <div
         className=" w-full h-full flex flex-col items-center"
         style={{
-          backgroundImage: `url(/sch1.jpg)`,
-          backgroundSize: "cover",
+          backgroundImage: `url(/home1.png)`,
+          backgroundSize: "180%",
           backgroundPosition: "center",
           height: "100vh",
         }}
