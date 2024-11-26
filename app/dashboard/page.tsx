@@ -40,7 +40,7 @@ const Dashboard: NextPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isSecondModalOpen, setIsSecondModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<PersonalDetailModel | null>(null);
-  const { data, isLoading, error } = usePostStudentOrTeacher(formData);
+  //const { data, isLoading, error } = usePostStudentOrTeacher(formData);
   const [groupForm, setGroupForm] = useState<NewGroupModel | null>(null);
 
   useEffect(() => {
