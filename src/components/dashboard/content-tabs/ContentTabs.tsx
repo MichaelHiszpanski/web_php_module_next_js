@@ -20,9 +20,9 @@ const ContentTabs: React.FC<Props> = ({
   }, [currentActiveTab]);
 
   const content = [
-    <StudentsContentTab />,
-    <MessagesContentTab />,
-    <FilesContentTab />,
+    { key: "students", element: <StudentsContentTab /> },
+    { key: "messages", element: <MessagesContentTab /> },
+    { key: "files", element: <FilesContentTab /> },
   ];
 
   return (
@@ -32,8 +32,8 @@ const ContentTabs: React.FC<Props> = ({
       } ${isStudent ? "bg-yellow-500" : "bg-colorSix"}`}
     >
       <div className="w-full flex flex-col">
-        <div key={activeTab} className="flex-1 p-4">
-          {content[activeTab]}
+        <div key={content[activeTab].key} className="flex-1 p-4">
+          {content[activeTab].element}
         </div>
       </div>
     </div>
