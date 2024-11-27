@@ -32,6 +32,7 @@ import {
   useGetTeacherId,
 } from "@/src/services/api-calls/checkStudentId";
 import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
+import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(true);
@@ -44,7 +45,10 @@ const Dashboard: NextPage = () => {
   const [formData, setFormData] = useState<PersonalDetailModel | null>(null);
   //const { data, isLoading, error } = usePostStudentOrTeacher(formData);
   const [groupForm, setGroupForm] = useState<NewGroupModel | null>(null);
-
+  //Tabs
+  const tabs = ["Students", "Messages", "Files"];
+  const [activeTab, setActiveTab] = useState(0);
+  //
   useEffect(() => {
     const fetchUserData = async () => {
       if (!user) return;
@@ -161,6 +165,11 @@ const Dashboard: NextPage = () => {
     }
   };
 
+  const handleTabChange = (index: number) => {
+    console.log("Index", index);
+    setActiveTab(index);
+  };
+
   if (!isLoaded)
     return (
       <div className="flex flex-col w-screen h-full items-center ">
@@ -180,7 +189,7 @@ const Dashboard: NextPage = () => {
   return (
     <div
       className={`flex flex-row min-h-screen  ${
-        isStudent ? "bg-red-500" : "bg-blue-500"
+        isStudent ? "bg-red-500" : "bg-white"
       }`}
     >
       <SidePanel
@@ -192,8 +201,19 @@ const Dashboard: NextPage = () => {
       />
 
       <div className="flex flex-col w-full items-center ">
-        <TopPanel isBoardOpen={isBoardOpen} isStudent={isStudent} />
-        <h1 className="mt-[300px]">Dashboard</h1>
+        <TopPanel
+          isBoardOpen={isBoardOpen}
+          isStudent={isStudent}
+          tabs={tabs}
+          onChnageTab={handleTabChange}
+        />
+
+        <ContentTabs
+          isBoardOpen={isBoardOpen}
+          isStudent={isStudent}
+          currentActiveTab={activeTab}
+          tabs={tabs}
+        />
       </div>
       <CustomModal
         isModalOpen={isModal}
