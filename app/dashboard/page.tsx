@@ -23,6 +23,7 @@ import {
 import NewGroupForm from "@/src/components/forms/NewGroupForm";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 import {
+  getGroups,
   postNewGroup,
   usePostNewGroup,
 } from "@/src/services/routes/groupRoutes";
@@ -30,6 +31,7 @@ import {
   getTeacherID,
   useGetTeacherId,
 } from "@/src/services/api-calls/checkStudentId";
+import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(true);
@@ -81,6 +83,15 @@ const Dashboard: NextPage = () => {
     setIsStudent(userData.roleid === 1 ? true : false);
   }, [userData]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userData.roleid === 2) {
+        await fetchTeacherID();
+      }
+    };
+    fetchData();
+  }, [userData.roleid]);
+
   const fetchTeacherID = async () => {
     try {
       const teacherResponse = await getTeacherID(userData.userid);
@@ -129,7 +140,6 @@ const Dashboard: NextPage = () => {
   };
 
   const openSecondModal = async () => {
-    await fetchTeacherID();
     setIsSecondModalOpen(true);
   };
 
@@ -182,11 +192,7 @@ const Dashboard: NextPage = () => {
       />
 
       <div className="flex flex-col w-full items-center ">
-        <div
-          className={`w-full h-[100px] transform transition-transform duration-400 ${
-            isBoardOpen ? " flex translate-y-0" : " hidden -translate-y-full"
-          } ${isStudent ? "bg-yellow-500" : "bg-green-500"}`}
-        ></div>
+        <TopPanel isBoardOpen={isBoardOpen} isStudent={isStudent} />
         <h1 className="mt-[300px]">Dashboard</h1>
       </div>
       <CustomModal
