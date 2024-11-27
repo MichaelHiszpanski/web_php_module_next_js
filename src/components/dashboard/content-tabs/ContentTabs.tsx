@@ -32,7 +32,9 @@ const ContentTabs: React.FC<Props> = ({
       } ${isStudent ? "bg-yellow-500" : "bg-colorSix"}`}
     >
       <div className="w-full flex flex-col">
-        <div className="flex-1 p-4">{content[activeTab]}</div>
+        <div key={activeTab} className="flex-1 p-4">
+          {content[activeTab]}
+        </div>
       </div>
     </div>
   );
