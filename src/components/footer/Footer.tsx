@@ -9,7 +9,7 @@ interface Props {
 }
 const Footer: FC<Props> = ({
   isVisible = true,
-  backgroudnColor,
+  backgroudnColor = "bg-colorSix",
   fontColor = "text-colorTwo",
 }) => {
   const router = useRouter();

@@ -1,4 +1,5 @@
 "use client";
+import Footer from "@/src/components/footer/Footer";
 import { NextPage } from "next";
 import React, { useState } from "react";
 
@@ -54,6 +55,10 @@ const Home: NextPage = ({}) => {
         {message && <p>{message}</p>}
       </div>
       <div></div>
+      <Footer
+        backgroudnColor="bg-colorSix bg-opacity-45"
+        fontColor="text-colorOne"
+      />
     </div>
   );
 };

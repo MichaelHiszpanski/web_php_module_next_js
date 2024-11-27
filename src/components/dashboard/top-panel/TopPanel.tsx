@@ -3,16 +3,12 @@ import { useSwipeable } from "react-swipeable";
 interface Props {
   isBoardOpen: boolean;
   isStudent: boolean;
-  tabs: string[];
   onChnageTab: (activeTab: number) => void;
 }
-const TopPanel: React.FC<Props> = ({
-  isBoardOpen,
-  isStudent,
-  tabs,
-  onChnageTab,
-}) => {
+const TopPanel: React.FC<Props> = ({ isBoardOpen, isStudent, onChnageTab }) => {
   const [activeTab, setActiveTab] = useState(0);
+  const tabs = ["Students", "Messages", "Files"];
+
   useEffect(() => {
     onChnageTab(activeTab);
   }, [activeTab, onChnageTab]);
@@ -27,7 +23,7 @@ const TopPanel: React.FC<Props> = ({
         {tabs.map((tab, index) => (
           <button
             key={index}
-            className={`flex-1 text-center py-2 ${
+            className={`flex-1 text-center py-2 mx-10 ${
               activeTab === index
                 ? "border-b-[5px] border-colorSeven text-colorOne font-bold"
                 : "text-white"

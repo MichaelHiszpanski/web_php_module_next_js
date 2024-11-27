@@ -1,7 +1,11 @@
 import React from "react";
 
 const MessagesContentTab: React.FC = () => {
-  return <div></div>;
+  return (
+    <div>
+      <h1>Messages</h1>
+    </div>
+  );
 };
 
 export default MessagesContentTab;

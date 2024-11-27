@@ -3,6 +3,7 @@ import React, { FC, useState, useRef, useEffect } from "react";
 import {
   logo,
   logoEarth,
+  logoEarth2,
   wave_down_three,
   wave_one,
   wave_up_two,
@@ -16,19 +17,27 @@ import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
 
 const NavigationBar: FC = () => {
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
   const navRef = useRef<HTMLDivElement>(null);
   const { isSignedIn } = useUser();
   useOutsideClick(navRef, () => setIsModalOpen(false));
   const isMobileSize = useMediaQuery({ maxWidth: 767 });
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
-    <nav className="w-full relative h-[100px] flex flex-row justify-evenly items-center">
+    <nav
+      className="w-full relative h-[100px] flex flex-row justify-evenly items-center"
+      style={{
+        backgroundImage: `url(/sky2.jpg)`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100px",
+      }}
+    >
       {/* <Image
-        src={wave_down_three}
+        src={"/public/sky.jpeg"}
+        width={100}
+        height={100}
         alt="bg"
         className=" w-full absolute top-0 md:top-[-60px]  select-none overflow-hidden "
         style={{
@@ -38,9 +47,9 @@ const NavigationBar: FC = () => {
         onDragStart={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
       /> */}
-      <div className="flex flex-row md:justify-evenly items-center w-full h-full z-50">
+      <div className="flex flex-row md:justify-evenly justify-between pr-20  items-center w-full h-full z-50">
         <Image
-          src={logoEarth}
+          src={logoEarth2}
           alt="logo"
           className="w-24 h-24 cursor-pointer select-none"
           onClick={() => {

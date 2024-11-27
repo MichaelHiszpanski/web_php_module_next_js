@@ -37,8 +37,6 @@ export default function RootLayout({
           >
             <NavigationBar />
             <StoreProvider>{children}</StoreProvider>
-
-            <Footer />
           </body>
         </html>
       </ReactQueryProvider>

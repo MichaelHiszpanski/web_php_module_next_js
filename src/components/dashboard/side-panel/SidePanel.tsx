@@ -35,7 +35,7 @@ const SidePanel: FC<Props> = ({
   };
   return (
     <div
-      className={`min-h-screen  w-[250px] ${
+      className={`min-h-[700px]  w-[250px] ${
         isStudent ? "bg-yellow-500" : "bg-colorSix"
       } transform transition-transform duration-400 ${
         isBoardOpen ? "translate-x-0" : "-translate-x-[80%]"

@@ -33,6 +33,7 @@ import {
 } from "@/src/services/api-calls/checkStudentId";
 import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
 import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
+import Footer from "@/src/components/footer/Footer";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(true);
@@ -45,10 +46,9 @@ const Dashboard: NextPage = () => {
   const [formData, setFormData] = useState<PersonalDetailModel | null>(null);
   //const { data, isLoading, error } = usePostStudentOrTeacher(formData);
   const [groupForm, setGroupForm] = useState<NewGroupModel | null>(null);
-  //Tabs
-  const tabs = ["Students", "Messages", "Files"];
+
   const [activeTab, setActiveTab] = useState(0);
-  //
+
   useEffect(() => {
     const fetchUserData = async () => {
       if (!user) return;
@@ -188,7 +188,7 @@ const Dashboard: NextPage = () => {
 
   return (
     <div
-      className={`flex flex-row min-h-screen  ${
+      className={`flex flex-row h-full  ${
         isStudent ? "bg-red-500" : "bg-white"
       }`}
     >
@@ -204,7 +204,6 @@ const Dashboard: NextPage = () => {
         <TopPanel
           isBoardOpen={isBoardOpen}
           isStudent={isStudent}
-          tabs={tabs}
           onChnageTab={handleTabChange}
         />
 
@@ -212,7 +211,6 @@ const Dashboard: NextPage = () => {
           isBoardOpen={isBoardOpen}
           isStudent={isStudent}
           currentActiveTab={activeTab}
-          tabs={tabs}
         />
       </div>
       <CustomModal
@@ -248,6 +246,7 @@ const Dashboard: NextPage = () => {
           />
         </div>
       </CustomModal>
+      <Footer backgroudnColor="bg-colorSix " fontColor="text-colorOne" />
     </div>
   );
 };
