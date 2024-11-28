@@ -1,5 +1,5 @@
 import { responseGetGroups } from "@/src/services/routes/groupRoutes";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   FaCircle,
   FaCross,
@@ -34,6 +34,11 @@ const SidePanel: FC<Props> = ({
       console.error("Error fetching Groups:", error);
     }
   };
+  useEffect(() => {
+    if (teacherID) {
+      getTeacherGroups();
+    }
+  }, [teacherID]);
   return (
     <div
       className={`min-h-[700px]  w-[250px] ${
@@ -76,6 +81,7 @@ const SidePanel: FC<Props> = ({
           {groups.length > 0 ? (
             groups.map((group) => (
               <SidePanelItem
+                key={group.groupid}
                 groupName={group.groupname}
                 description={group.description}
                 dateCreated={group.datecreated}
