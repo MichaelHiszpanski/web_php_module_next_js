@@ -3,7 +3,7 @@ import { PersonalDetailModel } from "@/src/models/PersonalDetailsModel";
 import { getRoles } from "../routes/userRoutes";
 import { useQuery } from "@tanstack/react-query";
 
-export const addStudnetORTeacher = async (
+export const responseAddStudnetORTeacher = async (
   formData: PersonalDetailModel
   //   setUserData: React.Dispatch<React.SetStateAction<any>>,
   //   userData: any
@@ -71,7 +71,7 @@ export const useRoleNames = () => {
 export const usePostStudentOrTeacher = (formData: PersonalDetailModel) => {
   return useQuery({
     queryKey: ["TeacherOrStudent", formData],
-    queryFn: () => addStudnetORTeacher(formData),
+    queryFn: () => responseAddStudnetORTeacher(formData),
     enabled: !!formData,
   });
 };

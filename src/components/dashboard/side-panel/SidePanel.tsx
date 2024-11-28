@@ -1,4 +1,4 @@
-import { getGroups } from "@/src/services/routes/groupRoutes";
+import { responseGetGroups } from "@/src/services/routes/groupRoutes";
 import React, { FC, useState } from "react";
 import {
   FaCircle,
@@ -7,6 +7,7 @@ import {
   FaToggleOff,
   FaToggleOn,
 } from "react-icons/fa";
+import SidePanelItem from "./SidePanelItem";
 
 interface Props {
   isBoardOpen: boolean;
@@ -26,7 +27,7 @@ const SidePanel: FC<Props> = ({
   const getTeacherGroups = async () => {
     try {
       if (teacherID) {
-        const response = await getGroups(teacherID);
+        const response = await responseGetGroups(teacherID);
         setGroups(response);
       }
     } catch (error) {
@@ -74,17 +75,12 @@ const SidePanel: FC<Props> = ({
         <div>
           {groups.length > 0 ? (
             groups.map((group) => (
-              <div
-                key={group.groupid}
-                className="p-2 bg-white border  border-colorSeven shadow-sm rounded-xl m-2 overflow-hidden"
-              >
-                <h3 className=" text-lg text-colorFour font-orbitron_variable">
-                  Name: {group.groupname}
-                </h3>
-                <p>Info: {group.description}</p>
-                {/* <p>Teacher ID: {group.teacherid}</p> */}
-                <p>Date Created: {group.datecreated || "N/A"}</p>
-              </div>
+              <SidePanelItem
+                groupName={group.groupname}
+                description={group.description}
+                dateCreated={group.datecreated}
+                groupid={group.groupid}
+              />
             ))
           ) : (
             <p>No groups available.</p>

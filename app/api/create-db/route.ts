@@ -86,7 +86,7 @@ export async function POST(req: Request) {
     const createGroupsTable = `
     CREATE TABLE IF NOT EXISTS Groups (
       GroupID SERIAL PRIMARY KEY,
-      GroupName VARCHAR(100) NOT NULL,
+      GroupName VARCHAR(100) NOT NULL UNIQUE,
       DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       TeacherID INT NOT NULL,
       Description VARCHAR(250),

@@ -1,7 +1,7 @@
 import { PersonalDetailModel } from "../../models/PersonalDetailsModel";
 import { UserDetailsModel } from "../../models/UserDetailsModel";
 
-export const getUser = async (userId: string) => {
+export const responseGetUser = async (userId: string) => {
   const response = await fetch(`/api/users/user?UserID=${userId}`, {
     method: "GET",
   });
@@ -16,7 +16,7 @@ export const getRoles = async () => {
   return response;
 };
 
-export const postUser = async (formData: UserDetailsModel) => {
+export const responsePostUser = async (formData: UserDetailsModel) => {
   const response = await fetch("/api/users/user", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -30,7 +30,7 @@ export const postUser = async (formData: UserDetailsModel) => {
   return response;
 };
 
-export const postStudentOrTeacher = async (
+export const responsePostStudentOrTeacher = async (
   formData: PersonalDetailModel,
   rolePath: string
 ) => {

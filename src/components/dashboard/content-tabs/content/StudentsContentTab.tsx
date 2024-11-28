@@ -1,6 +1,10 @@
 import {
+  getStudentListsFromGroup,
+  responseStudentsFromGroup,
+} from "@/src/services/routes/groupRoutes";
+import {
   getAllStudentsList,
-  getStudents,
+  responseStudents,
 } from "@/src/services/routes/studentRoutes";
 import React, { useEffect, useState } from "react";
 interface Props {
@@ -8,8 +12,12 @@ interface Props {
 }
 const StudentsContentTab: React.FC<Props> = ({ teacherID }) => {
   const [students, setStudents] = useState<any>([]);
+  const [studentsInGroup, setStudentsInGroup] = useState<any>([]);
   useEffect(() => {
     getAllStudentsList(setStudents);
+  }, []);
+  useEffect(() => {
+    getStudentListsFromGroup(2, setStudentsInGroup);
   }, []);
   return (
     <div className="w-full flex flex-row  h-full bg-white items-center">
@@ -27,7 +35,7 @@ const StudentsContentTab: React.FC<Props> = ({ teacherID }) => {
           {students.length === 0 ? (
             <div>EMPTY</div>
           ) : (
-            students.map((item: any) => (
+            studentsInGroup.map((item: any) => (
               <div
                 key={item.studentid}
                 className="w-full bg-white p-2 rounded-md shadow-sm border border-gray-200"

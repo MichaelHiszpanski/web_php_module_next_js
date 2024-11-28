@@ -15,16 +15,20 @@ import {
   UserDetailsModel,
   defaultUserDetails,
 } from "@/src/models/UserDetailsModel";
-import { getUser, postUser } from "@/src/services/routes/userRoutes";
 import {
-  addStudnetORTeacher,
+  responseGetUser,
+  responsePostUser,
+} from "@/src/services/routes/userRoutes";
+import {
+  responseAddStudnetORTeacher,
   usePostStudentOrTeacher,
 } from "@/src/services/api-calls/dashboard_api";
 import NewGroupForm from "@/src/components/forms/NewGroupForm";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 import {
-  getGroups,
-  postNewGroup,
+  responseGetGroups,
+  responseNewGroup,
+  responsePostMemberToGroup,
   usePostNewGroup,
 } from "@/src/services/routes/groupRoutes";
 import {
@@ -54,7 +58,7 @@ const Dashboard: NextPage = () => {
       if (!user) return;
 
       try {
-        const response = await getUser(user.id);
+        const response = await responseGetUser(user.id);
         userStore.setUser({
           userId: user.id,
         });
@@ -130,12 +134,12 @@ const Dashboard: NextPage = () => {
         userPassword: userStore.user.password,
         roleId: role,
       };
-      const response = await postUser(data);
+      const response = await responsePostUser(data);
 
       if (response.ok) {
         setTimeout(async () => {
           // usePostStudentOrTeacher(formData);
-          await addStudnetORTeacher(formData);
+          await responseAddStudnetORTeacher(formData);
         }, 2000);
       }
     } catch (error) {
@@ -159,9 +163,11 @@ const Dashboard: NextPage = () => {
       console.error("Teacher ID is missing!");
       return;
     }
-    const response = await postNewGroup(groupForm);
+    const response = await responseNewGroup(groupForm);
     if (response.message === "success") {
+      console.log("New group created with ID:", response.newGroupId);
       setIsSecondModalOpen(false);
+      // await responsePostMemberToGroup()
     }
   };
 

@@ -1,7 +1,7 @@
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 import { useQuery } from "@tanstack/react-query";
 
-export const postNewGroup = async (groupData: NewGroupModel) => {
+export const responseNewGroup = async (groupData: NewGroupModel) => {
   console.log("Posting new group with TeacherID:", groupData.teacherID);
   const response = await fetch("/api/groups/group", {
     method: "POST",
@@ -15,7 +15,7 @@ export const postNewGroup = async (groupData: NewGroupModel) => {
   return response.json();
 };
 
-export const getGroups = async (teacherID: number) => {
+export const responseGetGroups = async (teacherID: number) => {
   const response = await fetch(`/api/groups/group?TeacherID=${teacherID}`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
@@ -23,10 +23,60 @@ export const getGroups = async (teacherID: number) => {
   return response.json();
 };
 
+export const responseStudentsFromGroup = async (groupID: number) => {
+  const response = await fetch(
+    `/api/groups/group/group-students?GroupID=${groupID}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  return response.json();
+};
+
+export const getStudentListsFromGroup = async (
+  groupID: number,
+  setStudentsFromGroup: React.Dispatch<React.SetStateAction<any>>
+) => {
+  try {
+    const result = await responseStudentsFromGroup(groupID);
+
+    if (Array.isArray(result)) {
+      setStudentsFromGroup(result);
+    } else {
+      setStudentsFromGroup([]);
+    }
+  } catch (error) {
+    setStudentsFromGroup([]);
+  }
+};
+
+export const responseGetGroupID = async (groupName: string) => {
+  const response = await fetch(`/api/groups/group-id?GroupName=${groupName}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  return await response.json();
+};
+
+export const responsePostMemberToGroup = async (
+  userID: string,
+  groupID: number
+) => {
+  const response = await fetch("/api/groups/group-member", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ UserID: userID, GroupID: groupID }),
+  });
+
+  return await response.json();
+};
+
 export const usePostNewGroup = (groupData: NewGroupModel) => {
   return useQuery({
     queryKey: ["groupData", groupData],
-    queryFn: () => postNewGroup(groupData),
+    queryFn: () => responseNewGroup(groupData),
     enabled: !!groupData,
   });
 };
