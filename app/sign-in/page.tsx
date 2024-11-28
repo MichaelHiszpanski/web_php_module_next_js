@@ -14,9 +14,9 @@ const SignIn: NextPage = () => {
   const router = useRouter();
 
   const { isLoaded, signIn, setActive } = useSignIn();
-  const [email, setEmail] = React.useState("");
-  const { user, isSignedIn } = useUser();
-  const [password, setPassword] = React.useState("");
+  // const [email, setEmail] = React.useState("");
+  // const { user, isSignedIn } = useUser();
+  // const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
   // const [emailError, setEmailError] = React.useState<string | null>(null);
   // const [passwordError, setPasswordError] = React.useState<string | null>(null);
@@ -31,7 +31,17 @@ const SignIn: NextPage = () => {
     email: "",
     password: "",
   });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
+    if (errors[name]) {
+      setErrors((prev: any) => ({ ...prev, [name]: "" }));
+    }
+  };
   const validateInputs = () => {
     let isValid = true;
     const errorsList: any = {};
@@ -49,7 +59,7 @@ const SignIn: NextPage = () => {
       errorsList.password = "Password cannot be empty.";
       isValid = false;
     }
-
+    setErrors(errorsList);
     return isValid;
   };
 
@@ -74,7 +84,7 @@ const SignIn: NextPage = () => {
         userStore.setUser({
           email: userData.email,
           password: userData.password,
-          userId: "1",
+          userId: "3",
         });
         router.push("/dashboard");
       } else {
@@ -105,9 +115,7 @@ const SignIn: NextPage = () => {
           label={"Enter email address"}
           value={userData.email}
           name="email"
-          onInputChange={(e) =>
-            setUserData((prev) => ({ ...prev, email: e.target.value }))
-          }
+          onInputChange={handleInputChange}
           error={errors.email}
         />
         <CustomInput
@@ -115,9 +123,7 @@ const SignIn: NextPage = () => {
           keyboardType="password"
           name="password"
           value={userData.password}
-          onInputChange={(e) =>
-            setUserData((prev) => ({ ...prev, password: e.target.value }))
-          }
+          onInputChange={handleInputChange}
           error={errors.password}
         />
         {error && <div className="text-red-500">{error}</div>}
