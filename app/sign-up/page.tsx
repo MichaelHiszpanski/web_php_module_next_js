@@ -134,19 +134,30 @@ const SignUp: NextPage = () => {
 
   if (verifying) {
     return (
-      <>
-        <h1>Verify your email</h1>
-        <form onSubmit={handleVerify}>
-          <label id="code">Enter your verification code</label>
-          <input
+      <div className="w-full flex flex-col items-center">
+        <h1 className=" text-3xl font-orbitron_variable font-bold text-colorOne mt-[100px] mb-10">
+          Verify your email
+        </h1>
+        <form
+          onSubmit={handleVerify}
+          className=" border border-colorOne rounded-xl p-5 min-w-[300px]"
+        >
+          {/* <input
             value={code}
             id="code"
             name="code"
             onChange={(e) => setCode(e.target.value)}
+          /> */}
+          <CustomInput
+            label={"  Enter your verification code"}
+            value={code}
+            name={"Code"}
+            onInputChange={(e) => setCode(e.target.value)}
           />
-          <button type="submit">Verify</button>
+          {/* <button type="submit">Verify</button> */}
+          <ButtonPrimary title={"Verify"} type="submit" />
         </form>
-      </>
+      </div>
     );
   }
 

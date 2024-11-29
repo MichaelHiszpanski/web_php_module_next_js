@@ -26,7 +26,6 @@ import {
 import NewGroupForm from "@/src/components/forms/NewGroupForm";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 import {
-  responseGetGroups,
   responseNewGroup,
   responsePostMemberToGroup,
   usePostNewGroup,
@@ -138,7 +137,6 @@ const Dashboard: NextPage = () => {
 
       if (response.ok) {
         setTimeout(async () => {
-          // usePostStudentOrTeacher(formData);
           await responseAddStudnetORTeacher(formData);
         }, 2000);
       }
@@ -165,9 +163,9 @@ const Dashboard: NextPage = () => {
     }
     const response = await responseNewGroup(groupForm);
     if (response.message === "success") {
-      console.log("New group created with ID:", response.newGroupId);
+      const groupID = response.groupid;
+      await responsePostMemberToGroup(userStore.user.userId, groupID);
       setIsSecondModalOpen(false);
-      // await responsePostMemberToGroup()
     }
   };
 

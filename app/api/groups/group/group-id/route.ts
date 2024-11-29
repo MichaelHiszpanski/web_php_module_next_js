@@ -14,16 +14,17 @@ export async function GET(req: Request) {
       );
     }
 
-    const query = `
+    const result = await sql`
       SELECT GroupID
       FROM Groups
-      WHERE GroupName = $1
-      LIMIT 1;
+      WHERE GroupName = ${groupName};
     `;
 
-    const result = await sql(query, [groupName]);
+    if (result.length === 0) {
+      return NextResponse.json({ error: "No Group ID f!" }, { status: 404 });
+    }
 
-    const group = result[0].groupid;
+    const group = result[0];
     return NextResponse.json({ GroupID: group });
   } catch (error: any) {
     return NextResponse.json(

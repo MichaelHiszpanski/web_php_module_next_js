@@ -18,23 +18,23 @@ export async function GET(req: Request) {
     }
 
     // const students = await sql`
-    //   SELECT * FROM Students
+    //   SELECT * FROM GroupMembers
     //   WHERE GroupID = ${GroupID};
     // `;
     // Query all group members, joining with Students and Teachers tables
-    const members = await sql`
-      SELECT 
+    const students = await sql`
+      SELECT
         gm.GroupMemberID,
         gm.GroupID,
         u.UserID,
         u.UserEmail,
         r.RoleDescription,
-        CASE 
+        CASE
           WHEN r.RoleDescription = 'Student' THEN s.FirstName
           WHEN r.RoleDescription = 'Teacher' THEN t.FirstName
           ELSE NULL
         END AS FirstName,
-        CASE 
+        CASE
           WHEN r.RoleDescription = 'Student' THEN s.LastName
           WHEN r.RoleDescription = 'Teacher' THEN t.LastName
           ELSE NULL
@@ -47,7 +47,7 @@ export async function GET(req: Request) {
       WHERE gm.GroupID = ${GroupID};
     `;
 
-    return NextResponse.json(members, { status: 200 });
+    return NextResponse.json(students, { status: 200 });
   } catch (error: any) {
     console.error("Error: Something went wrong", error);
     return NextResponse.json(

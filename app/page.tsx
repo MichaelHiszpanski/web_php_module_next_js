@@ -1,12 +1,20 @@
 "use client";
 import Footer from "@/src/components/footer/Footer";
+import userStore from "@/src/mobX/user-store/user_store";
+import { useUser } from "@clerk/nextjs";
 import { NextPage } from "next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Home: NextPage = ({}) => {
   const [comment, setComment] = useState("");
   const [message, setMessage] = useState("");
+  const { isSignedIn } = useUser();
 
+  useEffect(() => {
+    if (!isSignedIn) {
+      userStore.clearUser();
+    }
+  }, []);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 

@@ -17,7 +17,7 @@ const StudentsContentTab: React.FC<Props> = ({ teacherID }) => {
     getAllStudentsList(setStudents);
   }, []);
   useEffect(() => {
-    getStudentListsFromGroup(2, setStudentsInGroup);
+    getStudentListsFromGroup(19, setStudentsInGroup);
   }, []);
   return (
     <div className="w-full flex flex-row  h-full bg-white items-center">
@@ -37,7 +37,7 @@ const StudentsContentTab: React.FC<Props> = ({ teacherID }) => {
           ) : (
             studentsInGroup.map((item: any) => (
               <div
-                key={item.studentid}
+                key={item.userid}
                 className="w-full bg-white p-2 rounded-md shadow-sm border border-gray-200"
               >
                 <div>
@@ -47,16 +47,10 @@ const StudentsContentTab: React.FC<Props> = ({ teacherID }) => {
                   <strong>Last Name:</strong> {item.lastname}
                 </div>
                 <div>
-                  <strong>City:</strong> {item.city}
+                  <strong>Role:</strong> {item.roledescription}
                 </div>
                 <div>
-                  <strong>Postcode:</strong> {item.postcode}
-                </div>
-                <div>
-                  <strong>Street Name:</strong> {item.streetname}
-                </div>
-                <div>
-                  <strong>House Number:</strong> {item.housenumber}
+                  <strong>Email:</strong> {item.useremail}
                 </div>
               </div>
             ))

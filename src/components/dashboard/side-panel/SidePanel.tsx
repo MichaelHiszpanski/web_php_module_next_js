@@ -77,7 +77,10 @@ const SidePanel: FC<Props> = ({
             <FaHelicopter />
           </button>
         </div>
-        <div>
+        <div
+          style={{ overflowY: "auto" }}
+          className=" h-[500px] bg-colorTwo p-2 ml-2"
+        >
           {groups.length > 0 ? (
             groups.map((group) => (
               <SidePanelItem

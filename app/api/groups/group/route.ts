@@ -55,7 +55,7 @@ export async function POST(req: Request) {
       );
     }
 
-    await sql`
+    const result = await sql`
         INSERT INTO Groups (
           GroupName,
           DateCreated,
@@ -67,12 +67,13 @@ export async function POST(req: Request) {
           ${DateCreated},
           ${TeacherID},
           ${Description || null}
-        );
+        ) RETURNING GroupID;
       `;
 
     return NextResponse.json(
       {
         message: "success",
+        groupid: result[0].groupid,
       },
       { status: 201 }
     );

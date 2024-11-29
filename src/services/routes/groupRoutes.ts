@@ -31,6 +31,7 @@ export const responseStudentsFromGroup = async (groupID: number) => {
       headers: { "Content-Type": "application/json" },
     }
   );
+  console.log("STUDENTS RESPONSE ", response);
   return response.json();
 };
 
@@ -51,20 +52,23 @@ export const getStudentListsFromGroup = async (
   }
 };
 
-export const responseGetGroupID = async (groupName: string) => {
-  const response = await fetch(`/api/groups/group-id?GroupName=${groupName}`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
+// export const responseGetGroupID = async (groupName: string) => {
+//   const response = await fetch(
+//     `/api/groups/group/group-id?GroupName=${groupName}`,
+//     {
+//       method: "GET",
+//       headers: { "Content-Type": "application/json" },
+//     }
+//   );
 
-  return await response.json();
-};
+//   return await response.json();
+// };
 
 export const responsePostMemberToGroup = async (
   userID: string,
   groupID: number
 ) => {
-  const response = await fetch("/api/groups/group-member", {
+  const response = await fetch("/api/groups/group/group-member", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ UserID: userID, GroupID: groupID }),
