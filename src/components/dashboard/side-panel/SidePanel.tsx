@@ -68,7 +68,7 @@ const SidePanel: FC<Props> = ({
       </div>
 
       <div>
-        <div className="flex mt-10 flex-row w-full items-center justify-center">
+        <div className="flex mt-2  flex-row w-full items-center justify-center">
           <h2 className="text-white  my-2 text-lg w-full text-center font-mono">
             Groups Created
           </h2>
@@ -84,7 +84,7 @@ const SidePanel: FC<Props> = ({
         </div>
         {!isStudent && (
           <div
-            className="mt-2 text-sm mb-5 px-2 border-[0.5px] border-black bg-white
+            className="mt-2 text-sm mb-2 px-2 border-[0.5px] border-black bg-white
                 font-orbitron_variable text-colorOne rounded-xl mx-5 cursor-pointer"
             onClick={openSecondModal}
           >

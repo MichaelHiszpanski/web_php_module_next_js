@@ -76,7 +76,18 @@ export const responsePostMemberToGroup = async (
 
   return await response.json();
 };
+export const responseRemovetMemberToGroup = async (
+  userID: string,
+  groupID: number
+) => {
+  const response = await fetch("/api/groups/group/group-member", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ UserID: userID, GroupID: groupID }),
+  });
 
+  return await response.json();
+};
 export const usePostNewGroup = (groupData: NewGroupModel) => {
   return useQuery({
     queryKey: ["groupData", groupData],

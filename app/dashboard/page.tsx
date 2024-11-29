@@ -22,7 +22,7 @@ import {
 import {
   responseAddStudnetORTeacher,
   usePostStudentOrTeacher,
-} from "@/src/services/api-calls/dashboard_api";
+} from "@/src/services/routes-other/dashboard_api";
 import NewGroupForm from "@/src/components/forms/NewGroupForm";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 import {
@@ -33,7 +33,7 @@ import {
 import {
   getTeacherID,
   useGetTeacherId,
-} from "@/src/services/api-calls/checkStudentId";
+} from "@/src/services/routes-other/checkStudentId";
 import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
 import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
 import Footer from "@/src/components/footer/Footer";

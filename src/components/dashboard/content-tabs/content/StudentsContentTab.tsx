@@ -1,5 +1,7 @@
 import {
   getUsersListsFromGroup,
+  responsePostMemberToGroup,
+  responseRemovetMemberToGroup,
   responseUsersFromGroup,
 } from "@/src/services/routes/groupRoutes";
 import {
@@ -9,6 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import UserDisplayInGroup from "../../components/UserDisplayInGroup";
 import StudentDisplayInGroup from "../../components/StudentsDisplayInGroup";
+import ButtonTab from "@/src/components/buttons/button-tab/ButtonTab";
 interface Props {
   groupId: number;
 }
@@ -16,6 +19,7 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
   const [students, setStudents] = useState<any>([]);
   const [usersInGroup, setUsersInGroup] = useState<any>([]);
   const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [errors, setErrors] = useState<any>([]);
   useEffect(() => {
     getAllStudentsList(setStudents);
   }, []);
@@ -24,6 +28,32 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
   }, [groupId]);
   const handleItemClick = (item: any) => {
     setSelectedItem(item);
+  };
+  const handleAddUserToGroup = async () => {
+    const response: any = await responsePostMemberToGroup(
+      selectedItem.userid,
+      groupId
+    );
+    console.log("Error adding user:222", response.error);
+    if (response.error) {
+      setErrors([response.error]);
+      console.error("Error adding user:", response.error);
+    } else {
+      getUsersListsFromGroup(groupId, setUsersInGroup);
+    }
+  };
+  const handleRemoveUserToGroup = async () => {
+    const response: any = await responseRemovetMemberToGroup(
+      selectedItem.userid,
+      groupId
+    );
+    console.log("Error adding user:222", response.error);
+    if (response.error) {
+      setErrors([response.error]);
+      console.error("Error adding user:", response.error);
+    } else {
+      getUsersListsFromGroup(groupId, setUsersInGroup);
+    }
   };
   return (
     <div className="w-full grid grid-cols-2 gap-4  bg-white rounded-xl  items-center pb-[200px]">
@@ -78,7 +108,16 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
         </div>
       </div>
       <div className="w-full">
-        <div className="w-[97%] h-[600px] bg-colorEight p-4 rounded-lg shadow-md ">
+        <div className="w-full h-[50px]">
+          {errors.length > 0 && (
+            <div className="text-red-500 text-xl font-mono">
+              {errors.map((error: string, index: number) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="w-[97%] h-[600px] bg-colorEight p-4 rounded-lg shadow-md  relative">
           <div className="w-full  border-y border-y-colorOne">
             <h2 className="text-xl font-bold my-2 font-orbitron_variable">
               Details
@@ -103,6 +142,10 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
             <h2 className="text-xl font-bold my-2 font-orbitron_variable">
               Actions
             </h2>
+          </div>
+          <div className=" absolute w-[95%] bottom-0">
+            <ButtonTab title={"Add"} onClick={handleAddUserToGroup} />
+            <ButtonTab title={"Remove"} onClick={handleRemoveUserToGroup} />
           </div>
         </div>
       </div>
