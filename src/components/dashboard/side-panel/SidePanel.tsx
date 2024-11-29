@@ -15,6 +15,7 @@ interface Props {
   isStudent?: boolean;
   openSecondModal: () => void;
   teacherID?: number;
+  setGroupId: React.Dispatch<React.SetStateAction<any>>;
 }
 const SidePanel: FC<Props> = ({
   isBoardOpen,
@@ -22,8 +23,10 @@ const SidePanel: FC<Props> = ({
   isStudent = true,
   openSecondModal,
   teacherID,
+  setGroupId,
 }) => {
   const [groups, setGroups] = useState<any[]>([]);
+
   const getTeacherGroups = async () => {
     try {
       if (teacherID) {
@@ -39,6 +42,11 @@ const SidePanel: FC<Props> = ({
       getTeacherGroups();
     }
   }, [teacherID]);
+
+  const handleGroupClick = (groupid: number) => {
+    setGroupId(groupid);
+    console.log("Selected Group ID:", groupid);
+  };
   return (
     <div
       className={`min-h-[700px]  w-[250px] ${
@@ -89,6 +97,7 @@ const SidePanel: FC<Props> = ({
                 description={group.description}
                 dateCreated={group.datecreated}
                 groupid={group.groupid}
+                onClick={handleGroupClick}
               />
             ))
           ) : (

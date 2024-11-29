@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import AnimatedDropdown from "@/src/components/custom-dropdown/CustomDropDown";
 import CustomInput from "@/src/components/custom-input/CustomInput";
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
 import { NextPage } from "next";
@@ -42,17 +41,9 @@ const SignUp: NextPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // if (!isLoaded) return;
-    // if (!validateInputs()) return;
-    console.log("Submit clicked");
-    if (!isLoaded) {
-      console.log("Clerk not loaded");
-      return;
-    }
-    if (!validateInputs()) {
-      console.log("Validation failed");
-      return;
-    }
+    if (!isLoaded) return;
+
+    if (!validateInputs()) return;
 
     console.log("Validation passed");
     try {
@@ -61,10 +52,6 @@ const SignUp: NextPage = () => {
         username: userData.userName,
         password: userData.password,
       });
-
-      // await signUp.update({
-      //   publicMetadata: { role },
-      // });
 
       await signUp.prepareEmailAddressVerification({
         strategy: "email_code",
@@ -142,19 +129,13 @@ const SignUp: NextPage = () => {
           onSubmit={handleVerify}
           className=" border border-colorOne rounded-xl p-5 min-w-[300px]"
         >
-          {/* <input
-            value={code}
-            id="code"
-            name="code"
-            onChange={(e) => setCode(e.target.value)}
-          /> */}
           <CustomInput
-            label={"  Enter your verification code"}
+            label={"Enter your verification code"}
             value={code}
             name={"Code"}
             onInputChange={(e) => setCode(e.target.value)}
           />
-          {/* <button type="submit">Verify</button> */}
+
           <ButtonPrimary title={"Verify"} type="submit" />
         </form>
       </div>
@@ -201,14 +182,6 @@ const SignUp: NextPage = () => {
           onInputChange={handleInputChange}
           error={errors.passwordConfirm}
         />
-        {/* <AnimatedDropdown
-          label="Select your role"
-          options={["Select your role", "Student", "Teacher"]}
-          onSelect={(option: any) => {
-            setRole(option);
-          }}
-          error={roleError}
-        /> */}
 
         <ButtonPrimary title={"Sign-Up!"} type="submit" />
       </form>

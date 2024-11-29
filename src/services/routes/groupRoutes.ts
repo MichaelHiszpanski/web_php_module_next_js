@@ -23,9 +23,9 @@ export const responseGetGroups = async (teacherID: number) => {
   return response.json();
 };
 
-export const responseStudentsFromGroup = async (groupID: number) => {
+export const responseUsersFromGroup = async (groupID: number) => {
   const response = await fetch(
-    `/api/groups/group/group-students?GroupID=${groupID}`,
+    `/api/groups/group/group-users?GroupID=${groupID}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -35,12 +35,12 @@ export const responseStudentsFromGroup = async (groupID: number) => {
   return response.json();
 };
 
-export const getStudentListsFromGroup = async (
+export const getUsersListsFromGroup = async (
   groupID: number,
   setStudentsFromGroup: React.Dispatch<React.SetStateAction<any>>
 ) => {
   try {
-    const result = await responseStudentsFromGroup(groupID);
+    const result = await responseUsersFromGroup(groupID);
 
     if (Array.isArray(result)) {
       setStudentsFromGroup(result);

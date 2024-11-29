@@ -1,104 +1,71 @@
 import {
-  getStudentListsFromGroup,
-  responseStudentsFromGroup,
+  getUsersListsFromGroup,
+  responseUsersFromGroup,
 } from "@/src/services/routes/groupRoutes";
 import {
   getAllStudentsList,
   responseStudents,
 } from "@/src/services/routes/studentRoutes";
 import React, { useEffect, useState } from "react";
+import UserDisplayInGroup from "../../components/UserDisplayInGroup";
+import StudentDisplayInGroup from "../../components/StudentsDisplayInGroup";
 interface Props {
-  teacherID?: string;
+  groupId: number;
 }
-const StudentsContentTab: React.FC<Props> = ({ teacherID }) => {
+const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
   const [students, setStudents] = useState<any>([]);
-  const [studentsInGroup, setStudentsInGroup] = useState<any>([]);
+  const [usersInGroup, setUsersInGroup] = useState<any>([]);
   useEffect(() => {
     getAllStudentsList(setStudents);
   }, []);
   useEffect(() => {
-    getStudentListsFromGroup(19, setStudentsInGroup);
-  }, []);
+    getUsersListsFromGroup(groupId, setUsersInGroup);
+  }, [groupId]);
   return (
-    <div className="w-full flex flex-row  h-full bg-white items-center">
-      <div className="w-full p-5">
-        <h1 className="text-xl font-bold mb-4 w-full text-center">
-          Students in Group
-        </h1>
-        <div
-          className="w-full h-[600px] rounded-2xl border-2 shadow-xl 
+    <div className="w-full grid grid-cols-2 gap-4 bg-white items-center pb-[200px]">
+      <div className="w-full">
+        <div className="grid grid-cols-2 gap-4 p-4 w-full">
+          <h1 className="text-xl font-bold mb-4 w-full text-center">
+            Students in Group
+          </h1>
+          <h1 className="text-xl font-bold mb-4 w-full bg-green-400 text-center">
+            ALL Students
+          </h1>
+        </div>
+        <div className="grid grid-cols-2 gap-4 p-4 w-full">
+          <div
+            className="w-full h-[600px] rounded-2xl border-2 shadow-xl 
                  border-colorOne bg-gray-400 flex flex-col-reverse items-start 
                  gap-2 p-4 overflow-y-auto"
-          aria-label="Students in Group"
-          style={{ overflowY: "auto" }}
-        >
-          {students.length === 0 ? (
-            <div>EMPTY</div>
-          ) : (
-            studentsInGroup.map((item: any) => (
-              <div
-                key={item.userid}
-                className="w-full bg-white p-2 rounded-md shadow-sm border border-gray-200"
-              >
-                <div>
-                  <strong>First Name:</strong> {item.firstname}
-                </div>
-                <div>
-                  <strong>Last Name:</strong> {item.lastname}
-                </div>
-                <div>
-                  <strong>Role:</strong> {item.roledescription}
-                </div>
-                <div>
-                  <strong>Email:</strong> {item.useremail}
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-      <div className="w-full p-5">
-        <h1 className="text-xl font-bold mb-4 w-full text-center">
-          ALL Students
-        </h1>
-        <div
-          className="w-full h-[600px] rounded-2xl border-2 shadow-xl 
+            aria-label="Students in Group"
+            style={{ overflowY: "auto" }}
+          >
+            {students.length === 0 ? (
+              <div>EMPTY</div>
+            ) : (
+              usersInGroup.map((item: any) => (
+                <UserDisplayInGroup item={item} key={item.userid} />
+              ))
+            )}
+          </div>
+          <div
+            className="w-full h-[600px] rounded-2xl border-2 shadow-xl 
                  border-colorOne bg-gray-400 flex flex-col-reverse items-start 
                  gap-2 p-4 overflow-y-auto"
-          aria-label="All Students"
-          style={{ overflowY: "auto" }}
-        >
-          {students.length === 0 ? (
-            <div>EMPTY</div>
-          ) : (
-            students.map((item: any) => (
-              <div
-                key={item.studentid}
-                className="w-full bg-white p-2 rounded-md shadow-sm border border-gray-200"
-              >
-                <div>
-                  <strong>First Name:</strong> {item.firstname}
-                </div>
-                <div>
-                  <strong>Last Name:</strong> {item.lastname}
-                </div>
-                <div>
-                  <strong>City:</strong> {item.city}
-                </div>
-                <div>
-                  <strong>Postcode:</strong> {item.postcode}
-                </div>
-                <div>
-                  <strong>Street Name:</strong> {item.streetname}
-                </div>
-                <div>
-                  <strong>House Number:</strong> {item.housenumber}
-                </div>
-              </div>
-            ))
-          )}
+            aria-label="All Students"
+            style={{ overflowY: "auto" }}
+          >
+            {students.length === 0 ? (
+              <div>EMPTY</div>
+            ) : (
+              students.map((item: any) => (
+                <StudentDisplayInGroup item={item} key={item.studentid} />
+              ))
+            )}
+          </div>
         </div>
       </div>
+      <div className="w-full">Messages</div>
     </div>
   );
 };

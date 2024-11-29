@@ -3,15 +3,18 @@ import { useSwipeable } from "react-swipeable";
 import MessagesContentTab from "./content/MessagesContentTab";
 import FilesContentTab from "./content/FilesContentTabs";
 import StudentsContentTab from "./content/StudentsContentTab";
+import { group } from "console";
 interface Props {
   isBoardOpen: boolean;
   isStudent: boolean;
   currentActiveTab: number;
+  groupId: number;
 }
 const ContentTabs: React.FC<Props> = ({
   isBoardOpen,
   isStudent,
   currentActiveTab,
+  groupId,
 }) => {
   const [activeTab, setActiveTab] = useState(currentActiveTab);
 
@@ -20,7 +23,7 @@ const ContentTabs: React.FC<Props> = ({
   }, [currentActiveTab]);
 
   const content = [
-    { key: "students", element: <StudentsContentTab /> },
+    { key: "students", element: <StudentsContentTab groupId={groupId} /> },
     { key: "messages", element: <MessagesContentTab /> },
     { key: "files", element: <FilesContentTab /> },
   ];

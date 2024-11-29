@@ -4,15 +4,20 @@ interface Props {
   description: string;
   dateCreated: string;
   groupid: number;
+  onClick: (groupid: number) => void;
 }
 const SidePanelItem: React.FC<Props> = ({
   groupName,
   description,
   dateCreated,
   groupid,
+  onClick,
 }) => {
   return (
-    <div className="p-2 bg-white border  border-colorSeven shadow-sm rounded-xl m-2 overflow-hidden">
+    <div
+      onClick={() => onClick(groupid)}
+      className="p-2 bg-white border  border-colorSeven shadow-sm rounded-xl m-2 overflow-hidden"
+    >
       <h3 className=" text-lg text-colorFour font-orbitron_variable">
         Name: {groupName}
       </h3>

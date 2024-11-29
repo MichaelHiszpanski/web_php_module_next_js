@@ -49,7 +49,7 @@ const Dashboard: NextPage = () => {
   const [formData, setFormData] = useState<PersonalDetailModel | null>(null);
   //const { data, isLoading, error } = usePostStudentOrTeacher(formData);
   const [groupForm, setGroupForm] = useState<NewGroupModel | null>(null);
-
+  const [groupId, setGroupId] = useState<number>(0);
   const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
@@ -202,6 +202,7 @@ const Dashboard: NextPage = () => {
         openSecondModal={openSecondModal}
         isStudent={isStudent}
         teacherID={groupForm?.teacherID}
+        setGroupId={setGroupId}
       />
 
       <div className="flex flex-col w-full items-center ">
@@ -215,6 +216,7 @@ const Dashboard: NextPage = () => {
           isBoardOpen={isBoardOpen}
           isStudent={isStudent}
           currentActiveTab={activeTab}
+          groupId={groupId}
         />
       </div>
       <CustomModal

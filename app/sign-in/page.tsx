@@ -14,12 +14,7 @@ const SignIn: NextPage = () => {
   const router = useRouter();
 
   const { isLoaded, signIn, setActive } = useSignIn();
-  // const [email, setEmail] = React.useState("");
-  // const { user, isSignedIn } = useUser();
-  // const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
-  // const [emailError, setEmailError] = React.useState<string | null>(null);
-  // const [passwordError, setPasswordError] = React.useState<string | null>(null);
   const [errors, setErrors] = useState<any>({
     email: "",
     password: "",
