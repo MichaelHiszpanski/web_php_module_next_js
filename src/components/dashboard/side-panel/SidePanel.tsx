@@ -3,7 +3,9 @@ import React, { FC, useEffect, useState } from "react";
 import {
   FaCircle,
   FaCross,
+  FaFileArchive,
   FaHelicopter,
+  FaScroll,
   FaToggleOff,
   FaToggleOn,
 } from "react-icons/fa";
@@ -64,30 +66,34 @@ const SidePanel: FC<Props> = ({
           {isBoardOpen ? <FaToggleOn /> : <FaToggleOff />}
         </button>
       </div>
-      {!isStudent && (
-        <div
-          className="mt-10 px-2 border-[0.5px] border-black bg-white text-colorOne rounded-xl mx-5 cursor-pointer"
-          onClick={openSecondModal}
-        >
-          Create new group.
-        </div>
-      )}
+
       <div>
-        <div className="flex  flex-row w-full items-center justify-center">
-          <h2 className="text-white my-2 text-xl w-full text-center ">
+        <div className="flex mt-10 flex-row w-full items-center justify-center">
+          <h2 className="text-white  my-2 text-lg w-full text-center font-mono">
             Groups Created
           </h2>
           <button
-            className=" px-2 border-[0.5px] border-black bg-white text-colorOne rounded-xl mx-5 cursor-pointer"
+            className=" p-1 border-[0.5px] border-black bg-white  text-colorOne rounded-xl   cursor-pointer"
             onClick={() => getTeacherGroups()}
           >
-            <FaCircle />
-            <FaHelicopter />
+            {/* <FaCircle />
+            <FaHelicopter /> */}
+
+            <FaScroll size={20} />
           </button>
         </div>
+        {!isStudent && (
+          <div
+            className="mt-2 text-sm mb-5 px-2 border-[0.5px] border-black bg-white
+                font-orbitron_variable text-colorOne rounded-xl mx-5 cursor-pointer"
+            onClick={openSecondModal}
+          >
+            Create new group.
+          </div>
+        )}
         <div
           style={{ overflowY: "auto" }}
-          className=" h-[500px] bg-colorTwo p-2 ml-2"
+          className=" h-[700px] bg-white rounded-md p-2 ml-2"
         >
           {groups.length > 0 ? (
             groups.map((group) => (

@@ -1,3 +1,4 @@
+import { sidePanelItemStyling } from "@/src/consts/styles";
 import React from "react";
 interface Props {
   groupName: string;
@@ -16,14 +17,16 @@ const SidePanelItem: React.FC<Props> = ({
   return (
     <div
       onClick={() => onClick(groupid)}
-      className="p-2 bg-white border  border-colorSeven shadow-sm rounded-xl m-2 overflow-hidden"
+      className={sidePanelItemStyling.container}
     >
-      <h3 className=" text-lg text-colorFour font-orbitron_variable">
-        Name: {groupName}
-      </h3>
-      <p>Info: {description}</p>
-      <p>Group ID: {groupid.toString()}</p>
-      <p>Date Created: {dateCreated || "N/A"}</p>
+      <div className="border-b-[0.5px] border-b-colorSix shadow-sm ">
+        <h3 className={sidePanelItemStyling.name}>Name: {groupName}</h3>
+      </div>
+      <p className={sidePanelItemStyling.field}>Info: {description}</p>
+      <p className={sidePanelItemStyling.field}>ID: {groupid.toString()}</p>
+      <p className={sidePanelItemStyling.field}>
+        Created: {dateCreated || "N/A"}
+      </p>
     </div>
   );
 };

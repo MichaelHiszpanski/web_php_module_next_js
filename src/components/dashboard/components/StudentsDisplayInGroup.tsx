@@ -2,10 +2,15 @@ import { studentDisplayCardStyle } from "@/src/consts/styles";
 import React from "react";
 interface Props {
   item: any;
+  onClick: () => void;
 }
-const StudentDisplayInGroup: React.FC<Props> = ({ item }) => {
+const StudentDisplayInGroup: React.FC<Props> = ({ item, onClick }) => {
   return (
-    <div key={item.userid} className={studentDisplayCardStyle.container}>
+    <div
+      key={item.userid}
+      className={studentDisplayCardStyle.container}
+      onClick={onClick}
+    >
       <div className={studentDisplayCardStyle.fieldContainer}>
         <span className={studentDisplayCardStyle.label}>First Name: </span>
         <span className={studentDisplayCardStyle.value}>{item.firstname}</span>

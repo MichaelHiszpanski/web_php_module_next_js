@@ -15,20 +15,24 @@ interface Props {
 const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
   const [students, setStudents] = useState<any>([]);
   const [usersInGroup, setUsersInGroup] = useState<any>([]);
+  const [selectedItem, setSelectedItem] = useState<any>(null);
   useEffect(() => {
     getAllStudentsList(setStudents);
   }, []);
   useEffect(() => {
     getUsersListsFromGroup(groupId, setUsersInGroup);
   }, [groupId]);
+  const handleItemClick = (item: any) => {
+    setSelectedItem(item);
+  };
   return (
-    <div className="w-full grid grid-cols-2 gap-4 bg-white items-center pb-[200px]">
+    <div className="w-full grid grid-cols-2 gap-4  bg-white rounded-xl  items-center pb-[200px]">
       <div className="w-full">
         <div className="grid grid-cols-2 gap-4 p-4 w-full">
-          <h1 className="text-xl font-bold mb-4 w-full text-center">
+          <h1 className="text-xl font-bold  w-full text-center font-mono">
             Students in Group
           </h1>
-          <h1 className="text-xl font-bold mb-4 w-full bg-green-400 text-center">
+          <h1 className="text-xl font-bold  w-full  text-center font-mono">
             ALL Students
           </h1>
         </div>
@@ -44,7 +48,11 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
               <div>EMPTY</div>
             ) : (
               usersInGroup.map((item: any) => (
-                <UserDisplayInGroup item={item} key={item.userid} />
+                <UserDisplayInGroup
+                  item={item}
+                  key={item.userid}
+                  onClick={() => handleItemClick(item)}
+                />
               ))
             )}
           </div>
@@ -59,13 +67,45 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
               <div>EMPTY</div>
             ) : (
               students.map((item: any) => (
-                <StudentDisplayInGroup item={item} key={item.studentid} />
+                <StudentDisplayInGroup
+                  item={item}
+                  key={item.studentid}
+                  onClick={() => handleItemClick(item)}
+                />
               ))
             )}
           </div>
         </div>
       </div>
-      <div className="w-full">Messages</div>
+      <div className="w-full">
+        <div className="w-[97%] h-[600px] bg-colorEight p-4 rounded-lg shadow-md ">
+          <div className="w-full  border-y border-y-colorOne">
+            <h2 className="text-xl font-bold my-2 font-orbitron_variable">
+              Details
+            </h2>
+          </div>
+
+          {selectedItem ? (
+            <div>
+              <p className="text-sm font-semibold font-permanentMarker mt-2">
+                Selected Item Details:
+              </p>
+              <pre className="bg-gray-200 p-2 mt-2 rounded-xl">
+                {JSON.stringify(selectedItem, null, 2)}
+              </pre>
+            </div>
+          ) : (
+            <p className="text-sm text-gray-500">
+              Click on a student or user to see details here.
+            </p>
+          )}
+          <div className="mt-5 border-y border-y-colorOne">
+            <h2 className="text-xl font-bold my-2 font-orbitron_variable">
+              Actions
+            </h2>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
