@@ -29,13 +29,13 @@ const NavigationBar: FC = () => {
       className="w-full relative h-[100px] flex flex-row justify-evenly items-center"
       style={{
         backgroundImage: `url(/sky2.jpg)`,
-        backgroundSize: "cover",
+        backgroundSize: "100%",
         backgroundPosition: "center",
         height: "100px",
       }}
     >
       {/* <Image
-        src={"/public/sky.jpeg"}
+        src={"/nav.png"}
         width={100}
         height={100}
         alt="bg"

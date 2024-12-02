@@ -49,7 +49,7 @@ const Home: NextPage = ({}) => {
         <h1 className="text-7xl font-mono text-white font-bold mt-20">
           School Manager
         </h1>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Write a comment"
@@ -58,7 +58,7 @@ const Home: NextPage = ({}) => {
             onChange={(e) => setComment(e.target.value)}
           />
           <button type="submit">Submit</button>
-        </form>
+        </form> */}
 
         {message && <p>{message}</p>}
       </div>

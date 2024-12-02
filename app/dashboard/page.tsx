@@ -191,7 +191,7 @@ const Dashboard: NextPage = () => {
   return (
     <div
       className={`flex flex-row h-full  ${
-        isStudent ? "bg-red-500" : "bg-white"
+        isStudent ? "bg-gray-300" : "bg-white"
       }`}
     >
       <SidePanel

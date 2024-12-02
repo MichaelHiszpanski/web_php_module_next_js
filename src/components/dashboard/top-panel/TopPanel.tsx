@@ -17,7 +17,7 @@ const TopPanel: React.FC<Props> = ({ isBoardOpen, isStudent, onChnageTab }) => {
     <div
       className={`w-full  h-[60px] transform transition-transform duration-400 ${
         isBoardOpen ? " flex translate-y-0" : " hidden -translate-y-full"
-      } ${isStudent ? "bg-yellow-500" : "bg-colorSix"}`}
+      } ${isStudent ? "bg-colorFour" : "bg-colorSix"}`}
     >
       <div className=" relative flex w-full justify-around border-b-[2px] border-gray-300 transition-all duration-500">
         <div
@@ -30,7 +30,7 @@ const TopPanel: React.FC<Props> = ({ isBoardOpen, isStudent, onChnageTab }) => {
         {tabs.map((tab, index) => (
           <button
             key={index}
-            className={`flex-1 text-center py-2 mx-10 ${
+            className={`flex-1 text-center py-2 mx-10 font-orbitron_variable text-lg font-bold ${
               activeTab === index
                 ? "font-bold"
                 : "text-white transition-colors duration-300"
