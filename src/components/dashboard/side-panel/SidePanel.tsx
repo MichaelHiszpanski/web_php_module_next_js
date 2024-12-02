@@ -1,14 +1,6 @@
 import { responseGetGroups } from "@/src/services/routes/groupRoutes";
 import React, { FC, useEffect, useState } from "react";
-import {
-  FaCircle,
-  FaCross,
-  FaFileArchive,
-  FaHelicopter,
-  FaScroll,
-  FaToggleOff,
-  FaToggleOn,
-} from "react-icons/fa";
+import { FaScroll, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import SidePanelItem from "./SidePanelItem";
 
 interface Props {

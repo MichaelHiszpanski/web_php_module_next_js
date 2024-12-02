@@ -23,7 +23,9 @@ const ContentTabs: React.FC<Props> = ({
   }, [currentActiveTab]);
 
   const content = [
-    { key: "students", element: <StudentsContentTab groupId={groupId} /> },
+    isStudent === false
+      ? { key: "students", element: <StudentsContentTab groupId={groupId} /> }
+      : { key: "notes", element: <div> Notes</div> },
     { key: "messages", element: <MessagesContentTab groupId={groupId} /> },
     { key: "files", element: <FilesContentTab /> },
   ];

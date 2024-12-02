@@ -1,16 +1,18 @@
-import CustomInput from "@/src/components/custom-input/CustomInput";
 import MessageInput from "@/src/components/message-input/MesageInput";
 import userStore from "@/src/mobX/user-store/user_store";
-import { getUsersListsFromGroup } from "@/src/services/routes/groupRoutes";
 import {
   getMessagesListFromGroup,
   responsePostMessageToGroup,
 } from "@/src/services/routes/messageRoute";
+import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
+import MessageDisplay from "../../components/MessageDisplay";
+
 interface Props {
   groupId: number;
 }
+
 const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
   const [messagesInGroup, setMessagesFromGroup] = useState<any>([]);
   const [message, setMessage] = useState<string>("");
@@ -47,12 +49,12 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
         >
           {messagesInGroup?.length > 0 ? (
             messagesInGroup.map((item: any) => (
-              <div
-                key={item.messageid}
-                className="w-full bg-white p-2 rounded-md shadow-sm border border-gray-200"
-              >
-                Message: {item.messagecontext}
-              </div>
+              <MessageDisplay
+                messageid={item.messageid}
+                messagecontext={item.messagecontext}
+                username={item.username}
+                datecreated={dateTimeFormater(item.datecreated)}
+              />
             ))
           ) : (
             <div>No messages found.</div>
