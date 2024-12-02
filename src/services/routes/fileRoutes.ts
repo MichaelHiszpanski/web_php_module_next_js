@@ -25,19 +25,16 @@ export const responseGetGroupFiles = async (groupID: number) => {
   return response.json();
 };
 
-export const getFilesListFromGroup = async (
-  groupID: number,
-  setGroupFiles: React.Dispatch<React.SetStateAction<any>>
-) => {
+export const getGroupFilesList = async (groupID: number) => {
   try {
     const result = await responseGetGroupFiles(groupID);
 
-    if (Array.isArray(result.messages)) {
-      setGroupFiles(result.messages);
+    if (Array.isArray(result)) {
+      return result;
     } else {
-      setGroupFiles([]);
+      return [];
     }
   } catch (error) {
-    setGroupFiles([]);
+    return [];
   }
 };

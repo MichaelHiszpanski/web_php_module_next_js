@@ -5,7 +5,7 @@ export async function GET(req: Request) {
   try {
     const sql = neon(`${process.env.DATABASE_URL}`);
     const url = new URL(req.url);
-    const groupId = url.searchParams.get("groupId");
+    const groupId = url.searchParams.get("GroupID");
 
     if (!groupId) {
       return NextResponse.json(
