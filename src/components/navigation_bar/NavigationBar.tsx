@@ -2,6 +2,7 @@
 import React, { FC, useState, useRef, useEffect } from "react";
 import {
   logo,
+  logo2,
   logoEarth,
   logoEarth2,
   wave_down_three,
@@ -26,13 +27,13 @@ const NavigationBar: FC = () => {
 
   return (
     <nav
-      className="w-full relative h-[100px] flex flex-row justify-evenly items-center"
-      style={{
-        backgroundImage: `url(/sky2.jpg)`,
-        backgroundSize: "100%",
-        backgroundPosition: "center",
-        height: "100px",
-      }}
+      className="w-full relative h-[100px] flex flex-row justify-evenly items-center bg-gradient-to-r from-colorSeven to-colorEight"
+      // style={{
+      //   backgroundImage: `url(/sky2.jpg)`,
+      //   backgroundSize: "100%",
+      //   backgroundPosition: "center",
+      //   height: "100px",
+      // }}
     >
       {/* <Image
         src={"/nav.png"}
@@ -49,7 +50,7 @@ const NavigationBar: FC = () => {
       /> */}
       <div className="flex flex-row md:justify-evenly justify-between pr-20  items-center w-full h-full z-50">
         <Image
-          src={logoEarth2}
+          src={logo2}
           alt="logo"
           className="w-24 h-24 cursor-pointer select-none"
           onClick={() => {

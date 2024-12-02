@@ -60,7 +60,7 @@ const SidePanel: FC<Props> = ({
   return (
     <div
       className={`min-h-[700px]  w-[250px] ${
-        isStudent ? "bg-colorFour" : "bg-colorSix"
+        isStudent ? "bg-colorEight" : "bg-colorSix"
       } transform transition-transform duration-400 ${
         isBoardOpen ? "translate-x-0" : "-translate-x-[80%]"
       }`}
@@ -77,9 +77,7 @@ const SidePanel: FC<Props> = ({
 
       <div>
         <div className="flex mt-2  flex-row w-full items-center justify-center">
-          <h2 className="text-white  my-2 text-lg w-full text-center font-mono">
-            Groups Created
-          </h2>
+          <p className="font-mono text-sm mr-10">Refresh -{">"} </p>
           <button
             className=" p-1 border-[0.5px] border-black bg-white  text-colorOne rounded-xl   cursor-pointer"
             onClick={() => getTeacherGroups()}
@@ -90,6 +88,9 @@ const SidePanel: FC<Props> = ({
             <FaScroll size={20} />
           </button>
         </div>
+        <h2 className="text-colorOne  my-2 text-lg w-full text-center font-mono">
+          Groups Created
+        </h2>
         {!isStudent && (
           <div
             className="mt-2 text-sm mb-2 px-2 border-[0.5px] border-black bg-white
