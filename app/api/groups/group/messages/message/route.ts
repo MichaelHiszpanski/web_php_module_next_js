@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     const sql = neon(`${process.env.DATABASE_URL}`);
     const body = await req.json();
 
-    const { UserID, GroupID, MessageContext } = body;
+    const { UserID, GroupID, UserName, MessageContext } = body;
 
     if (!UserID || !GroupID || !MessageContext) {
       return NextResponse.json(
@@ -41,17 +41,17 @@ export async function POST(req: Request) {
       );
     }
 
-    const memberCheck = await sql`
-    SELECT * FROM GroupMembers WHERE UserID = ${UserID} AND GroupID = ${GroupID};
-  `;
-    if (memberCheck.length > 0) {
-      return NextResponse.json(
-        {
-          error: "Error: User is already part of the group.",
-        },
-        { status: 400 }
-      );
-    }
+    //     const memberCheck = await sql`
+    //     SELECT * FROM GroupMembers WHERE UserID = ${UserID} AND GroupID = ${GroupID};
+    //   `;
+    //     if (memberCheck.length > 0) {
+    //       return NextResponse.json(
+    //         {
+    //           error: "Error: User is already part of the group.",
+    //         },
+    //         { status: 400 }
+    //       );
+    //     }
     const membershipCheck = await sql`
     SELECT * FROM GroupMembers 
     WHERE GroupID = ${GroupID} AND UserID = ${UserID};
@@ -64,10 +64,15 @@ export async function POST(req: Request) {
     }
 
     const result = await sql`
-    INSERT INTO Messages (GroupID, UserID, MessageContext)
-    VALUES (${GroupID}, ${UserID}, ${MessageContext});
+    INSERT INTO Messages (GroupID, UserID, UserName, MessageContext)
+    VALUES (${GroupID}, ${UserID}, ${UserName}, ${MessageContext});
   `;
-
+    if (result.length === 0) {
+      return NextResponse.json(
+        { message: "Somethiong went wrong" },
+        { status: 404 }
+      );
+    }
     return NextResponse.json(
       { message: "Message added successfully!" },
       { status: 201 }

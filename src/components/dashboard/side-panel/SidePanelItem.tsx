@@ -19,7 +19,7 @@ const SidePanelItem: React.FC<Props> = ({
       onClick={() => onClick(groupid)}
       className={sidePanelItemStyling.container}
     >
-      <div className="border-b-[0.5px] border-b-colorSix shadow-sm ">
+      <div className="border-b-[0.7px] border-b-colorSix shadow-sm my-2">
         <h3 className={sidePanelItemStyling.name}>Name: {groupName}</h3>
       </div>
       <p className={sidePanelItemStyling.field}>Info: {description}</p>

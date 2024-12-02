@@ -110,6 +110,7 @@ export async function POST(req: Request) {
       MessageID SERIAL PRIMARY KEY,
       GroupID INT NOT NULL,
       UserID VARCHAR(255) NOT NULL,
+      UserName VARCHAR(255) NOT NULL,
       DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       MessageContext TEXT NOT NULL,
       FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),

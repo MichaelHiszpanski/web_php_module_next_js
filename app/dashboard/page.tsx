@@ -37,6 +37,7 @@ import {
 import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
 import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
 import Footer from "@/src/components/footer/Footer";
+import { runInAction } from "mobx";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(true);
@@ -60,6 +61,7 @@ const Dashboard: NextPage = () => {
         const response = await responseGetUser(user.id);
         userStore.setUser({
           userId: user.id,
+          name: user?.username ?? "o Name",
         });
         if (!response.ok) {
           const errorData = await response.json();
@@ -80,9 +82,6 @@ const Dashboard: NextPage = () => {
 
     if (isSignedIn) {
       fetchUserData();
-      userStore.setUser({
-        userId: user.id,
-      });
     }
   }, [isSignedIn, user]);
 
@@ -209,6 +208,8 @@ const Dashboard: NextPage = () => {
           isStudent={isStudent}
           onChnageTab={handleTabChange}
         />
+        <div>User id: {userStore.user.userId}</div>
+        <div>Name id: {userStore.user.name}</div>
 
         <ContentTabs
           isBoardOpen={isBoardOpen}

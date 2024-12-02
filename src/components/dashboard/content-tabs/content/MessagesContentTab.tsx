@@ -12,7 +12,7 @@ interface Props {
   groupId: number;
 }
 const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
-  const [usersInGroup, setMessagesFromGroup] = useState<any>([]);
+  const [messagesInGroup, setMessagesFromGroup] = useState<any>([]);
   const [message, setMessage] = useState<string>("");
   useEffect(() => {
     getMessagesListFromGroup(groupId, setMessagesFromGroup);
@@ -23,7 +23,13 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
     setMessage(e.target.value);
   };
   const sendMessage = async () => {
-    await responsePostMessageToGroup(groupId, userStore.user.userId, message);
+    await responsePostMessageToGroup(
+      groupId,
+      userStore.user.userId,
+      userStore.user.name,
+      message
+    );
+    await getMessagesListFromGroup(groupId, setMessagesFromGroup);
   };
   return (
     <div className="w-full flex flex-col min-h-[700px] bg-colorFour items-center mb-[100px]">
@@ -35,15 +41,22 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
         aria-label="Students List"
         style={{ overflowY: "auto" }}
       >
-        <div className="w-full h-full" style={{ overflowY: "auto" }}>
-          {usersInGroup.map((item: any) => (
-            <div
-              key={item}
-              className="w-full bg-white p-2 rounded-md shadow-sm border border-gray-200"
-            >
-              Messsage: {item}
-            </div>
-          ))}
+        <div
+          className="w-full h-full flex flex-col-reverse items-start overflow-y-auto"
+          style={{ overflowY: "auto" }}
+        >
+          {messagesInGroup?.length > 0 ? (
+            messagesInGroup.map((item: any) => (
+              <div
+                key={item.messageid}
+                className="w-full bg-white p-2 rounded-md shadow-sm border border-gray-200"
+              >
+                Message: {item.messagecontext}
+              </div>
+            ))
+          ) : (
+            <div>No messages found.</div>
+          )}
         </div>
         <MessageInput
           label={"Message"}

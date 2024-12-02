@@ -16,8 +16,8 @@ export const getMessagesListFromGroup = async (
   try {
     const result = await responseMessagesInGropup(groupID);
 
-    if (Array.isArray(result)) {
-      setMessagesFromGroup(result);
+    if (Array.isArray(result.messages)) {
+      setMessagesFromGroup(result.messages);
     } else {
       setMessagesFromGroup([]);
     }
@@ -29,12 +29,13 @@ export const getMessagesListFromGroup = async (
 export const responsePostMessageToGroup = async (
   GroupID: number,
   UserID: string,
+  UserName: string,
   MessageContext: string
 ) => {
   const response = await fetch("/api/groups/group/messages/message", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ GroupID, UserID, MessageContext }),
+    body: JSON.stringify({ GroupID, UserID, UserName, MessageContext }),
   });
 
   return response.json();

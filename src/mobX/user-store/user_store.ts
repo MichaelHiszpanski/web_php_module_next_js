@@ -5,6 +5,7 @@ export class UserStore {
     email: "",
     password: "",
     userId: "",
+    name: "",
   };
 
   constructor() {
@@ -12,9 +13,17 @@ export class UserStore {
   }
 
   setUser(
-    userDetails: Partial<{ email: string; password: string; userId: string }>
+    userDetails: Partial<{
+      email: string;
+      password: string;
+      userId: string;
+      name: string;
+    }>
   ) {
     this.user = { ...this.user, ...userDetails };
+  }
+  updateUserName(name: string) {
+    this.user = { ...this.user, name };
   }
 
   clearUser() {
@@ -22,6 +31,7 @@ export class UserStore {
       email: "",
       password: "",
       userId: "",
+      name: "",
     };
   }
 }
