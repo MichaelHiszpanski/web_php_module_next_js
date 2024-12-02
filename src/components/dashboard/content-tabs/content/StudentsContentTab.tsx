@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import UserDisplayInGroup from "../../components/UserDisplayInGroup";
 import StudentDisplayInGroup from "../../components/StudentsDisplayInGroup";
 import ButtonTab from "@/src/components/buttons/button-tab/ButtonTab";
+import CustomField from "@/src/components/custom-field/CustomField";
 interface Props {
   groupId: number;
 }
@@ -129,9 +130,10 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
               <p className="text-sm font-semibold font-permanentMarker mt-2">
                 Selected Item Details:
               </p>
-              <pre className="bg-gray-200 p-2 mt-2 rounded-xl">
-                {JSON.stringify(selectedItem, null, 2)}
-              </pre>
+
+              {Object.entries(selectedItem).map(([key, value]) => (
+                <CustomField key={key} label={key} value={String(value)} />
+              ))}
             </div>
           ) : (
             <p className="text-sm text-gray-500">

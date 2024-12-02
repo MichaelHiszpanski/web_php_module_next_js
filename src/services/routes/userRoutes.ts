@@ -8,13 +8,6 @@ export const responseGetUser = async (userId: string) => {
 
   return response;
 };
-export const getRoles = async () => {
-  const response = await fetch(`/api/roles`, {
-    method: "GET",
-  });
-
-  return response;
-};
 
 export const responsePostUser = async (formData: UserDetailsModel) => {
   const response = await fetch("/api/users/user", {

@@ -1,13 +1,14 @@
 import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
-const sql = neon(`${process.env.DATABASE_URL}`);
+
 export async function POST(req: Request) {
   try {
+    const sql = neon(`${process.env.DATABASE_URL}`);
     const body = await req.json();
 
-    const { UserID, GroupID } = body;
+    const { UserID, GroupID, MessageContext } = body;
 
-    if (!UserID || !GroupID) {
+    if (!UserID || !GroupID || !MessageContext) {
       return NextResponse.json(
         {
           error: "GroupId nand UserID is missing",
@@ -51,16 +52,24 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    const membershipCheck = await sql`
+    SELECT * FROM GroupMembers 
+    WHERE GroupID = ${GroupID} AND UserID = ${UserID};
+  `;
+    if (membershipCheck.length === 0) {
+      return NextResponse.json(
+        { error: "Error: User is not a member of the specified group." },
+        { status: 400 }
+      );
+    }
 
     const result = await sql`
-      INSERT INTO GroupMembers (GroupID, UserID)
-      VALUES (${GroupID}, ${UserID});
-    `;
+    INSERT INTO Messages (GroupID, UserID, MessageContext)
+    VALUES (${GroupID}, ${UserID}, ${MessageContext});
+  `;
 
     return NextResponse.json(
-      {
-        message: "Member was added succesfuly",
-      },
+      { message: "Message added successfully!" },
       { status: 201 }
     );
   } catch (error: any) {
@@ -75,69 +84,38 @@ export async function POST(req: Request) {
 }
 export async function DELETE(req: Request) {
   try {
-    const body = await req.json();
+    const sql = neon(`${process.env.DATABASE_URL}`);
+    const { MessageID } = await req.json();
 
-    const { UserID, GroupID } = body;
-
-    if (!UserID || !GroupID) {
+    if (!MessageID) {
       return NextResponse.json(
-        {
-          error: "Error: GroupID or UserID is missing!",
-        },
+        { error: "MessageID is required." },
         { status: 400 }
       );
     }
 
-    const userCheck = await sql`
-      SELECT UserID FROM Users WHERE UserID = ${UserID};
-    `;
-    if (userCheck.length === 0) {
+    const messageCheck = await sql`
+        SELECT MessageID FROM Messages WHERE MessageID = ${MessageID};
+      `;
+    if (messageCheck.length === 0) {
       return NextResponse.json(
-        {
-          error: `Error: UserID does not exist in Users table.`,
-        },
+        { error: `Error: MessageID ${MessageID} does not exist.` },
         { status: 404 }
       );
     }
 
-    const groupCheck = await sql`
-      SELECT GroupID FROM Groups WHERE GroupID = ${GroupID};
-    `;
-    if (groupCheck.length === 0) {
-      return NextResponse.json(
-        {
-          error: `Error: GroupID doesn't exist in Groups table.`,
-        },
-        { status: 404 }
-      );
-    }
-
-    const memberCheck = await sql`
-      SELECT * FROM GroupMembers WHERE UserID = ${UserID} AND GroupID = ${GroupID};
-    `;
-    if (memberCheck.length === 0) {
-      return NextResponse.json(
-        {
-          error: "Error: User dosen`t belong to this Group.",
-        },
-        { status: 400 }
-      );
-    }
-
-    const result = await sql`
-      DELETE FROM GroupMembers WHERE UserID = ${UserID} AND GroupID = ${GroupID};
-    `;
+    await sql`
+        DELETE FROM Messages WHERE MessageID = ${MessageID};
+      `;
 
     return NextResponse.json(
-      {
-        message: "User was removed successfully to the Group!",
-      },
+      { message: "Message deleted successfully!" },
       { status: 200 }
     );
   } catch (error: any) {
     return NextResponse.json(
       {
-        error: "Error: Something went wrong.",
+        error: "Some problem occured, please try again.",
         detail: error.message,
       },
       { status: 500 }

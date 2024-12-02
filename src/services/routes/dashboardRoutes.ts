@@ -1,12 +1,10 @@
 import userStore from "@/src/mobX/user-store/user_store";
 import { PersonalDetailModel } from "@/src/models/PersonalDetailsModel";
-import { getRoles } from "../routes/userRoutes";
+
 import { useQuery } from "@tanstack/react-query";
 
 export const responseAddStudnetORTeacher = async (
   formData: PersonalDetailModel
-  //   setUserData: React.Dispatch<React.SetStateAction<any>>,
-  //   userData: any
 ) => {
   const setPath =
     formData.role === "Student" ? "students/student" : "teachers/teacher";
@@ -46,26 +44,6 @@ export const responseAddStudnetORTeacher = async (
       console.log("Something went wrong...!");
     }
   } catch (e) {}
-};
-
-export const getRoleNames = async (
-  setRoles: React.Dispatch<React.SetStateAction<any>>
-) => {
-  try {
-    const response = await getRoles();
-    if (response.ok) {
-      const rolesData = await response.json();
-
-      setRoles(rolesData);
-    }
-  } catch (error) {}
-};
-
-export const useRoleNames = () => {
-  return useQuery({
-    queryKey: ["roles"],
-    queryFn: () => getRoles(),
-  });
 };
 
 export const usePostStudentOrTeacher = (formData: PersonalDetailModel) => {

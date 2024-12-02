@@ -22,7 +22,7 @@ import {
 import {
   responseAddStudnetORTeacher,
   usePostStudentOrTeacher,
-} from "@/src/services/routes-other/dashboard_api";
+} from "@/src/services/routes/dashboardRoutes";
 import NewGroupForm from "@/src/components/forms/NewGroupForm";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 import {
@@ -33,7 +33,7 @@ import {
 import {
   getTeacherID,
   useGetTeacherId,
-} from "@/src/services/routes-other/checkStudentId";
+} from "@/src/services/routes/teacherRoutes";
 import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
 import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
 import Footer from "@/src/components/footer/Footer";
@@ -158,7 +158,6 @@ const Dashboard: NextPage = () => {
   const handleSubmit = async (groupForm: NewGroupModel) => {
     console.log("Group Form:", groupForm);
     if (!groupForm?.teacherID) {
-      console.error("Teacher ID is missing!");
       return;
     }
     const response = await responseNewGroup(groupForm);
@@ -170,7 +169,6 @@ const Dashboard: NextPage = () => {
   };
 
   const handleTabChange = (index: number) => {
-    console.log("Index", index);
     setActiveTab(index);
   };
 
