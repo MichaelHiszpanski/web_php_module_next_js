@@ -57,7 +57,7 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
     }
   };
   return (
-    <div className="w-full grid grid-cols-2 gap-4  bg-white rounded-xl  items-center pb-[200px]">
+    <div className="w-full grid grid-cols-2 gap-4  rounded-xl  items-center pb-[200px]">
       <div className="w-full">
         <div className="grid grid-cols-2 gap-4 p-4 w-full">
           <h1 className="text-xl font-bold  w-full text-center font-mono">

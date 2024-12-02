@@ -20,7 +20,7 @@ const config: Config = {
         colorThree: "#F08B33",
         colorFour: "#D75404",
         colorFive: "#8A2C02",
-        colorSix: "#BEC6CB",
+        colorSix: "transparent", // colorSix: "#BEC6CB","#77CBF0"
         colorSeven: "#F0A5CB",
         colorEight: "#9FEDD7",
         black: "#000",

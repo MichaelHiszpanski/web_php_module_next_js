@@ -59,7 +59,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
   }, [groupId]);
 
   return (
-    <div className="w-full flex flex-col min-h-[700px] bg-white items-center">
+    <div className="w-full flex flex-col min-h-[700px]  items-center">
       <h1 className="text-2xl font-orbitron_variable font-bold">Files</h1>
       <div
         className="w-[90%] h-[600px] rounded-2xl border-2 shadow-xl 

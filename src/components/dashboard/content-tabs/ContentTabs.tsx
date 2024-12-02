@@ -34,8 +34,9 @@ const ContentTabs: React.FC<Props> = ({
     <div
       className={`w-full h-ful transform transition-transform duration-400 ${
         isBoardOpen ? " flex translate-y-0" : " hidden -translate-y-full"
-      } ${isStudent ? "bg-white" : "bg-white"}`}
+      } }`}
     >
+      {/* ${isStudent ? "bg-white" : "bg-white" */}
       <div className="w-full flex flex-col">
         <div key={content[activeTab].key} className="flex-1 p-4">
           {content[activeTab].element}

@@ -189,10 +189,14 @@ const Dashboard: NextPage = () => {
   }
 
   return (
+    // ${
+    //   isStudent ? "bg-gray-300" : "bg-white"
+    // }
     <div
-      className={`flex flex-row h-full  ${
-        isStudent ? "bg-gray-300" : "bg-white"
-      }`}
+      className={`flex flex-row h-full 
+      
+      bg-gradient-to-r from-colorSeven to-colorEight
+      `}
     >
       <SidePanel
         isBoardOpen={isBoardOpen}
