@@ -40,7 +40,7 @@ import Footer from "@/src/components/footer/Footer";
 import { runInAction } from "mobx";
 const Dashboard: NextPage = () => {
   const router = useRouter();
-  const [isBoardOpen, setIsBoardOpen] = useState<boolean>(true);
+  const [isBoardOpen, setIsBoardOpen] = useState<boolean>(false);
   const [isStudent, setIsStudent] = useState<boolean>(true);
   const [userData, setUserData] = useState<any>(defaultUserDetails);
 
@@ -87,6 +87,7 @@ const Dashboard: NextPage = () => {
 
   useEffect(() => {
     setIsStudent(userData.roleid === 1 ? true : false);
+    setIsBoardOpen(true);
   }, [userData]);
 
   useEffect(() => {
@@ -208,8 +209,6 @@ const Dashboard: NextPage = () => {
           isStudent={isStudent}
           onChnageTab={handleTabChange}
         />
-        <div>User id: {userStore.user.userId}</div>
-        <div>Name id: {userStore.user.name}</div>
 
         <ContentTabs
           isBoardOpen={isBoardOpen}
@@ -251,7 +250,7 @@ const Dashboard: NextPage = () => {
           />
         </div>
       </CustomModal>
-      <Footer backgroudnColor="bg-colorSix " fontColor="text-colorOne" />
+      {/* <Footer backgroudnColor="bg-colorSix " fontColor="text-colorOne" /> */}
     </div>
   );
 };

@@ -27,14 +27,14 @@ const ContentTabs: React.FC<Props> = ({
       ? { key: "students", element: <StudentsContentTab groupId={groupId} /> }
       : { key: "notes", element: <div> Notes</div> },
     { key: "messages", element: <MessagesContentTab groupId={groupId} /> },
-    { key: "files", element: <FilesContentTab /> },
+    { key: "files", element: <FilesContentTab groupId={groupId} /> },
   ];
 
   return (
     <div
       className={`w-full h-ful transform transition-transform duration-400 ${
         isBoardOpen ? " flex translate-y-0" : " hidden -translate-y-full"
-      } ${isStudent ? "bg-yellow-500" : "bg-colorSix"}`}
+      } ${isStudent ? "bg-yellow-500" : "bg-white"}`}
     >
       <div className="w-full flex flex-col">
         <div key={content[activeTab].key} className="flex-1 p-4">

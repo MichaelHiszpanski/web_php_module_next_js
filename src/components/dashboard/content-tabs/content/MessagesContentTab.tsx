@@ -34,7 +34,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
     await getMessagesListFromGroup(groupId, setMessagesFromGroup);
   };
   return (
-    <div className="w-full flex flex-col min-h-[700px] bg-colorFour items-center mb-[100px]">
+    <div className="w-full flex flex-col min-h-[700px] bg-white items-center mb-[100px]">
       <h1>Messages</h1>
       <div
         className="w-[90%] h-[600px] rounded-2xl border-2 shadow-xl 
@@ -50,6 +50,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
           {messagesInGroup?.length > 0 ? (
             messagesInGroup.map((item: any) => (
               <MessageDisplay
+                key={item.messageid}
                 messageid={item.messageid}
                 messagecontext={item.messagecontext}
                 username={item.username}

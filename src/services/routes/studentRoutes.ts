@@ -21,3 +21,14 @@ export const getAllStudentsList = async (
     setStudents([]);
   }
 };
+
+export const responseStudentGroups = async (userId: string) => {
+  const response = await fetch(
+    `/api/students/student/student-groups?UserID=${userId}`,
+    {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  return response.json();
+};

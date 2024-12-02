@@ -2,6 +2,8 @@ import { responseGetGroups } from "@/src/services/routes/groupRoutes";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { FaScroll, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import SidePanelItem from "./SidePanelItem";
+import { responseStudentGroups } from "@/src/services/routes/studentRoutes";
+import userStore from "@/src/mobX/user-store/user_store";
 
 interface Props {
   isBoardOpen: boolean;
@@ -28,20 +30,33 @@ const SidePanel: FC<Props> = ({
         setGroups(response);
       }
     } catch (error) {
-      console.error("Error fetching Groups:", error);
+      console.error("Error: Something went wrong!", error);
     }
   }, [teacherID]);
+
+  const getStudentsGroups = useCallback(async () => {
+    try {
+      if (!teacherID) {
+        const response = await responseStudentGroups(userStore.user.userId);
+        setGroups(response);
+      }
+    } catch (error) {
+      console.error("Error: Something went wrong!", error);
+    }
+  }, [isStudent == true]);
 
   useEffect(() => {
     if (teacherID) {
       getTeacherGroups();
+    } else {
+      getStudentsGroups();
     }
-  }, [teacherID, getTeacherGroups]);
+  }, [teacherID, getTeacherGroups, isStudent]);
 
   const handleGroupClick = (groupid: number) => {
     setGroupId(groupid);
-    console.log("Selected Group ID:", groupid);
   };
+
   return (
     <div
       className={`min-h-[700px]  w-[250px] ${
@@ -86,7 +101,7 @@ const SidePanel: FC<Props> = ({
         )}
         <div
           style={{ overflowY: "auto" }}
-          className=" h-[700px] bg-white rounded-md p-2 ml-2"
+          className=" h-[700px]  rounded-md p-2 ml-2"
         >
           {groups.length > 0 ? (
             groups.map((group) => (

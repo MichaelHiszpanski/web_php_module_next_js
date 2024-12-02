@@ -124,8 +124,9 @@ export async function POST(req: Request) {
       GroupID INT NOT NULL,
       UserID VARCHAR(255) NOT NULL,
       DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      FileSize INT NOT NULL,  -- File size in bytes
-      FilePath VARCHAR(255) NOT NULL,
+      FileSize INT NOT NULL,
+      FilePath VARCHAR(255),
+      FileContent BYTEA NOT NULL,
       FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
       FOREIGN KEY (UserID) REFERENCES Users(UserID)
     );
