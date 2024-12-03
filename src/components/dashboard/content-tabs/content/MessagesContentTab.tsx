@@ -49,7 +49,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
 
   return (
     <div className="w-full flex flex-col min-h-[700px] items-center mb-[100px]">
-      <h1 className="text-2xl font-orbitron_variable font-bold">Messages</h1>
+      <h1 className="text-2xl font-orbitron_variable font-bold">Messanger</h1>
       <div
         className="w-[90%] h-[600px] rounded-2xl border-2 shadow-xl 
                  border-colorOne bg-gray-400 flex flex-col items-start 

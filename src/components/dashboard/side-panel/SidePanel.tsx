@@ -67,47 +67,49 @@ const SidePanel: FC<Props> = ({
         isBoardOpen ? "translate-x-0" : "-translate-x-[80%]"
       }`}
     >
-      <div className="flex flex-row justify-end">
-        <button
-          type="button"
-          onClick={() => setIsBoardOpen(!isBoardOpen)}
-          className="mt-2 px-2 border-[0.5px] border-black bg-white text-colorOne rounded-xl  cursor-pointer"
+      <div className="flex flex-row items-center justify-center">
+        <span style={{ fontSize: "14px" }} className=" font-mono">
+          Selected:
+        </span>
+        <p
+          className=" font-mono ml-1 text-colorFive"
+          style={{ fontSize: "16px" }}
         >
-          {isBoardOpen ? <FaToggleOn /> : <FaToggleOff />}
-        </button>
+          <strong> {name !== "" && ` ${name}`}</strong>
+        </p>
       </div>
-
       <div>
-        <div className="flex mt-2  flex-row w-full items-center justify-center">
-          <p className="font-mono text-sm mr-10">Refresh -{">"} </p>
+        <div className="flex mt-2   flex-row w-full items-center justify-between">
+          {/* <p className="font-mono text-sm mr-10">Refresh -{">"} </p> */}
           <button
-            className=" p-1 border-[0.5px] border-black bg-white  text-colorOne rounded-xl   cursor-pointer"
+            className=" p-1 border-[0.5px] border-black bg-white  font-orbitron_variable  text-colorOne rounded-xl  flex flex-row items-center  cursor-pointer"
             onClick={() => getTeacherGroups()}
+            style={{ fontSize: "12px" }}
           >
-            <FaScroll size={20} />
+            Refresh Groups :<FaScroll size={18} />
           </button>
-        </div>
-        <h2 className="text-colorOne  my-2 text-lg w-full text-center font-mono">
-          Groups Created
-        </h2>
-        <div className="flex flex-row items-center">
-          <span style={{ fontSize: "14px" }}>Selected</span>
-          <p className=" font-mono ml-1" style={{ fontSize: "14px" }}>
-            {name !== "" && ` ${name}`}
-          </p>
-        </div>
-        {!isStudent && (
-          <div
-            className="mt-2 text-sm mb-2 px-2 border-[0.5px] border-black bg-white
-                font-orbitron_variable text-colorOne rounded-xl mx-5 cursor-pointer"
-            onClick={openSecondModal}
-          >
-            Create new group.
+          <div className="flex flex-row justify-start">
+            <button
+              type="button"
+              onClick={() => setIsBoardOpen(!isBoardOpen)}
+              className="mt-2 px-2 border-[0.5px] border-black bg-white text-colorOne rounded-xl  cursor-pointer"
+            >
+              {isBoardOpen ? (
+                <FaToggleOn size={18} />
+              ) : (
+                <FaToggleOff size={18} />
+              )}
+            </button>
           </div>
-        )}
+        </div>
+
+        {/* <h2 className="text-colorOne  my-2 text-sm w-full text-start ml-[15px] font-mono">
+          Groups Created
+        </h2> */}
+
         <div
           style={{ overflowY: "auto" }}
-          className=" h-[700px]  rounded-md p-2 ml-2"
+          className=" h-[500px]  rounded-md p-2 mx-2 bg-white bg-opacity-50 mt-5"
         >
           {groups.length > 0 ? (
             groups.map((group) => (
@@ -124,6 +126,17 @@ const SidePanel: FC<Props> = ({
             <p>No groups available.</p>
           )}
         </div>
+      </div>
+      <div>
+        {!isStudent && (
+          <div
+            className="mt-2 text-sm mb-2 px-2 border-[0.5px] border-black bg-white
+                font-orbitron_variable text-colorOne rounded-xl mx-5 cursor-pointer"
+            onClick={openSecondModal}
+          >
+            Create new group.
+          </div>
+        )}
       </div>
     </div>
   );

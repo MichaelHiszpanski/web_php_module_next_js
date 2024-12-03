@@ -13,6 +13,7 @@ import UserDisplayInGroup from "../../components/UserDisplayInGroup";
 import StudentDisplayInGroup from "../../components/StudentsDisplayInGroup";
 import ButtonTab from "@/src/components/buttons/button-tab/ButtonTab";
 import CustomField from "@/src/components/custom-field/CustomField";
+import CustomErros from "@/src/components/custom-errors/CustomErrors";
 interface Props {
   groupId: number;
 }
@@ -21,41 +22,45 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
   const [usersInGroup, setUsersInGroup] = useState<any>([]);
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [errors, setErrors] = useState<any>([]);
+
   useEffect(() => {
     getAllStudentsList(setStudents);
   }, []);
+
   useEffect(() => {
     getUsersListsFromGroup(groupId, setUsersInGroup);
   }, [groupId]);
+
   const handleItemClick = (item: any) => {
     setSelectedItem(item);
   };
+
   const handleAddUserToGroup = async () => {
     const response: any = await responsePostMemberToGroup(
       selectedItem.userid,
       groupId
     );
-    console.log("Error adding user:222", response.error);
+
     if (response.error) {
       setErrors([response.error]);
-      console.error("Error adding user:", response.error);
     } else {
       getUsersListsFromGroup(groupId, setUsersInGroup);
     }
   };
+
   const handleRemoveUserToGroup = async () => {
     const response: any = await responseRemovetMemberToGroup(
       selectedItem.userid,
       groupId
     );
-    console.log("Error adding user:222", response.error);
+
     if (response.error) {
       setErrors([response.error]);
-      console.error("Error adding user:", response.error);
     } else {
       getUsersListsFromGroup(groupId, setUsersInGroup);
     }
   };
+
   return (
     <div className="w-full grid grid-cols-2 gap-4  rounded-xl  items-center pb-[200px]">
       <div className="w-full">
@@ -109,7 +114,7 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
         </div>
       </div>
       <div className="w-full">
-        <div className="w-full h-[50px]">
+        {/* <div className="w-full h-[50px]">
           {errors.length > 0 && (
             <div className="text-red-500 text-xl font-mono">
               {errors.map((error: string, index: number) => (
@@ -117,7 +122,8 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
               ))}
             </div>
           )}
-        </div>
+        </div> */}
+        <CustomErros errors={errors} />
         <div className="w-[97%] h-[600px] bg-colorNine p-4 rounded-lg shadow-md  relative">
           <div className="w-full  border-y border-y-colorOne">
             <h2 className="text-xl font-bold my-2 font-orbitron_variable">

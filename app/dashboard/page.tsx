@@ -39,9 +39,11 @@ import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
 import Footer from "@/src/components/footer/Footer";
 import { runInAction } from "mobx";
 import LoaderComponent from "@/src/components/loader/Loader";
+import CustomErros from "@/src/components/custom-errors/CustomErrors";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isStudent, setIsStudent] = useState<boolean>(true);
   const [userData, setUserData] = useState<any>(defaultUserDetails);
 
@@ -53,10 +55,11 @@ const Dashboard: NextPage = () => {
   const [groupForm, setGroupForm] = useState<NewGroupModel | null>(null);
   const [groupId, setGroupId] = useState<number>(0);
   const [activeTab, setActiveTab] = useState(0);
+  const [errors, setErrors] = useState<any>([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!user) return;
+      if (!user) return <LoaderComponent />;
 
       try {
         const response = await responseGetUser(user.id);
@@ -77,7 +80,7 @@ const Dashboard: NextPage = () => {
 
         setIsModal(false);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        setErrors("Error fetching user data:");
       }
     };
 
@@ -89,6 +92,10 @@ const Dashboard: NextPage = () => {
   useEffect(() => {
     setIsStudent(userData.roleid === 1 ? true : false);
     setIsBoardOpen(true);
+
+    setTimeout(async () => {
+      setIsLoading(false);
+    }, 1000);
   }, [userData]);
 
   useEffect(() => {
@@ -97,6 +104,7 @@ const Dashboard: NextPage = () => {
         await fetchTeacherID();
       }
     };
+
     fetchData();
   }, [userData.roleid]);
 
@@ -157,11 +165,12 @@ const Dashboard: NextPage = () => {
   };
 
   const handleSubmit = async (groupForm: NewGroupModel) => {
-    console.log("Group Form:", groupForm);
     if (!groupForm?.teacherID) {
       return;
     }
+
     const response = await responseNewGroup(groupForm);
+
     if (response.message === "success") {
       const groupID = response.groupid;
       await responsePostMemberToGroup(userStore.user.userId, groupID);
@@ -172,6 +181,8 @@ const Dashboard: NextPage = () => {
   const handleTabChange = (index: number) => {
     setActiveTab(index);
   };
+
+  if (isLoading) return <LoaderComponent />;
 
   if (!isLoaded) return <LoaderComponent />;
 
