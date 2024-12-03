@@ -27,7 +27,7 @@ const NavigationBar: FC = () => {
 
   return (
     <nav
-      className="w-full relative h-[100px] flex flex-row justify-evenly items-center bg-gradient-to-r from-colorSeven to-colorEight"
+      className="w-full relative h-[100px] flex flex-row justify-evenly items-center bg-gradient-to-r to-colorSeven from-colorEight"
       // style={{
       //   backgroundImage: `url(/sky2.jpg)`,
       //   backgroundSize: "100%",

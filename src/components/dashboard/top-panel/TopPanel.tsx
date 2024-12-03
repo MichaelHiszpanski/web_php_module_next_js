@@ -33,7 +33,7 @@ const TopPanel: React.FC<Props> = ({ isBoardOpen, isStudent, onChnageTab }) => {
             className={`flex-1 text-center py-2 mx-10 font-orbitron_variable text-lg font-bold ${
               activeTab === index
                 ? "font-bold"
-                : "text-white transition-colors duration-300"
+                : "text-colorNine transition-colors duration-300"
             }`}
             onClick={() => setActiveTab(index)}
           >

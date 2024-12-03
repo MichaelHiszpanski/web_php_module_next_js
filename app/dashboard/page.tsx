@@ -195,7 +195,7 @@ const Dashboard: NextPage = () => {
     <div
       className={`flex flex-row h-full 
       
-      bg-gradient-to-r from-colorSeven to-colorEight
+      bg-gradient-to-r to-colorSeven from-colorEight
       `}
     >
       <SidePanel

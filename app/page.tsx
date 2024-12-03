@@ -64,7 +64,7 @@ const Home: NextPage = ({}) => {
       </div>
       <div></div>
       <Footer
-        backgroudnColor="bg-colorSix bg-opacity-45"
+        backgroudnColor="bg-colorNine bg-opacity-45"
         fontColor="text-colorOne"
       />
     </div>

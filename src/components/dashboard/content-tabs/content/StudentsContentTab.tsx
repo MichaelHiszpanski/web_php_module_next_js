@@ -118,7 +118,7 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
             </div>
           )}
         </div>
-        <div className="w-[97%] h-[600px] bg-colorEight p-4 rounded-lg shadow-md  relative">
+        <div className="w-[97%] h-[600px] bg-colorNine p-4 rounded-lg shadow-md  relative">
           <div className="w-full  border-y border-y-colorOne">
             <h2 className="text-xl font-bold my-2 font-orbitron_variable">
               Details
