@@ -1,5 +1,7 @@
 import { sidePanelItemStyling } from "@/src/consts/styles";
+import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import React from "react";
+import { FaTimes, FaTimesCircle } from "react-icons/fa";
 interface Props {
   groupName: string;
   description: string;
@@ -19,13 +21,22 @@ const SidePanelItem: React.FC<Props> = ({
       onClick={() => onClick(groupid)}
       className={sidePanelItemStyling.container}
     >
-      <div className="border-b-[0.7px] border-b-colorSix shadow-sm my-2">
-        <h3 className={sidePanelItemStyling.name}>Name: {groupName}</h3>
+      <div className="border-b-[1.5px] border-b-colorNine shadow-sm my-1">
+        <h3 className={sidePanelItemStyling.name} style={{ fontSize: "14px" }}>
+          Name: {groupName}
+        </h3>
       </div>
-      <p className={sidePanelItemStyling.field}>Info: {description}</p>
-      <p className={sidePanelItemStyling.field}>ID: {groupid.toString()}</p>
-      <p className={sidePanelItemStyling.field}>
-        Created: {dateCreated || "N/A"}
+      <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
+        <strong>Info:</strong> {description}
+      </p>
+      {/* <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
+        ID: {groupid.toString()}
+      </p> */}
+      <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
+        <strong>Created:</strong>
+      </p>
+      <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
+        {dateTimeFormater(dateCreated) || "N/A"}
       </p>
     </div>
   );

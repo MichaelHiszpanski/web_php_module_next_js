@@ -65,7 +65,8 @@ export async function POST(req: Request) {
 
     const result = await sql`
     INSERT INTO Messages (GroupID, UserID, UserName, MessageContext)
-    VALUES (${GroupID}, ${UserID}, ${UserName}, ${MessageContext});
+    VALUES (${GroupID}, ${UserID}, ${UserName}, ${MessageContext})
+    RETURNING MessageID;
   `;
     if (result.length === 0) {
       return NextResponse.json(

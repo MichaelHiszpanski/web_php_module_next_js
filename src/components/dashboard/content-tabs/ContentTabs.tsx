@@ -4,6 +4,7 @@ import MessagesContentTab from "./content/MessagesContentTab";
 import FilesContentTab from "./content/FilesContentTabs";
 import StudentsContentTab from "./content/StudentsContentTab";
 import { group } from "console";
+import StudentNotes from "./content/StudentNotes";
 interface Props {
   isBoardOpen: boolean;
   isStudent: boolean;
@@ -25,7 +26,7 @@ const ContentTabs: React.FC<Props> = ({
   const content = [
     isStudent === false
       ? { key: "students", element: <StudentsContentTab groupId={groupId} /> }
-      : { key: "notes", element: <div> Notes</div> },
+      : { key: "notes", element: <StudentNotes /> },
     { key: "messages", element: <MessagesContentTab groupId={groupId} /> },
     { key: "files", element: <FilesContentTab groupId={groupId} /> },
   ];

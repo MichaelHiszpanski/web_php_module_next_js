@@ -38,6 +38,7 @@ import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
 import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
 import Footer from "@/src/components/footer/Footer";
 import { runInAction } from "mobx";
+import LoaderComponent from "@/src/components/loader/Loader";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(false);
@@ -48,7 +49,7 @@ const Dashboard: NextPage = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
   const [isSecondModalOpen, setIsSecondModalOpen] = useState<boolean>(false);
   const [formData, setFormData] = useState<PersonalDetailModel | null>(null);
-  //const { data, isLoading, error } = usePostStudentOrTeacher(formData);
+
   const [groupForm, setGroupForm] = useState<NewGroupModel | null>(null);
   const [groupId, setGroupId] = useState<number>(0);
   const [activeTab, setActiveTab] = useState(0);
@@ -172,14 +173,7 @@ const Dashboard: NextPage = () => {
     setActiveTab(index);
   };
 
-  if (!isLoaded)
-    return (
-      <div className="flex flex-col w-screen h-full items-center ">
-        <div className="w-full text-center text-5xl font-bold font-permanentMarker mt-[200px]">
-          Loading...
-        </div>
-      </div>
-    );
+  if (!isLoaded) return <LoaderComponent />;
 
   if (!isSignedIn) {
     if (typeof window !== "undefined") {

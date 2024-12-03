@@ -98,7 +98,7 @@ export async function POST(req: Request) {
     CREATE TABLE IF NOT EXISTS GroupMembers (
       GroupMemberID SERIAL PRIMARY KEY,
       GroupID INT NOT NULL,
-      UserID VARCHAR(255) NOT NULL UNIQUE,
+      UserID VARCHAR(255) NOT NULL,
       DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
       FOREIGN KEY (UserID) REFERENCES Users(UserID)

@@ -22,6 +22,7 @@ const SidePanel: FC<Props> = ({
   setGroupId,
 }) => {
   const [groups, setGroups] = useState<any[]>([]);
+  const [name, setName] = useState<string>("");
 
   const getTeacherGroups = useCallback(async () => {
     try {
@@ -51,10 +52,11 @@ const SidePanel: FC<Props> = ({
     } else {
       getStudentsGroups();
     }
-  }, [teacherID, getTeacherGroups, isStudent]);
+  }, [teacherID, getTeacherGroups, isStudent, openSecondModal]);
 
-  const handleGroupClick = (groupid: number) => {
+  const handleGroupClick = (groupid: number, groupName: string) => {
     setGroupId(groupid);
+    setName(groupName);
   };
 
   return (
@@ -82,15 +84,18 @@ const SidePanel: FC<Props> = ({
             className=" p-1 border-[0.5px] border-black bg-white  text-colorOne rounded-xl   cursor-pointer"
             onClick={() => getTeacherGroups()}
           >
-            {/* <FaCircle />
-            <FaHelicopter /> */}
-
             <FaScroll size={20} />
           </button>
         </div>
         <h2 className="text-colorOne  my-2 text-lg w-full text-center font-mono">
           Groups Created
         </h2>
+        <div className="flex flex-row items-center">
+          <span style={{ fontSize: "14px" }}>Selected</span>
+          <p className=" font-mono ml-1" style={{ fontSize: "14px" }}>
+            {name !== "" && ` ${name}`}
+          </p>
+        </div>
         {!isStudent && (
           <div
             className="mt-2 text-sm mb-2 px-2 border-[0.5px] border-black bg-white
@@ -112,7 +117,7 @@ const SidePanel: FC<Props> = ({
                 description={group.description}
                 dateCreated={group.datecreated}
                 groupid={group.groupid}
-                onClick={handleGroupClick}
+                onClick={() => handleGroupClick(group.groupid, group.groupname)}
               />
             ))
           ) : (

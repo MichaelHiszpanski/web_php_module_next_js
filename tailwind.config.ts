@@ -22,7 +22,8 @@ const config: Config = {
         colorFive: "#8A2C02",
         colorSix: "transparent", // colorSix: "#BEC6CB","#77CBF0"
         colorSeven: "#F0A5CB",
-        colorEight: "#9FEDD7",
+        colorEight: "#BEC6CB", ////
+        colorNine: "#9FEDD7",
         black: "#000",
         white: "#ffffff",
         orange: "#D55C36",

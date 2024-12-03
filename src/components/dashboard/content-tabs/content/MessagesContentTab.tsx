@@ -6,8 +6,9 @@ import {
 } from "@/src/services/routes/messageRoute";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import MessageDisplay from "../../components/MessageDisplay";
+import LoaderComponent from "@/src/components/loader/Loader";
 
 interface Props {
   groupId: number;
@@ -16,23 +17,36 @@ interface Props {
 const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
   const [messagesInGroup, setMessagesFromGroup] = useState<any>([]);
   const [message, setMessage] = useState<string>("");
-  useEffect(() => {
-    getMessagesListFromGroup(groupId, setMessagesFromGroup);
-  }, [groupId]);
-  const handleInputChange = async (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setMessage(e.target.value);
-  };
+
   const sendMessage = async () => {
+    if (!message.trim()) return;
+
     await responsePostMessageToGroup(
       groupId,
       userStore.user.userId,
       userStore.user.name,
       message
     );
-    await getMessagesListFromGroup(groupId, setMessagesFromGroup);
+
+    setMessage("");
+    await getGroupMessages();
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   };
+
+  const getGroupMessages = useCallback(async () => {
+    await getMessagesListFromGroup(groupId, setMessagesFromGroup);
+  }, [groupId]);
+
+  useEffect(() => {
+    getGroupMessages();
+  }, [getGroupMessages]);
+
+  const handleInputChange = async (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setMessage(e.target.value);
+  };
+
   return (
     <div className="w-full flex flex-col min-h-[700px] items-center mb-[100px]">
       <h1 className="text-2xl font-orbitron_variable font-bold">Messages</h1>
