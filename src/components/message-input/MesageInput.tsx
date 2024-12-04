@@ -39,7 +39,7 @@ const MessageInput: FC<Props> = ({
           }}
           onBlur={() => setIsFocused(false)}
           rows={3}
-          className={`w-full p-2 border rounded resize-none`} // Add `resize-none` to prevent manual resizing
+          className={`w-full p-2 border rounded resize-none bg-colorNine`} // Add `resize-none` to prevent manual resizing
         />
         <div className="flex flex-col items-center justify-center ml-2 cursor-pointer">
           <FaFacebookMessenger size={25} color="colorFive" onClick={onSend} />

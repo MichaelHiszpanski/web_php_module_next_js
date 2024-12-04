@@ -65,8 +65,9 @@ const Dashboard: NextPage = () => {
         const response = await responseGetUser(user.id);
         userStore.setUser({
           userId: user.id,
-          name: user?.username ?? "o Name",
+          name: user?.username ?? "No Name",
         });
+
         if (!response.ok) {
           const errorData = await response.json();
           if (errorData.message === "User not found!") {
@@ -74,6 +75,7 @@ const Dashboard: NextPage = () => {
           }
           return;
         }
+
         const data = await response.json();
 
         setUserData({ ...data });
@@ -99,6 +101,11 @@ const Dashboard: NextPage = () => {
   }, [userData]);
 
   useEffect(() => {
+    setIsStudent(false);
+    setIsStudent(userData.roleid === 1 ? true : false);
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       if (userData.roleid === 2) {
         await fetchTeacherID();
@@ -111,8 +118,6 @@ const Dashboard: NextPage = () => {
   const fetchTeacherID = async () => {
     try {
       const teacherResponse = await getTeacherID(userData.userid);
-      console.log("Teacher ID response:", teacherResponse);
-
       const teacherId = teacherResponse?.TeacherID;
 
       if (teacherId) {
@@ -122,12 +127,11 @@ const Dashboard: NextPage = () => {
           groupName: prev?.groupName ?? "",
           groupDescription: prev?.groupDescription ?? "",
         }));
-        console.log("Teacher ID set in state:", teacherId);
       } else {
-        console.error("No Teacher ID found in response!");
+        setErrors("No Teacher ID found in response!");
       }
     } catch (error) {
-      console.error("Error fetching Teacher ID:", error);
+      setErrors("Error fetching Teacher ID:");
     }
   };
 
@@ -150,7 +154,7 @@ const Dashboard: NextPage = () => {
         }, 2000);
       }
     } catch (error) {
-      console.error("Error adding user to database:", error);
+      setErrors("Error adding user to database:");
     }
   };
 
@@ -200,7 +204,7 @@ const Dashboard: NextPage = () => {
     <div
       className={`flex flex-row h-full 
       
-      bg-gradient-to-r to-colorSeven from-colorEight
+      bg-gradient-to-r to-colorFour from-colorEight
       `}
     >
       <SidePanel

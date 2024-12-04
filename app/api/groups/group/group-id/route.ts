@@ -1,9 +1,8 @@
 import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
-
+const sql = neon(`${process.env.DATABASE_URL}`);
 export async function GET(req: Request) {
   try {
-    const sql = neon(`${process.env.DATABASE_URL}`);
     const url = new URL(req.url);
     const groupName = url.searchParams.get("GroupName");
 

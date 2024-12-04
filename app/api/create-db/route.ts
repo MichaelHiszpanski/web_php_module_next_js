@@ -1,10 +1,8 @@
 import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
-
+const sql = neon(`${process.env.DATABASE_URL}`);
 export async function POST(req: Request) {
   try {
-    const sql = neon(`${process.env.DATABASE_URL}`);
-
     const dropTeachersTable = `DROP TABLE IF EXISTS Teachers CASCADE;`;
     const dropStudentTable = `DROP TABLE IF EXISTS Students CASCADE;`;
     const dropUsersTable = `DROP TABLE IF EXISTS Users CASCADE;`;

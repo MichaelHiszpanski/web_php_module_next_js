@@ -152,8 +152,18 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
             </h2>
           </div>
           <div className=" absolute w-[95%] bottom-0">
-            <ButtonTab title={"Add"} onClick={handleAddUserToGroup} />
-            <ButtonTab title={"Remove"} onClick={handleRemoveUserToGroup} />
+            <ButtonTab
+              title={"Add"}
+              onClick={handleAddUserToGroup}
+              className=" bg-white text-colorFour font-bold shadow-sm border-[0.5px] border-gray-400
+               hover:bg-colorFour hover:opacity-70 hover:text-colorOne"
+            />
+            <ButtonTab
+              title={"Remove"}
+              onClick={handleRemoveUserToGroup}
+              className=" bg-white text-colorFour font-bold shadow-sm border-[0.5px] border-gray-400 
+               hover:bg-colorFour hover:opacity-70 hover:text-colorOne"
+            />
           </div>
         </div>
       </div>

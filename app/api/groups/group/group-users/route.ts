@@ -17,11 +17,6 @@ export async function GET(req: Request) {
       );
     }
 
-    // const students = await sql`
-    //   SELECT * FROM GroupMembers
-    //   WHERE GroupID = ${GroupID};
-    // `;
-    // Query all group members, joining with Students and Teachers tables
     const students = await sql`
       SELECT
         gm.GroupMemberID,
@@ -49,7 +44,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json(students, { status: 200 });
   } catch (error: any) {
-    console.error("Error: Something went wrong", error);
     return NextResponse.json(
       {
         error: "Failed to get Studnets from Group table",

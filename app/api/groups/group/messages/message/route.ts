@@ -1,9 +1,8 @@
 import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
-
+const sql = neon(`${process.env.DATABASE_URL}`);
 export async function POST(req: Request) {
   try {
-    const sql = neon(`${process.env.DATABASE_URL}`);
     const body = await req.json();
 
     const { UserID, GroupID, UserName, MessageContext } = body;
@@ -41,17 +40,6 @@ export async function POST(req: Request) {
       );
     }
 
-    //     const memberCheck = await sql`
-    //     SELECT * FROM GroupMembers WHERE UserID = ${UserID} AND GroupID = ${GroupID};
-    //   `;
-    //     if (memberCheck.length > 0) {
-    //       return NextResponse.json(
-    //         {
-    //           error: "Error: User is already part of the group.",
-    //         },
-    //         { status: 400 }
-    //       );
-    //     }
     const membershipCheck = await sql`
     SELECT * FROM GroupMembers 
     WHERE GroupID = ${GroupID} AND UserID = ${UserID};
@@ -90,7 +78,6 @@ export async function POST(req: Request) {
 }
 export async function DELETE(req: Request) {
   try {
-    const sql = neon(`${process.env.DATABASE_URL}`);
     const { MessageID } = await req.json();
 
     if (!MessageID) {
