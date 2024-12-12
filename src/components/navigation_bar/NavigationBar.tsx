@@ -79,7 +79,7 @@ const NavigationBar: FC = () => {
             className="md:flex hidden"
           />
         )}
-        <div>
+        <div className="w-[120px] h-full flex items-center">
           <LanguageSelect />
         </div>
       </div>
