@@ -16,6 +16,7 @@ import useOutsideClick from "../../utils/tools/useOutsideClick";
 import { useMediaQuery } from "react-responsive";
 import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
+import { LanguageSelect } from "../language/LanguageSelect";
 
 const NavigationBar: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -78,6 +79,9 @@ const NavigationBar: FC = () => {
             className="md:flex hidden"
           />
         )}
+        <div>
+          <LanguageSelect />
+        </div>
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center z-50">
