@@ -1,89 +1,32 @@
 {
-  "contact": "Kontakt",
-  "agency": "Dodaj twoją agencję",
-  "header": "Znajdź pracowników za granicą",
-  "experience": "Doświadczenie w rekrutacji dla polskich firm",
-  "other": "Inne",
-  "details": "Pokaż dane kontaktowe",
-  "rights": "© 2024 VISUM. Wszelkie prawa zastrzeżone.",
-  "recruiters": "Rekruterzy",
-  "universities": "Uniwersytety",
-  "work": "Praca",
-  "location": "Lokalizacja",
-  "showAll": "Pokaż wszystkie",
-  "selectCountry": "Wybierz kraj",
-  "contactDetails": "Dane kontaktowe",
-  "recruitersHeader": "Agencje rekrutujące pracowników z zagranicy",
-  "workHeader": "Praca",
-  "universityHeader": "Uniwersytety",
-  "recruitersText": "Wyślij opis pracownika którego poszukujesz do jednej z agencji z listy. \n\n\n Agencje pomogą Ci znaleźć pracowników, oraz zwykle zajmą się procesem wizowym za Ciebie.",
-  "workText": "Znajdź pracę w Polsce.",
-  "universityText": "Znajdź uniwersytet w Polsce.",
-  "educationButtons": [
-    { "name": "Uniwersytety" },
-    { "name": "Szkoly Prywatne" },
-    { "name": "Edukacja państwowa dla osób poniżej 18 roku życia" }
-  ],
-  "homePageContent": [
+  "navigation": ["Strona główna", "Pulpit", "Kontakt", "Zaloguj się"],
+  "sign_in": "Zaloguj się",
+  "sign_up": "Zarejestruj się",
+  "email_text": "Wprowadź adres e-mail",
+  "password_text": "Wprowadź hasło",
+  "password_confirmation_text": "Wprowadź hasło potwierdzające",
+  "don`t_have_account": "Nie masz konta? Proszę",
+  "verify_text_label": "Wprowadź kod weryfikacyjny",
+  "validations": [
+    { "email_valid": "Proszę wprowadzić prawidłowy adres e-mail." },
+    { "email_empty": "Adres e-mail nie może być pusty." },
+    { "password_empty": "Hasło nie może być puste." },
+    { "name_empty": "Nazwa nie może być pusta." },
     {
-      "title": "Twoja Bramka do Możliwości w Polsce i Europie",
-      "content": "Visum: Ułatwiamy Procesy Wizowe, Edukację i Możliwości Zatrudnienia dla Cudzoziemców",
-      "stickyBoxTopText": "Witaj w Visum - klucz do Twojej przyszłości...",
-      "stickyBoxBottomText": ""
+      "password_confirmation_empty": "Potwierdzenie hasła nie może być puste."
     },
     {
-      "title": "O Visum",
-      "content": "W Visum zobowiązujemy się do otwierania drzwi dla międzynarodowych talentów w Polsce i Europie. Od nawigowania przez procesy wnioskowania o wizę po nawiązanie kontaktu z możliwościami edukacyjnymi i zatrudnienia - jesteśmy Twoim partnerem w odblokowywaniu świata potencjału.",
-      "stickyBoxTopText": "Nowy projekt start-up, który zmieni przyszłość...",
-      "stickyBoxBottomText": ""
-    },
-    {
-      "title": "Pomoc w Sprawach Wizowych",
-      "content": "Ekspertowe wsparcie podczas procesu aplikacji wizowej, aby uprościć Twoją podróż.",
-      "stickyBoxTopText": "Zdobądź swoją wizę!",
-      "stickyBoxBottomText": ""
-    },
-    {
-      "title": "Możliwości Edukacyjne",
-      "content": "Dostęp do kompleksowej listy uniwersytetów i programów edukacyjnych w Polsce i Europie.",
-      "stickyBoxTopText": "Zawsze możesz osiągnąć więcej...",
-      "stickyBoxBottomText": ""
-    },
-    {
-      "title": "Ułatwianie Zatrudnienia",
-      "content": "Nawiąż kontakt z najlepszymi pracodawcami i agencjami rekrutacyjnymi gotowymi przyjąć międzynarodowe talenty.",
-      "stickyBoxTopText": "Znajdź swoją wymarzoną pracę z nami!",
-      "stickyBoxBottomText": ""
+      "password_confirmation_check": "Twoje potwierdzenie hasła musi pasować do hasła."
     }
   ],
-  "navigationNames": [
-    { "name": "Strona główna" },
-    { "name": "Wiza" },
-    { "name": "Edukacja" },
-    { "name": "Praca" },
-    { "name": "Logowanie" },
-    { "name": "Profil" }
+  "errors": [
+    { "something": "Coś poszło nie tak, spróbuj ponownie!" },
+    {
+      "error_login": "Wystąpił błąd podczas próby logowania. Spróbuj ponownie."
+    },
+    { "error_unknown": "Wystąpił nieznany błąd. Spróbuj ponownie!" }
   ],
-  "loginComponent": [
-    { "name": "Logowanie" },
-    { "name": "Email" },
-    { "name": "Hasło" },
-    { "name": "Zalogój się" }
-  ],
-  "passwordComponent": [
-    { "name": "Zapomniałeś hasła?" },
-    { "name": "Proszę podać identyfikator" },
-    { "name": "Zaloguj się" },
-    { "name": "Nowe hasło" },
-    { "name": "Kod do resetowania hasła" },
-    { "name": "Zresetuj" }
-  ],
-  "registerComponent": [
-    { "name": "Adres email" },
-    { "name": "Hasło" },
-    { "name": "Utwórz konto" },
-    { "name": "Zweryfikuj email" },
-    { "name": "Strona Rejestracji" }
-  ],
-  "sidePanelContentAfterLogin": [{ "name": "Skontakój się" }]
+  "user_text": "Nazwa użytkownika",
+  "verify_text": "Zweryfikuj swój email",
+  "verify_button": "Zweryfikuj"
 }

@@ -9,10 +9,11 @@ import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary
 import userStore from "@/src/mobX/user-store/user_store";
 import { NextPage } from "next";
 import { useState } from "react";
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 
 const SignIn: NextPage = () => {
   const router = useRouter();
-
+  const { dictionary } = useTranslation();
   const { isLoaded, signIn, setActive } = useSignIn();
   const [error, setError] = React.useState<string | null>(null);
   const [errors, setErrors] = useState<any>({
@@ -43,15 +44,15 @@ const SignIn: NextPage = () => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(userData.email)) {
-      errorsList.email = "Please enter a valid email address.";
+      errorsList.email = dictionary.validations[0].email_valid;
       isValid = false;
     } else if (userData.email.trim() === "") {
-      errorsList.email = "Email address cannot be empty.";
+      errorsList.email = dictionary.validations[1].email_empty;
       isValid = false;
     }
 
     if (userData.password.trim() === "") {
-      errorsList.password = "Password cannot be empty.";
+      errorsList.password = dictionary.validations[2].password_empty;
       isValid = false;
     }
     setErrors(errorsList);
@@ -83,16 +84,13 @@ const SignIn: NextPage = () => {
         });
         router.push("/dashboard");
       } else {
-        setError("Something went wrong, please try again!");
+        setError(dictionary.errors[0].something ?? "");
       }
     } catch (err: any) {
       if (err.errors && err.errors.length > 0) {
-        setError(
-          err.errors[0].message ||
-            "An error occurred, while trying to Login. Please try again."
-        );
+        setError(err.errors[0].message || dictionary.errors[0].error_login);
       } else {
-        setError("An unknown error occurred. Please try again!");
+        setError(dictionary.errors[0].error_unknown ?? "");
       }
     }
   };
@@ -100,21 +98,21 @@ const SignIn: NextPage = () => {
   return (
     <div className="flex flex-col  items-center z-50">
       <h1 className="text-3xl md:text-5xl font-orbitron_variable my-10 px-10 z-50">
-        Sign-In
+        {dictionary.sign_in}
       </h1>
       <form
         onSubmit={handleSingIn}
         className="w-full md:w-[620px] border-[0.5px] border-colorOne p-10 rounded-xl my-10"
       >
         <CustomInput
-          label={"Enter email address"}
+          label={dictionary.email_text}
           value={userData.email}
           name="email"
           onInputChange={handleInputChange}
           error={errors.email}
         />
         <CustomInput
-          label={"Enter password"}
+          label={dictionary.password_text}
           keyboardType="password"
           name="password"
           value={userData.password}
@@ -122,13 +120,15 @@ const SignIn: NextPage = () => {
           error={errors.password}
         />
         {error && <div className="text-red-500">{error}</div>}
-        <ButtonPrimary title={"Sign-In!"} type="submit" />
+        <ButtonPrimary title={dictionary.sign_in} type="submit" />
       </form>
 
       <div>
-        Don`t dont have an account? Please
+        {dictionary["don`t_have_account"]}
         <Link href={"/sign-up"}>
-          <span className="text-colorFour ml-2 cursor-pointer">Sign-Up !</span>
+          <span className="text-colorFour ml-2 cursor-pointer">
+            {dictionary.sign_up} !
+          </span>
         </Link>
       </div>
     </div>

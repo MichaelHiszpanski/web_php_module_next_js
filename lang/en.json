@@ -1,89 +1,30 @@
 {
-  "contact": "Contact",
-  "agency": "Add your agency",
-  "header": "Immigrate to Poland",
-  "experience": "Experience in recruiting for Polish companies",
-  "other": "Other",
-  "details": "Show contact details",
-  "rights": "© 2024 VISUM. All rights reserved.",
-  "recruiters": "Recruiters",
-  "universities": "Universities",
-  "work": "Work",
-  "location": "Location",
-  "showAll": "Show all",
-  "selectCountry": "Select country",
-  "contactDetails": "Contact details",
-  "recruitersHeader": "Recruiters",
-  "workHeader": "Work",
-  "universityHeader": "University",
-  "recruitersText": "For agencies connecting employers in Poland with international talent.",
-  "workText": "For individuals seeking employment in Poland.",
-  "universityText": "For those interested in studying in Poland.",
-  "educationButtons": [
-    { "name": "Universities" },
-    { "name": "Private Schools" },
-    { "name": "Government Education for Under 18" }
-  ],
-  "homePageContent": [
+  "navigation": ["Home", "Dashboard", "Contact", "Sign In"],
+  "sign_in": "Sign-In",
+  "sign_up": "Sign-Up",
+  "email_text": "Enter email address",
+  "password_text": "Enter password",
+  "password_confirmation_text": "Enter confirmation password",
+  "don`t_have_account": "Don`t dont have an account? Please",
+  "verify_text_label": "Enter your verification code",
+  "validations": [
+    { "email_valid": "Please enter a valid email address." },
+    { "email_empty": "Email address cannot be empty." },
+    { "password_empty": "Password cannot be empty." },
+    { "name_empty": "Name cannot be empty." },
+    { "password_confirmation_empty": "Confirm password cannot be empty." },
     {
-      "title": "Your Gateway to Opportunities in Poland and Europe",
-      "content": "Visum: Simplifying Visa Processes, Education, and Employment Opportunities for Internationals",
-      "stickyBoxTopText": "Weolcome to Visum to key to Your future... ",
-      "stickyBoxBottomText": ""
-    },
-    {
-      "title": "About Visum",
-      "content": " At Visum, we are committed to opening doors for international talent in Poland and across Europe. From navigating visa applications to connecting you with educational and employment opportunities, we are your partner in unlocking a world of potential.",
-      "stickyBoxTopText": "New start up project that will change the future ",
-      "stickyBoxBottomText": ""
-    },
-    {
-      "title": "Visa Assistance",
-      "content": " Expert guidance through the visa application process to simplify your journey.",
-      "stickyBoxTopText": "Get Your Visa! ",
-      "stickyBoxBottomText": ""
-    },
-    {
-      "title": "Educational Opportunities",
-      "content": " Access a comprehensive list of universities and educational programs in Poland and Europe.",
-      "stickyBoxTopText": "You can always do better  ",
-      "stickyBoxBottomText": ""
-    },
-    {
-      "title": "Employment Facilitation",
-      "content": " Connect with top employers and recruitment agencies eager to welcome international talent.",
-      "stickyBoxTopText": "Find your dream job with us! ",
-      "stickyBoxBottomText": ""
+      "password_confirmation_check": "Your confirmation password has to match a password"
     }
   ],
-  "navigationNames": [
-    { "name": "Home" },
-    { "name": "Visa" },
-    { "name": "Education" },
-    { "name": "Work" },
-    { "name": "Login" },
-    { "name": "Profile" }
+  "errors": [
+    { "something": "Something went wrong, please try again!" },
+    {
+      "error_login": "An error occurred, while trying to Login. Please try again."
+    },
+    { "error_unknown": "An unknown error occurred. Please try again!" }
   ],
-  "loginComponent": [
-    { "name": "Login" },
-    { "name": "Email" },
-    { "name": "Password" },
-    { "name": "Sign In" }
-  ],
-  "passwordComponent": [
-    { "name": "Forgot Password ?" },
-    { "name": "Please provide identifier" },
-    { "name": "Sign in" },
-    { "name": "New password" },
-    { "name": "Reset password code" },
-    { "name": "Reset" }
-  ],
-  "registerComponent": [
-    { "name": "Email Address" },
-    { "name": "Password" },
-    { "name": "Create an account" },
-    { "name": "Verify Email" },
-    { "name": "Register page" }
-  ],
-  "sidePanelContentAfterLogin": [{ "name": "Contact Us" }]
+  "user_text": "User Name",
+  "verify_text": "Verify your email",
+  "verify_button": "Verify"
 }

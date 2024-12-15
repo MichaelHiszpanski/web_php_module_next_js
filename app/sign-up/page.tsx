@@ -7,6 +7,7 @@ import CustomInput from "@/src/components/custom-input/CustomInput";
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
 import { NextPage } from "next";
 import { SignUpModel } from "@/src/models/SignUpModel";
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const SignUp: NextPage = () => {
   });
   const [verifying, setVerifying] = React.useState(false);
   const [code, setCode] = React.useState("");
+  const { dictionary } = useTranslation();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -68,29 +70,30 @@ const SignUp: NextPage = () => {
     const errorsList: any = {};
 
     if (userData.userName.trim() === "") {
-      errorsList.userName = "Name cannot be empty.";
+      errorsList.userName = dictionary.validations[3].name_empty;
       isValid = false;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(userData.email)) {
-      errorsList.email = "Please enter a valid email address.";
+      errorsList.email = dictionary.validations[0].email_valid;
       isValid = false;
     } else if (userData.email.trim() === "") {
-      errorsList.email = "Email address cannot be empty.";
+      errorsList.email = dictionary.validations[1].email_empty;
       isValid = false;
     }
 
     if (userData.password.trim() === "") {
-      errorsList.password = "Password cannot be empty.";
+      errorsList.password = dictionary.validations[2].password_empty;
       isValid = false;
     }
 
     if (userData.passwordConfirm.trim() === "") {
-      errorsList.confirmPassword = "Confirm password cannot be empty.";
+      errorsList.passwordConfirm =
+        dictionary.validations[4].password_confirmation_empty;
       isValid = false;
     } else if (userData.passwordConfirm !== userData.password) {
       errorsList.passwordConfirm =
-        "Yur confirmation password has to match a password";
+        dictionary.validations[5].password_confirmation_check;
       isValid = false;
     }
     setErrors(errorsList);
@@ -123,20 +126,20 @@ const SignUp: NextPage = () => {
     return (
       <div className="w-full flex flex-col items-center">
         <h1 className=" text-3xl font-orbitron_variable font-bold text-colorOne mt-[100px] mb-10">
-          Verify your email
+          {dictionary.verify_text}
         </h1>
         <form
           onSubmit={handleVerify}
           className=" border border-colorOne rounded-xl p-5 min-w-[300px]"
         >
           <CustomInput
-            label={"Enter your verification code"}
+            label={dictionary.verify_text_label}
             value={code}
             name={"Code"}
             onInputChange={(e) => setCode(e.target.value)}
           />
 
-          <ButtonPrimary title={"Verify"} type="submit" />
+          <ButtonPrimary title={dictionary.verify_button} type="submit" />
         </form>
       </div>
     );
@@ -145,21 +148,21 @@ const SignUp: NextPage = () => {
   return (
     <div className="flex flex-col  items-center ">
       <h1 className="text-3xl md:text-5xl font-orbitron_variable my-10 px-10 z-50">
-        Sign up
+        {dictionary.sign_up}
       </h1>
       <form
         onSubmit={handleSubmit}
         className="w-full md:w-[620px] border-[0.5px] border-colorOne p-10 rounded-xl my-10"
       >
         <CustomInput
-          label={"User Name"}
+          label={dictionary.user_text}
           value={userData.userName}
           name="userName"
           onInputChange={handleInputChange}
           error={errors.userName}
         />
         <CustomInput
-          label={"Enter email address"}
+          label={dictionary.email_text}
           value={userData.email}
           name="email"
           onInputChange={handleInputChange}
@@ -167,7 +170,7 @@ const SignUp: NextPage = () => {
         />
 
         <CustomInput
-          label={"Enter password"}
+          label={dictionary.password_text}
           keyboardType="password"
           name="password"
           value={userData.password}
@@ -175,7 +178,7 @@ const SignUp: NextPage = () => {
           error={errors.password}
         />
         <CustomInput
-          label={"Enter password"}
+          label={dictionary.password_confirmation_text}
           keyboardType="password"
           name="passwordConfirm"
           value={userData.passwordConfirm}
@@ -183,7 +186,7 @@ const SignUp: NextPage = () => {
           error={errors.passwordConfirm}
         />
 
-        <ButtonPrimary title={"Sign-Up!"} type="submit" />
+        <ButtonPrimary title={`${dictionary.sign_up} !`} type="submit" />
       </form>
     </div>
   );

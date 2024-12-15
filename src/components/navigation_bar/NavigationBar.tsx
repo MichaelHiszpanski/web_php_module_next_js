@@ -10,22 +10,32 @@ import {
   wave_up_two,
 } from "@/src/consts/images";
 import Image from "next/image";
-import { navigationItems } from "@/src/consts/navigation_list";
+
 import NavigationLinkButton from "../buttons/NavigationLinkButton";
 import useOutsideClick from "../../utils/tools/useOutsideClick";
 import { useMediaQuery } from "react-responsive";
 import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { LanguageSelect } from "../language/LanguageSelect";
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
+interface NavigationItem {
+  hrefLink: string;
+  name: string;
+}
 
 const NavigationBar: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { dictionary } = useTranslation();
   const navRef = useRef<HTMLDivElement>(null);
   const { isSignedIn } = useUser();
   useOutsideClick(navRef, () => setIsModalOpen(false));
   const isMobileSize = useMediaQuery({ maxWidth: 767 });
+  const navigationItems: NavigationItem[] = [
+    { hrefLink: "/", name: dictionary.navigation[0] },
+    { hrefLink: "/dashboard", name: dictionary.navigation[1] },
 
+    { hrefLink: "/contact", name: dictionary.navigation[2] },
+  ];
   return (
     <nav
       className="w-full relative h-[100px] flex flex-row justify-evenly items-center bg-gradient-to-r to-colorFour from-colorEight"
@@ -74,7 +84,7 @@ const NavigationBar: FC = () => {
           <></>
         ) : (
           <NavigationLinkButton
-            name="Sign In"
+            name={dictionary.navigation[3]}
             hrefLink="/sign-in"
             className="md:flex hidden"
           />
@@ -101,7 +111,10 @@ const NavigationBar: FC = () => {
               {isSignedIn ? (
                 <UserButton afterSignOutUrl="/" />
               ) : (
-                <NavigationLinkButton name="Sign In" hrefLink="/sign-in" />
+                <NavigationLinkButton
+                  name={dictionary.navigation[3]}
+                  hrefLink="/sign-in"
+                />
               )}
             </div>
           </div>
