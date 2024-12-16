@@ -1,7 +1,14 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FC } from "react";
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 10 * 60 * 1000,
+      gcTime: 30 * 60 * 1000,
+    },
+  },
+});
 interface Props {
   children: React.ReactNode;
 }

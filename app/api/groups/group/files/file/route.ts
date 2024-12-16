@@ -77,14 +77,6 @@ export async function GET(req: Request) {
       filecontent,
     });
 
-    if (!filecontent) {
-      throw new Error("FileContent is missing or invalid");
-    }
-
-    if (!filesize || typeof filesize !== "number" || isNaN(filesize)) {
-      throw new Error("Invalid or missing FileSize");
-    }
-
     const fileBuffer = Buffer.isBuffer(filecontent)
       ? filecontent
       : Buffer.from(filecontent || "", "binary");

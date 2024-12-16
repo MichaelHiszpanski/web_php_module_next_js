@@ -16,7 +16,7 @@ const MessageDisplay: React.FC<Props> = ({
   return (
     <div
       key={messageid}
-      className="w-full bg-white p-2 rounded-md shadow-sm border border-gray-200 my-1"
+      className="w-full bg-cyan-200 p-2 rounded-md shadow-sm border border-gray-200 my-1"
     >
       {messagecontext}
       <div className="w-full  text-end  font-mono" style={{ fontSize: "12px" }}>

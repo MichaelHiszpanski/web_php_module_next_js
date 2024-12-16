@@ -4,6 +4,7 @@ import { FaScroll, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import SidePanelItem from "./SidePanelItem";
 import { responseStudentGroups } from "@/src/services/routes/studentRoutes";
 import userStore from "@/src/mobX/user-store/user_store";
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 
 interface Props {
   isBoardOpen: boolean;
@@ -23,7 +24,7 @@ const SidePanel: FC<Props> = ({
 }) => {
   const [groups, setGroups] = useState<any[]>([]);
   const [name, setName] = useState<string>("");
-
+  const { dictionary } = useTranslation();
   const getTeacherGroups = useCallback(async () => {
     try {
       if (teacherID) {
@@ -67,9 +68,9 @@ const SidePanel: FC<Props> = ({
         isBoardOpen ? "translate-x-0" : "-translate-x-[80%]"
       }`}
     >
-      <div className="flex flex-row items-center justify-center">
+      <div className="flex flex-row w-full items-center text-start px-2">
         <span style={{ fontSize: "14px" }} className=" font-mono">
-          Selected:
+          {dictionary.side_panel[0].selected}
         </span>
         <p
           className=" font-mono ml-1 text-colorFive"
@@ -79,14 +80,15 @@ const SidePanel: FC<Props> = ({
         </p>
       </div>
       <div>
-        <div className="flex mt-2   flex-row w-full items-center justify-between">
+        <div className="flex mt-2 px-2   flex-row w-full items-center justify-between">
           {/* <p className="font-mono text-sm mr-10">Refresh -{">"} </p> */}
           <button
             className=" p-1 border-[0.5px] border-black bg-white  font-orbitron_variable  text-colorOne rounded-xl  flex flex-row items-center  cursor-pointer"
             onClick={() => getTeacherGroups()}
             style={{ fontSize: "12px" }}
           >
-            Refresh Groups :<FaScroll size={18} />
+            {dictionary.side_panel[0].refresh_group}
+            <FaScroll size={18} />
           </button>
           <div className="flex flex-row justify-start">
             <button
@@ -123,18 +125,18 @@ const SidePanel: FC<Props> = ({
               />
             ))
           ) : (
-            <p>No groups available.</p>
+            <p> {dictionary.side_panel[0].no_groups}</p>
           )}
         </div>
       </div>
       <div>
         {!isStudent && (
           <div
-            className="mt-2 text-sm mb-2 px-2 border-[0.5px] border-black bg-white
+            className="mt-2 text-sm mb-2 p-1 border-[0.5px] border-black text-center bg-white
                 font-orbitron_variable text-colorOne rounded-xl mx-5 cursor-pointer"
             onClick={openSecondModal}
           >
-            Create new group.
+            {dictionary.side_panel[0].new_group}
           </div>
         )}
       </div>

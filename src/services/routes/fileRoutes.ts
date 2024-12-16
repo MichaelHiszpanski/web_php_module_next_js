@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+
 export const responsePostFileToGroup = async (
   GroupID: number,
   UserID: string,
@@ -25,20 +27,26 @@ export const responseGetGroupFiles = async (groupID: number) => {
   return response.json();
 };
 
-export const getGroupFilesList = async (groupID: number) => {
-  try {
-    const result = await responseGetGroupFiles(groupID);
+// export const getGroupFilesList = async (groupID: number) => {
+//   try {
+//     const result = await responseGetGroupFiles(groupID);
 
-    if (Array.isArray(result)) {
-      return result;
-    } else {
-      return [];
-    }
-  } catch (error) {
-    return [];
-  }
+//     if (Array.isArray(result)) {
+//       return result;
+//     } else {
+//       return [];
+//     }
+//   } catch (error) {
+//     return [];
+//   }
+// };
+export const useFiles = (groupID: number) => {
+  return useQuery({
+    queryKey: ["groupFiles", groupID],
+    queryFn: () => responseGetGroupFiles(groupID),
+    staleTime: 5 * 60 * 1000,
+  });
 };
-
 export const responseDownloadFile = async (
   file: { fileid: number; filepath: string },
   onDownloadError: (message: string) => void

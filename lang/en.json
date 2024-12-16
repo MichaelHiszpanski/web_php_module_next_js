@@ -26,5 +26,13 @@
   ],
   "user_text": "User Name",
   "verify_text": "Verify your email",
-  "verify_button": "Verify"
+  "verify_button": "Verify",
+  "side_panel": [
+    {
+      "selected": "Selected:",
+      "refresh_group": "Refresh Groups :",
+      "no_groups": "No groups available.",
+      "new_group": "New Group"
+    }
+  ]
 }
