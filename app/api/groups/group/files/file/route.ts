@@ -32,12 +32,74 @@ export async function POST(req: Request) {
       filePath,
       fileBuffer,
     ]);
+    console.log("FileBuffer:", fileBuffer, "Type:", typeof fileBuffer);
     const fileId = result[0]?.FileID;
     return NextResponse.json({
       success: true,
       fileId: fileId,
     });
   } catch (error) {
+    return NextResponse.json(
+      { success: false, error: "Something went wrong" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const fileId = parseInt(url.searchParams.get("FileID") || "", 10);
+
+    if (isNaN(fileId)) {
+      throw new Error("Invalid or missing FileID");
+    }
+
+    const fileQuery = `
+      SELECT FilePath, FileContent, FileSize
+      FROM Files
+      WHERE FileID = $1;
+    `;
+
+    const result = await sql(fileQuery, [fileId]);
+
+    if (result.length === 0) {
+      return NextResponse.json(
+        { success: false, error: "File not found" },
+        { status: 404 }
+      );
+    }
+    const { filepath, filecontent, filesize } = result[0];
+
+    console.log("Retrieved Data:", {
+      filepath,
+      filesize,
+      filecontent,
+    });
+
+    if (!filecontent) {
+      throw new Error("FileContent is missing or invalid");
+    }
+
+    if (!filesize || typeof filesize !== "number" || isNaN(filesize)) {
+      throw new Error("Invalid or missing FileSize");
+    }
+
+    const fileBuffer = Buffer.isBuffer(filecontent)
+      ? filecontent
+      : Buffer.from(filecontent || "", "binary");
+
+    const fileName = filepath || "downloaded_file";
+
+    return new Response(fileBuffer, {
+      headers: {
+        "Content-Disposition": `attachment; filename="${fileName}"`,
+        "Content-Type": "application/octet-stream",
+        "Content-Length": `${filesize}`,
+      },
+    });
+  } catch (error) {
+    console.error("Error in GET /api/groups/group/files/file:", error);
     return NextResponse.json(
       { success: false, error: "Something went wrong" },
       { status: 500 }

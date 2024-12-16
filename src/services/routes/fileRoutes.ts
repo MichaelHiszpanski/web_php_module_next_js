@@ -38,3 +38,17 @@ export const getGroupFilesList = async (groupID: number) => {
     return [];
   }
 };
+
+export const responseDownloadFile = async (
+  file: { fileid: number; filepath: string },
+  onDownloadError: (message: string) => void
+) => {
+  const response = await fetch(
+    `/api/groups/group/files/file?FileID=${file.fileid}`
+  );
+
+  if (!response.ok) {
+    onDownloadError("Failed to download the file");
+  }
+  return response;
+};
