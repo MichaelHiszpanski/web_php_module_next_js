@@ -43,11 +43,11 @@ const SignIn: NextPage = () => {
     const errorsList: any = {};
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(userData.email)) {
-      errorsList.email = dictionary.validations[0].email_valid;
-      isValid = false;
-    } else if (userData.email.trim() === "") {
+    if (userData.email.trim() === "") {
       errorsList.email = dictionary.validations[1].email_empty;
+      isValid = false;
+    } else if (!emailRegex.test(userData.email)) {
+      errorsList.email = dictionary.validations[0].email_valid;
       isValid = false;
     }
 
