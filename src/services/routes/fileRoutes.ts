@@ -27,23 +27,11 @@ export const responseGetGroupFiles = async (groupID: number) => {
   return response.json();
 };
 
-// export const getGroupFilesList = async (groupID: number) => {
-//   try {
-//     const result = await responseGetGroupFiles(groupID);
-
-//     if (Array.isArray(result)) {
-//       return result;
-//     } else {
-//       return [];
-//     }
-//   } catch (error) {
-//     return [];
-//   }
-// };
 export const useGetGroupFilesList = (groupID: number) => {
   return useQuery({
     queryKey: ["groupFiles", groupID],
     queryFn: () => responseGetGroupFiles(groupID),
+    enabled: !!groupID,
     staleTime: 5 * 60 * 1000,
   });
 };

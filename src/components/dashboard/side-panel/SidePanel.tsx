@@ -1,4 +1,4 @@
-import { responseGetGroups } from "@/src/services/routes/groupRoutes";
+import { useGetGroups } from "@/src/services/routes/groupRoutes";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { FaScroll, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import SidePanelItem from "./SidePanelItem";
@@ -22,42 +22,54 @@ const SidePanel: FC<Props> = ({
   teacherID,
   setGroupId,
 }) => {
-  const [groups, setGroups] = useState<any[]>([]);
+  const [studentGroups, setStudentGroups] = useState<any[]>([]);
   const [name, setName] = useState<string>("");
   const { dictionary } = useTranslation();
-  const getTeacherGroups = useCallback(async () => {
+
+  const {
+    data: teacherGroups = [],
+    isLoading: isTeacherLoading,
+    isError: isTeacherError,
+    refetch: refetchTeacherGroups,
+  } = useGetGroups(teacherID!);
+  // const getTeacherGroups = useCallback(async () => {
+  //   try {
+  //     if (teacherID) {
+  //       const response = await responseGetGroups(teacherID);
+  //       setGroups(response);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error: Something went wrong!", error);
+  //   }
+  // }, [teacherID]);
+
+  const getStudentsGroups = async () => {
     try {
-      if (teacherID) {
-        const response = await responseGetGroups(teacherID);
-        setGroups(response);
-      }
+      const response = await responseStudentGroups(userStore.user.userId);
+      setStudentGroups(response);
     } catch (error) {
-      console.error("Error: Something went wrong!", error);
+      console.error("Error fetching student groups:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!teacherID) {
+      getStudentsGroups();
     }
   }, [teacherID]);
 
-  const getStudentsGroups = useCallback(async () => {
-    try {
-      if (!teacherID) {
-        const response = await responseStudentGroups(userStore.user.userId);
-        setGroups(response);
-      }
-    } catch (error) {
-      console.error("Error: Something went wrong!", error);
-    }
-  }, [isStudent == true]);
-
-  useEffect(() => {
-    if (teacherID) {
-      getTeacherGroups();
-    } else {
-      getStudentsGroups();
-    }
-  }, [teacherID, getTeacherGroups, isStudent, openSecondModal]);
+  const groups = teacherID ? teacherGroups : studentGroups;
 
   const handleGroupClick = (groupid: number, groupName: string) => {
     setGroupId(groupid);
     setName(groupName);
+  };
+  const handleRefresh = () => {
+    if (teacherID) {
+      refetchTeacherGroups();
+    } else {
+      getStudentsGroups();
+    }
   };
 
   return (
@@ -84,7 +96,7 @@ const SidePanel: FC<Props> = ({
           {/* <p className="font-mono text-sm mr-10">Refresh -{">"} </p> */}
           <button
             className=" p-1 border-[0.5px] border-black bg-white  font-orbitron_variable  text-colorOne rounded-xl  flex flex-row items-center  cursor-pointer"
-            onClick={() => getTeacherGroups()}
+            onClick={handleRefresh}
             style={{ fontSize: "12px" }}
           >
             {dictionary.side_panel[0].refresh_group}
@@ -113,8 +125,12 @@ const SidePanel: FC<Props> = ({
           style={{ overflowY: "auto" }}
           className=" h-[500px]  rounded-md p-2 mx-2 bg-white bg-opacity-50 mt-5"
         >
-          {groups.length > 0 ? (
-            groups.map((group) => (
+          {isTeacherLoading ? (
+            <p>Loading...</p>
+          ) : isTeacherError ? (
+            <p>Error loading groups.</p>
+          ) : groups.length > 0 ? (
+            groups.map((group: any) => (
               <SidePanelItem
                 key={group.groupid}
                 groupName={group.groupname}

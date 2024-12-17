@@ -7,6 +7,7 @@ import {
 import React, { useState } from "react";
 import FileDisplay from "../../components/FileDisplay";
 import CustomErros from "@/src/components/custom-errors/CustomErrors";
+import { useQueryClient } from "@tanstack/react-query";
 interface Props {
   groupId: number;
 }
@@ -32,7 +33,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
       setUploadStatus("No file selected");
       return;
     }
-
+    const queryClient = useQueryClient();
     try {
       const response = await responsePostFileToGroup(
         groupId,
@@ -42,6 +43,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
 
       if (response.success) {
         setUploadStatus("File uploaded successfully");
+        queryClient.invalidateQueries(["groupFiles", groupId]);
       } else {
         setUploadStatus(`Error: ${response.error}`);
       }

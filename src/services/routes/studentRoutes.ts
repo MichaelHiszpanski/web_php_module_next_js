@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+
 export const responseStudents = async () => {
   const response = await fetch(`/api/students`, {
     method: "GET",
@@ -21,6 +23,15 @@ export const getAllStudentsList = async (
     setStudents([]);
   }
 };
+export const useGetStudents = () => {
+  return useQuery({
+    queryKey: ["students"],
+    queryFn: responseStudents,
+    staleTime: 5 * 60 * 1000,
+    retry: 2,
+    refetchOnWindowFocus: true,
+  });
+};
 
 export const responseStudentGroups = async (userId: string) => {
   const response = await fetch(
@@ -31,4 +42,13 @@ export const responseStudentGroups = async (userId: string) => {
     }
   );
   return response.json();
+};
+export const useGetStudentGroups = (userId: string) => {
+  return useQuery({
+    queryKey: ["studentGroups", userId],
+    queryFn: () => responseStudentGroups(userId),
+    enabled: !!userId,
+    staleTime: 5 * 60 * 1000,
+    retry: 2,
+  });
 };

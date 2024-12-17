@@ -1,12 +1,15 @@
 import {
-  getUsersListsFromGroup,
+  // getUsersListsFromGroup,
   responsePostMemberToGroup,
   responseRemovetMemberToGroup,
   responseUsersFromGroup,
+  useGetGroupUsers,
 } from "@/src/services/routes/groupRoutes";
 import {
   getAllStudentsList,
   responseStudents,
+  useGetStudentGroups,
+  useGetStudents,
 } from "@/src/services/routes/studentRoutes";
 import React, { useEffect, useState } from "react";
 import UserDisplayInGroup from "../../components/UserDisplayInGroup";
@@ -14,22 +17,29 @@ import StudentDisplayInGroup from "../../components/StudentsDisplayInGroup";
 import ButtonTab from "@/src/components/buttons/button-tab/ButtonTab";
 import CustomField from "@/src/components/custom-field/CustomField";
 import CustomErros from "@/src/components/custom-errors/CustomErrors";
+import { useQueryClient } from "@tanstack/react-query";
 interface Props {
   groupId: number;
 }
 const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
-  const [students, setStudents] = useState<any>([]);
-  const [usersInGroup, setUsersInGroup] = useState<any>([]);
+  // const [students, setStudents] = useState<any>([]);
+  //const [usersInGroup, setUsersInGroup] = useState<any>([]);
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [errors, setErrors] = useState<any>([]);
-
-  useEffect(() => {
-    getAllStudentsList(setStudents);
-  }, []);
-
-  useEffect(() => {
-    getUsersListsFromGroup(groupId, setUsersInGroup);
-  }, [groupId]);
+  const { data: studentsAll = [], isLoading, isError } = useGetStudents();
+  // const { data: groups = [], isLoading, isError } = useGetStudentGroups(userId);
+  // useEffect(() => {
+  //   getAllStudentsList(setStudents);
+  // }, []);
+  const {
+    data: usersInGroup = [],
+    isLoading: isLoadingGroupUsers,
+    isError: isErrorGroupUsers,
+  } = useGetGroupUsers(groupId);
+  const queryClient = useQueryClient();
+  // useEffect(() => {
+  //   getUsersListsFromGroup(groupId, setUsersInGroup);
+  // }, [groupId]);
 
   const handleItemClick = (item: any) => {
     setSelectedItem(item);
@@ -43,9 +53,10 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
 
     if (response.error) {
       setErrors([response.error]);
-    } else {
-      getUsersListsFromGroup(groupId, setUsersInGroup);
     }
+    //  else {
+    //   getUsersListsFromGroup(groupId, setUsersInGroup);
+    // }
   };
 
   const handleRemoveUserToGroup = async () => {
@@ -56,10 +67,13 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
 
     if (response.error) {
       setErrors([response.error]);
-    } else {
-      getUsersListsFromGroup(groupId, setUsersInGroup);
     }
+    // else {
+    //   getUsersListsFromGroup(groupId, setUsersInGroup);
+    // }
   };
+  if (isLoading) return <p>Loading students...</p>;
+  if (isError) return <p>Error loading students</p>;
 
   return (
     <div className="w-full grid grid-cols-2 gap-4  rounded-xl  items-center pb-[200px]">
@@ -80,8 +94,16 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
             aria-label="Students in Group"
             style={{ overflowY: "auto" }}
           >
-            {students.length === 0 ? (
-              <div>EMPTY</div>
+            {isLoadingGroupUsers ? (
+              <div className="w-full text-center text-gray-700 font-bold">
+                Loading...
+              </div>
+            ) : isErrorGroupUsers ? (
+              <div className="w-full text-center text-red-500 font-bold">
+                Error loading group users.
+              </div>
+            ) : usersInGroup.length === 0 ? (
+              <div className="w-full text-center">EMPTY</div>
             ) : (
               usersInGroup.map((item: any) => (
                 <UserDisplayInGroup
@@ -99,10 +121,10 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
             aria-label="All Students"
             style={{ overflowY: "auto" }}
           >
-            {students.length === 0 ? (
+            {studentsAll.length === 0 ? (
               <div>EMPTY</div>
             ) : (
-              students.map((item: any) => (
+              studentsAll.map((item: any) => (
                 <StudentDisplayInGroup
                   item={item}
                   key={item.studentid}
