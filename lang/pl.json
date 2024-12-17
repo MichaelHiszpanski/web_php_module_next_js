@@ -1,4 +1,5 @@
 {
+  "logo": "Menedżer Szkoły",
   "navigation": ["Strona główna", "Pulpit", "Kontakt", "Zaloguj się"],
   "sign_in": "Zaloguj się",
   "sign_up": "Zarejestruj się",
@@ -35,6 +36,47 @@
       "refresh_group": "Odśwież grupy:",
       "no_groups": "Brak dostępnych grup.",
       "new_group": "Nowa grupa"
+    }
+  ],
+  "home_content": [
+    {
+      "postgresSql": "PostgreSQL",
+      "postgresSql_description": [
+        {
+          "description_one": "PostgreSQL, często nazywany Postgres, to potężny, darmowy i otwarty system zarządzania relacyjnymi bazami danych (RDBMS). Wyróżnia się silnym naciskiem na:",
+          "line_one": "Zgodność z SQL",
+          "line_two": "Rozszerzalność",
+          "line_three": "Transakcje zgodne z ACID",
+          "line_four": "Automatycznie aktualizowane widoki",
+          "line_five": "PostgreSQL jest powszechnie ceniony za wydajność oraz elastyczność w zarządzaniu danymi strukturalnymi."
+        }
+      ]
+    },
+    {
+      "clerk": "Clerk",
+      "clerk_description": [
+        {
+          "description_one": "Clerk to kompleksowe rozwiązanie do uwierzytelniania i zarządzania użytkownikami, zaprojektowane dla nowoczesnych aplikacji internetowych. Oferuje funkcje takie jak:",
+          "line_one": "Uwierzytelnianie wieloskładnikowe (MFA)",
+          "line_two": "Logowanie za pomocą serwisów społecznościowych",
+          "line_three": "Zarządzanie sesjami",
+          "line_four": "Dostosowywalne komponenty",
+          "line_five": "Clerk jest ceniony za solidne zabezpieczenia i łatwą integrację."
+        }
+      ]
+    },
+    {
+      "tanstack_query": "TanStack Query",
+      "tanstack_query_description": [
+        {
+          "description_one": "TanStack Query to zaawansowana biblioteka do zarządzania stanem asynchronicznym w aplikacjach JavaScript. Oferuje funkcje takie jak:",
+          "line_one": "Buforowanie danych",
+          "line_two": "Automatyczne ponowne pobieranie",
+          "line_three": "Optymistyczne aktualizacje",
+          "line_four": "Wsparcie dla renderowania po stronie serwera",
+          "line_five": "TanStack Query jest ceniony za wydajność i łatwą integrację."
+        }
+      ]
     }
   ]
 }

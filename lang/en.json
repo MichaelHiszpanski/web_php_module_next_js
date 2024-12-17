@@ -1,4 +1,5 @@
 {
+  "logo": "School Manager",
   "navigation": ["Home", "Dashboard", "Contact", "Sign In"],
   "sign_in": "Sign-In",
   "sign_up": "Sign-Up",
@@ -33,6 +34,47 @@
       "refresh_group": "Refresh Groups :",
       "no_groups": "No groups available.",
       "new_group": "New Group"
+    }
+  ],
+  "home_content": [
+    {
+      "postgresSql": "Postgresql",
+      "postgresSql_description": [
+        {
+          "description_one": "PostgreSQL, often referred to as Postgres, is a powerful, free, and open-source relational database management system (RDBMS). It stands out for its strong focus on:",
+          "line_one": "SQL compliance",
+          "line_two": "Extensibility",
+          "line_three": "ACID-compliant transactions",
+          "line_four": "Automatically updatable views",
+          "line_five": "PostgreSQL is widely trusted for its robust performance and flexibility in managing structured data."
+        }
+      ]
+    },
+    {
+      "clerk": "Clerk",
+      "clerk_description": [
+        {
+          "description_one": "Clerk is a comprehensive authentication and user management solution designed for modern web applications. It offers features such as:",
+          "line_one": "Multi-Factor Authentication (MFA)",
+          "line_two": "Social Sign-On",
+          "line_three": "Session Management",
+          "line_four": "Customizable Components",
+          "line_five": "Clerk is trusted for its robust security and seamless integration capabilities."
+        }
+      ]
+    },
+    {
+      "tanstack_query": "TanStack Query",
+      "tanstack_query_description": [
+        {
+          "description_one": "TanStack Query is a powerful asynchronous state management library for JavaScript frameworks. It offers features such as:",
+          "line_one": "Data Caching",
+          "line_two": "Automatic Refetching",
+          "line_three": "Optimistic Updates",
+          "line_four": "Server-Side Rendering Support",
+          "line_five": "TanStack Query is trusted for its robust performance and seamless integration capabilities."
+        }
+      ]
     }
   ]
 }
