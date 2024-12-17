@@ -33,10 +33,8 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
         newMessage
       ),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["groupMessages", String(groupId)],
-      });
       setMessage("");
+      handleRefreshGroupMessages();
     },
   });
   const sendMessage = () => {
@@ -47,6 +45,10 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
   };
+
+  function handleRefreshGroupMessages() {
+    queryClient.invalidateQueries({ queryKey: ["groupMessages", groupId] });
+  }
 
   return (
     <div className="w-full flex flex-col min-h-[700px] items-center mb-[100px]">
