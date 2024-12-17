@@ -8,41 +8,41 @@ import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import { observer } from "mobx-react-lite";
 import React, { useCallback, useEffect, useState } from "react";
 import MessageDisplay from "../../components/MessageDisplay";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   groupId: number;
 }
 
 const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
-  const [messagesInGroup, setMessagesFromGroup] = useState<any>([]);
   const [message, setMessage] = useState<string>("");
 
-  const sendMessage = async () => {
+  const {
+    data: messagesInGroup = [],
+    isLoading,
+    isError,
+  } = getMessagesListFromGroup(groupId);
+  const queryClient = useQueryClient();
+
+  const queryMessageMutation = useMutation({
+    mutationFn: async (newMessage: string) =>
+      responsePostMessageToGroup(
+        groupId,
+        userStore.user.userId,
+        userStore.user.name,
+        newMessage
+      ),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["groupMessages", groupId]);
+      setMessage("");
+    },
+  });
+  const sendMessage = () => {
     if (!message.trim()) return;
-
-    await responsePostMessageToGroup(
-      groupId,
-      userStore.user.userId,
-      userStore.user.name,
-      message
-    );
-
-    setMessage("");
-    await getGroupMessages();
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    queryMessageMutation.mutate(message);
   };
 
-  const getGroupMessages = useCallback(async () => {
-    await getMessagesListFromGroup(groupId, setMessagesFromGroup);
-  }, [groupId]);
-
-  useEffect(() => {
-    getGroupMessages();
-  }, [getGroupMessages]);
-
-  const handleInputChange = async (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value);
   };
 
@@ -60,7 +60,11 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
           className="w-full h-full flex flex-col-reverse items-start overflow-y-auto"
           style={{ overflowY: "auto" }}
         >
-          {messagesInGroup?.length > 0 ? (
+          {isLoading ? (
+            <p>Loading messages...</p>
+          ) : isError ? (
+            <p>Error loading messages.</p>
+          ) : messagesInGroup.length > 0 ? (
             messagesInGroup.map((item: any) => (
               <MessageDisplay
                 key={item.messageid}
@@ -79,7 +83,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
           value={message}
           name={"message"}
           onInputChange={handleInputChange}
-          onSend={() => sendMessage()}
+          onSend={sendMessage}
         />
       </div>
     </div>

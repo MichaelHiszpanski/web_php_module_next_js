@@ -2,10 +2,9 @@ import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary
 import userStore from "@/src/mobX/user-store/user_store";
 import {
   responsePostFileToGroup,
-  useFiles,
+  getGroupFilesList,
 } from "@/src/services/routes/fileRoutes";
-import React, { useEffect, useState } from "react";
-import { FaFileAlt, FaIcons } from "react-icons/fa";
+import React, { useState } from "react";
 import FileDisplay from "../../components/FileDisplay";
 import CustomErros from "@/src/components/custom-errors/CustomErrors";
 interface Props {
@@ -14,14 +13,20 @@ interface Props {
 const FilesContentTab: React.FC<Props> = ({ groupId }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
-
   const [errors, setErrors] = useState<any>([]);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setSelectedFile(event.target.files[0]);
     }
   };
-  const { data: groupFiles = [], isLoading, isError } = useFiles(groupId);
+
+  const {
+    data: groupFiles = [],
+    isLoading,
+    isError,
+  } = getGroupFilesList(groupId);
+
   const handleFileUpload = async () => {
     if (!selectedFile) {
       setUploadStatus("No file selected");

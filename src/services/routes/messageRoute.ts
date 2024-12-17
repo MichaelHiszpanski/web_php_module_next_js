@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query";
+
 export const responseMessagesInGropup = async (groupID: number) => {
   const response = await fetch(
     `/api/groups/group/messages?GroupID=${groupID}`,
@@ -7,23 +9,17 @@ export const responseMessagesInGropup = async (groupID: number) => {
     }
   );
 
-  return response.json();
-};
-export const getMessagesListFromGroup = async (
-  groupID: number,
-  setMessagesFromGroup: React.Dispatch<React.SetStateAction<any>>
-) => {
-  try {
-    const result = await responseMessagesInGropup(groupID);
+  const result = await response.json();
 
-    if (Array.isArray(result.messages)) {
-      setMessagesFromGroup(result.messages);
-    } else {
-      setMessagesFromGroup([]);
-    }
-  } catch (error) {
-    setMessagesFromGroup([]);
-  }
+  return result.messages || [];
+};
+
+export const getMessagesListFromGroup = (groupID: number) => {
+  return useQuery({
+    queryKey: ["groupMessages", groupID],
+    queryFn: () => responseMessagesInGropup(groupID),
+    staleTime: 5 * 60 * 1000,
+  });
 };
 
 export const responsePostMessageToGroup = async (
