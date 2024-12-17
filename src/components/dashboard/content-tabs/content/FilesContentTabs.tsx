@@ -52,7 +52,9 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
 
   return (
     <div className="w-full flex flex-col min-h-[700px]  items-center">
-      <h1 className="text-2xl font-orbitron_variable font-bold">Files</h1>
+      {/* <h1 className="text-2xl font-orbitron_variable font-bold text-white">
+        Files
+      </h1> */}
       <CustomErros errors={errors} />
       <div
         className="w-[90%] h-[600px] rounded-2xl border-2 shadow-xl 
@@ -80,14 +82,18 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
               />
             ))
           ) : (
-            <p className=" text-2xl w-full text-center font-jaro">
+            <p className=" text-2xl w-full text-center font-jaro text-colorOne">
               No files selected
             </p>
           )}
         </div>
       </div>
       <div className="mt-4 flex flex-row border border-gray-300 mb-2 items-center">
-        <input type="file" onChange={handleFileChange} className="p-2 " />
+        <input
+          type="file"
+          onChange={handleFileChange}
+          className="p-2 text-white"
+        />
         <div className="w-full mr-2">
           <ButtonPrimary
             title={"Uplaod File"}

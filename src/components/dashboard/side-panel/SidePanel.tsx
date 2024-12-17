@@ -70,29 +70,25 @@ const SidePanel: FC<Props> = ({
         isBoardOpen ? "translate-x-0" : "-translate-x-[80%]"
       }`}
     >
-      <div className="flex flex-row w-full items-center text-start px-2">
-        <span style={{ fontSize: "14px" }} className=" font-mono">
+      <div className="flex flex-col w-full items-center text-start px-2 bg-white h-[60px]">
+        <span
+          style={{ fontSize: "14px" }}
+          className=" font-mono w-full text-start"
+        >
           {dictionary.side_panel[0].selected}
         </span>
         <p
-          className=" font-mono ml-1 text-colorFive"
-          style={{ fontSize: "16px" }}
+          className=" font-mono ml-1 text-colorFive w-full text-start"
+          style={{ fontSize: "18px" }}
         >
-          <strong> {name !== "" && ` ${name}`}</strong>
+          <strong> {name !== "None" && ` ${name}`}</strong>
         </p>
       </div>
       <div>
-        <div className="flex mt-2 px-2   flex-row w-full items-center justify-between">
+        <div className="flex mt-1 px-2   flex-row w-full items-center justify-between">
           {/* <p className="font-mono text-sm mr-10">Refresh -{">"} </p> */}
-          <button
-            className=" p-1 border-[0.5px] border-black bg-white  font-orbitron_variable  text-colorOne rounded-xl  flex flex-row items-center  cursor-pointer"
-            onClick={handleRefresh}
-            style={{ fontSize: "12px" }}
-          >
-            {dictionary.side_panel[0].refresh_group}
-            <FaScroll size={18} />
-          </button>
-          <div className="flex flex-row justify-start">
+
+          <div className="flex flex-row justify-end w-full">
             <button
               type="button"
               onClick={() => setIsBoardOpen(!isBoardOpen)}
@@ -135,10 +131,21 @@ const SidePanel: FC<Props> = ({
           )}
         </div>
       </div>
+      <div className="w-full flex flex-col items-center justify-center mt-5">
+        <button
+          className=" p-1 border-[0.5px]  w-[180px] border-black bg-white  font-orbitron_variable  text-colorOne 
+                      rounded-xl  flex flex-row items-center justify-between px-2  cursor-pointer"
+          onClick={handleRefresh}
+          style={{ fontSize: "14px" }}
+        >
+          {dictionary.side_panel[0].refresh_group}
+          <FaScroll size={18} />
+        </button>
+      </div>
       <div>
         {!isStudent && (
           <div
-            className="mt-2 text-sm mb-2 p-1 border-[0.5px] border-black text-center bg-white
+            className="mt-2 text-sm mb-2 p-1 w-[180px] border-[0.5px] border-black text-center bg-white
                 font-orbitron_variable text-colorOne rounded-xl mx-5 cursor-pointer"
             onClick={openSecondModal}
           >

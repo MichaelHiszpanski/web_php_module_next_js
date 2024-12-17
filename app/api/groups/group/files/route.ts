@@ -28,7 +28,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json(result);
   } catch (error: any) {
-    console.error("Error:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve files",

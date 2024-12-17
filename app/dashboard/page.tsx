@@ -202,10 +202,8 @@ const Dashboard: NextPage = () => {
     //   isStudent ? "bg-gray-300" : "bg-white"
     // }
     <div
-      className={`flex flex-row h-full 
-      
-      bg-gradient-to-r to-colorFour from-colorEight
-      `}
+      className={`flex flex-row h-full bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree
+       opacity-95`}
     >
       <SidePanel
         isBoardOpen={isBoardOpen}

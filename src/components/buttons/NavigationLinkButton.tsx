@@ -9,7 +9,7 @@ interface Props {
 const NavigationLinkButton: FC<Props> = ({ name, hrefLink, className }) => {
   return (
     <div
-      className={` ${className} rounded-xl font-bold hover:scale-110 select-none font-orbitron_variable text-xl`}
+      className={` ${className} rounded-xl font-bold hover:scale-110 select-none font-orbitron_variable text-xl text-white`}
     >
       <Link href={hrefLink}>{name}</Link>
     </div>

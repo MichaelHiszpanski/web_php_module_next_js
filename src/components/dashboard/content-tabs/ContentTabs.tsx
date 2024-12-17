@@ -37,7 +37,6 @@ const ContentTabs: React.FC<Props> = ({
         isBoardOpen ? " flex translate-y-0" : " hidden -translate-y-full"
       } }`}
     >
-      {/* ${isStudent ? "bg-white" : "bg-white" */}
       <div className="w-full flex flex-col">
         <div key={content[activeTab].key} className="flex-1 p-4">
           {content[activeTab].element}

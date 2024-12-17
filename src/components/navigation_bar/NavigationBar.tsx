@@ -1,14 +1,6 @@
 "use client";
 import React, { FC, useState, useRef, useEffect } from "react";
-import {
-  logo,
-  logo2,
-  logoEarth,
-  logoEarth2,
-  wave_down_three,
-  wave_one,
-  wave_up_two,
-} from "@/src/consts/images";
+import { logoSrc } from "@/src/consts/images";
 import Image from "next/image";
 
 import NavigationLinkButton from "../buttons/NavigationLinkButton";
@@ -38,7 +30,8 @@ const NavigationBar: FC = () => {
   ];
   return (
     <nav
-      className="w-full relative h-[100px] flex flex-row justify-evenly items-center bg-gradient-to-r to-colorFour from-colorEight"
+      className="w-full relative h-[100px] flex flex-row justify-evenly items-center 
+        bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree opacity-95  "
       // style={{
       //   backgroundImage: `url(/sky2.jpg)`,
       //   backgroundSize: "100%",
@@ -59,17 +52,22 @@ const NavigationBar: FC = () => {
         onDragStart={(e) => e.preventDefault()}
         onClick={(e) => e.preventDefault()}
       /> */}
-      <div className="flex flex-row md:justify-evenly justify-between pr-20  items-center w-full h-full z-50">
-        <Image
-          src={logo2}
-          alt="logo"
-          className="w-24 h-24 cursor-pointer select-none"
-          onClick={() => {
-            if (isMobileSize) {
-              setIsModalOpen(!isModalOpen);
-            }
-          }}
-        />
+      <div
+        className="flex flex-row md:justify-evenly ml-5 md:ml-0 justify-between pr-20 
+         items-center w-full h-full z-50 "
+      >
+        <div className=" rounded-3xl bg-white  md:px-5 px-2  shadow-xl">
+          <Image
+            src={logoSrc}
+            alt="logo"
+            className=" w-32 h-20 cursor-pointer select-none"
+            onClick={() => {
+              if (isMobileSize) {
+                setIsModalOpen(!isModalOpen);
+              }
+            }}
+          />
+        </div>
 
         {navigationItems.map((element) => (
           <NavigationLinkButton

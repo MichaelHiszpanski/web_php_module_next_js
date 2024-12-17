@@ -46,7 +46,7 @@ export const LanguageSelect = () => {
               width={24}
               height={24}
             />
-            <p className="hidden font-semibold text-[#222531] dark:text-darkPrimary lg:block">
+            <p className="hidden font-semibold  dark:text-white lg:block text-white">
               ENG
             </p>
           </>
@@ -58,7 +58,7 @@ export const LanguageSelect = () => {
               width={24}
               height={24}
             />
-            <p className="hidden font-semibold text-[#222531] dark:text-darkPrimary lg:block">
+            <p className="hidden font-semibold text-white dark:text-white lg:block">
               PL
             </p>
           </>
@@ -66,7 +66,7 @@ export const LanguageSelect = () => {
         {!isOpen ? (
           <>
             <div className="dark:hidden">
-              <ChrevronDown color={"#222531"} />
+              <ChrevronDown color={"white"} />
             </div>
             <div className="hidden dark:block">
               <ChrevronDown color={"white"} />
@@ -75,7 +75,7 @@ export const LanguageSelect = () => {
         ) : (
           <>
             <div className="dark:hidden">
-              <ChevronUp color={"#222531"} />
+              <ChevronUp color={"whiet"} />
             </div>
             <div className="hidden dark:block">
               <ChevronUp color={"white"} />

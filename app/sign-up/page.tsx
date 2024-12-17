@@ -124,7 +124,7 @@ const SignUp: NextPage = () => {
 
   if (verifying) {
     return (
-      <div className="w-full flex flex-col items-center">
+      <div className="w-full flex flex-col bg-white items-center">
         <h1 className=" text-3xl font-orbitron_variable font-bold text-colorOne mt-[100px] mb-10">
           {dictionary.verify_text}
         </h1>
