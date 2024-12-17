@@ -99,6 +99,19 @@ export async function DELETE(req: Request) {
         { status: 400 }
       );
     }
+    await sql`
+      DELETE FROM GroupMembers
+      WHERE GroupID = ${groupID};
+    `;
+
+    await sql`
+    DELETE FROM Messages
+    WHERE GroupID = ${groupID};
+  `;
+    await sql`
+  DELETE FROM Files
+  WHERE GroupID = ${groupID};
+`;
 
     const result = await sql`
         DELETE FROM Groups

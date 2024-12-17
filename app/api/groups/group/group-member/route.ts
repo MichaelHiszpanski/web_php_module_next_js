@@ -88,18 +88,6 @@ export async function DELETE(req: Request) {
       );
     }
 
-    const userCheck = await sql`
-      SELECT UserID FROM Users WHERE UserID = ${UserID};
-    `;
-    if (userCheck.length === 0) {
-      return NextResponse.json(
-        {
-          error: `Error: UserID does not exist in Users table.`,
-        },
-        { status: 404 }
-      );
-    }
-
     const groupCheck = await sql`
       SELECT GroupID FROM Groups WHERE GroupID = ${GroupID};
     `;
@@ -111,7 +99,28 @@ export async function DELETE(req: Request) {
         { status: 404 }
       );
     }
+    const userCheck = await sql`
+    SELECT RoleId FROM Users WHERE UserID = ${UserID};
+  `;
+    if (userCheck.length === 0) {
+      return NextResponse.json(
+        {
+          error: "Error: UserID does not exist in Users table.",
+        },
+        { status: 404 }
+      );
+    }
 
+    const { roleid } = userCheck[0];
+
+    if (roleid === 2) {
+      return NextResponse.json(
+        {
+          error: "Error: Cannot remove a user with the Teacher role.",
+        },
+        { status: 403 }
+      );
+    }
     const memberCheck = await sql`
       SELECT * FROM GroupMembers WHERE UserID = ${UserID} AND GroupID = ${GroupID};
     `;

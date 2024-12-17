@@ -1,7 +1,8 @@
 import { sidePanelItemStyling } from "@/src/consts/styles";
+import { responseDeleteGroup } from "@/src/services/routes/groupRoutes";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import React from "react";
-import { FaTimes, FaTimesCircle } from "react-icons/fa";
+import { IoTrashBin } from "react-icons/io5";
 interface Props {
   groupName: string;
   description: string;
@@ -16,6 +17,22 @@ const SidePanelItem: React.FC<Props> = ({
   groupid,
   onClick,
 }) => {
+  const deleteGroup = async (groupID: number) => {
+    const deleteGroupConfirmation = window.confirm(
+      "Are you sure you want to delete this Group?"
+    );
+
+    if (deleteGroupConfirmation) {
+      const result = await responseDeleteGroup(groupID);
+      if (result.error) {
+        alert(`Error: ${result.error}`);
+      } else {
+        alert("Group Deleted successfully!");
+      }
+    } else {
+      alert("Group Deletion cancelled.");
+    }
+  };
   return (
     <div
       onClick={() => onClick(groupid)}
@@ -35,9 +52,17 @@ const SidePanelItem: React.FC<Props> = ({
       <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
         <strong>Created:</strong>
       </p>
-      <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
-        {dateTimeFormater(dateCreated) || "N/A"}
-      </p>
+      <div className=" flex flex-row w-full justify-between">
+        <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
+          {dateTimeFormater(dateCreated) || "N/A"}
+        </p>
+        <IoTrashBin
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteGroup(groupid);
+          }}
+        />
+      </div>
     </div>
   );
 };

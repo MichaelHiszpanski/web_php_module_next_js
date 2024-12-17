@@ -17,6 +17,13 @@ export const responseNewGroup = async (groupData: NewGroupModel) => {
   });
   return response.json();
 };
+export const responseDeleteGroup = async (groupID: number) => {
+  const response = await fetch(`/api/groups/group?GroupID=${groupID}`, {
+    method: "DELETE",
+  });
+
+  return response.json();
+};
 
 export const responseGetGroups = async (teacherID: number) => {
   const response = await fetch(`/api/groups/group?TeacherID=${teacherID}`, {
