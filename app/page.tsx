@@ -54,7 +54,7 @@ const Home: NextPage = ({}) => {
       >
         <h1
           className="text-[40px] md:text-[70px] font-bold font-mono bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree 
-                      bg-clip-text text-transparent  mt-20 mb-5"
+                      bg-clip-text text-transparent  mt-20 mb-5 select-none"
         >
           {dictionary.logo}
         </h1>
@@ -69,7 +69,7 @@ const Home: NextPage = ({}) => {
               <h2 className="text-2xl text-colorSrcOne font-orbitron_variable font-bold px-2 border-b-[0.5px] pb-2 border-colorSrcOne mb-2">
                 {dictionary.home_content[0].postgresSql}
               </h2>
-              <p className=" font-sans px-2">
+              <p className=" font-sans px-2 select-none">
                 {
                   dictionary.home_content?.[0]?.postgresSql_description?.[0]
                     ?.description_one
@@ -77,7 +77,7 @@ const Home: NextPage = ({}) => {
               </p>
               <ul
                 className="list-disc pl-5 marker:bg-colorSrcOne mt-2 bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree 
-                      bg-clip-text text-transparent"
+                      bg-clip-text text-transparent select-none"
               >
                 <li className=" font-orbitron_variable">
                   {
@@ -104,7 +104,7 @@ const Home: NextPage = ({}) => {
                   }
                 </li>
               </ul>
-              <p className=" font-mono text-sm mt-2 border-t-[0.5px] px-2 border-colorSrcOne pt-2">
+              <p className="select-none font-mono text-sm mt-2 border-t-[0.5px] px-2 border-colorSrcOne pt-2">
                 {
                   dictionary.home_content?.[0]?.postgresSql_description?.[0]
                     ?.line_five
@@ -122,14 +122,14 @@ const Home: NextPage = ({}) => {
               <h2 className="text-2xl text-colorSrcTwo font-orbitron_variable font-bold px-2 border-b-[0.5px] pb-2 border-colorSrcTwo mb-2">
                 {dictionary.home_content[1].clerk}
               </h2>
-              <p className=" font-sans px-2">
+              <p className=" font-sans px-2 select-none">
                 {
                   dictionary.home_content?.[1]?.clerk_description?.[0]
                     ?.description_one
                 }
               </p>
               <ul
-                className="list-disc pl-5 marker:bg-colorSrcOne mt-2 bg-gradient-to-r from-colorSrcTwo via-colorSrcThree to-colorSrcOne 
+                className="list-disc pl-5 select-none marker:bg-colorSrcOne mt-2 bg-gradient-to-r from-colorSrcTwo via-colorSrcThree to-colorSrcOne 
                       bg-clip-text text-transparent"
               >
                 <li className=" font-orbitron_variable">
@@ -157,7 +157,7 @@ const Home: NextPage = ({}) => {
                   }
                 </li>
               </ul>
-              <p className=" font-mono text-sm mt-2 border-t-[0.5px] px-2 border-colorSrcTwo pt-2">
+              <p className="select-none font-mono text-sm mt-2 border-t-[0.5px] px-2 border-colorSrcTwo pt-2">
                 {
                   dictionary.home_content?.[1]?.clerk_description?.[0]
                     ?.line_five
@@ -176,14 +176,14 @@ const Home: NextPage = ({}) => {
               <h2 className="text-2xl text-colorSrcThree font-orbitron_variable font-bold px-2 border-b-[0.5px] pb-2 border-colorSrcThree mb-2">
                 {dictionary.home_content[2].tanstack_query}
               </h2>
-              <p className=" font-sans px-2">
+              <p className=" font-sans px-2 select-none">
                 {
                   dictionary.home_content?.[2]?.tanstack_query_description?.[0]
                     ?.description_one
                 }
               </p>
               <ul
-                className="list-disc pl-5 marker:bg-colorSrcOne mt-2 bg-gradient-to-r from-colorSrcThree via-colorSrcOne to-colorSrcTwo 
+                className="list-disc select-none pl-5 marker:bg-colorSrcOne mt-2 bg-gradient-to-r from-colorSrcThree via-colorSrcOne to-colorSrcTwo 
                       bg-clip-text text-transparent"
               >
                 <li className=" font-orbitron_variable">
@@ -211,7 +211,7 @@ const Home: NextPage = ({}) => {
                   }
                 </li>
               </ul>
-              <p className=" font-mono text-sm mt-2 border-t-[0.5px] px-2 border-colorSrcThree pt-2">
+              <p className="select-none font-mono text-sm mt-2 border-t-[0.5px] px-2 border-colorSrcThree pt-2">
                 {
                   dictionary.home_content?.[2]?.tanstack_query_description?.[0]
                     ?.line_five

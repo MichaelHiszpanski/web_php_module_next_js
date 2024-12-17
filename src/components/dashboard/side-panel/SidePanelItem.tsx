@@ -57,6 +57,7 @@ const SidePanelItem: React.FC<Props> = ({
           {dateTimeFormater(dateCreated) || "N/A"}
         </p>
         <IoTrashBin
+          className=" cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             deleteGroup(groupid);
