@@ -40,7 +40,7 @@ export const responseGetGroupFiles = async (groupID: number) => {
 //     return [];
 //   }
 // };
-export const getGroupFilesList = (groupID: number) => {
+export const useGetGroupFilesList = (groupID: number) => {
   return useQuery({
     queryKey: ["groupFiles", groupID],
     queryFn: () => responseGetGroupFiles(groupID),

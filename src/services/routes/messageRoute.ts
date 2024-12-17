@@ -14,7 +14,7 @@ export const responseMessagesInGropup = async (groupID: number) => {
   return result.messages || [];
 };
 
-export const getMessagesListFromGroup = (groupID: number) => {
+export const useGetMessagesListFromGroup = (groupID: number) => {
   return useQuery({
     queryKey: ["groupMessages", groupID],
     queryFn: () => responseMessagesInGropup(groupID),

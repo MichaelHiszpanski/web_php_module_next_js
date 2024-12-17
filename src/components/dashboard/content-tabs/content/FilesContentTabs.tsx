@@ -2,7 +2,7 @@ import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary
 import userStore from "@/src/mobX/user-store/user_store";
 import {
   responsePostFileToGroup,
-  getGroupFilesList,
+  useGetGroupFilesList,
 } from "@/src/services/routes/fileRoutes";
 import React, { useState } from "react";
 import FileDisplay from "../../components/FileDisplay";
@@ -25,7 +25,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
     data: groupFiles = [],
     isLoading,
     isError,
-  } = getGroupFilesList(groupId);
+  } = useGetGroupFilesList(groupId);
 
   const handleFileUpload = async () => {
     if (!selectedFile) {

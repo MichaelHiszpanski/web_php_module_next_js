@@ -1,7 +1,7 @@
 import MessageInput from "@/src/components/message-input/MesageInput";
 import userStore from "@/src/mobX/user-store/user_store";
 import {
-  getMessagesListFromGroup,
+  useGetMessagesListFromGroup,
   responsePostMessageToGroup,
 } from "@/src/services/routes/messageRoute";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
@@ -21,7 +21,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
     data: messagesInGroup = [],
     isLoading,
     isError,
-  } = getMessagesListFromGroup(groupId);
+  } = useGetMessagesListFromGroup(groupId);
   const queryClient = useQueryClient();
 
   const queryMessageMutation = useMutation({
