@@ -43,7 +43,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
 
       if (response.success) {
         setUploadStatus("File uploaded successfully");
-        queryClient.invalidateQueries(["groupFiles", groupId]);
+        queryClient.invalidateQueries({ queryKey: ["groupFiles", groupId] });
       } else {
         setUploadStatus(`Error: ${response.error}`);
       }

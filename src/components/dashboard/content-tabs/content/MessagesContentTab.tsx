@@ -6,7 +6,7 @@ import {
 } from "@/src/services/routes/messageRoute";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import { observer } from "mobx-react-lite";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import MessageDisplay from "../../components/MessageDisplay";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -33,7 +33,9 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
         newMessage
       ),
     onSuccess: () => {
-      queryClient.invalidateQueries(["groupMessages", groupId]);
+      queryClient.invalidateQueries({
+        queryKey: ["groupMessages", String(groupId)],
+      });
       setMessage("");
     },
   });

@@ -1,5 +1,5 @@
 import { useGetGroups } from "@/src/services/routes/groupRoutes";
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { FaScroll, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import SidePanelItem from "./SidePanelItem";
 import { responseStudentGroups } from "@/src/services/routes/studentRoutes";
@@ -32,16 +32,6 @@ const SidePanel: FC<Props> = ({
     isError: isTeacherError,
     refetch: refetchTeacherGroups,
   } = useGetGroups(teacherID!);
-  // const getTeacherGroups = useCallback(async () => {
-  //   try {
-  //     if (teacherID) {
-  //       const response = await responseGetGroups(teacherID);
-  //       setGroups(response);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error: Something went wrong!", error);
-  //   }
-  // }, [teacherID]);
 
   const getStudentsGroups = async () => {
     try {

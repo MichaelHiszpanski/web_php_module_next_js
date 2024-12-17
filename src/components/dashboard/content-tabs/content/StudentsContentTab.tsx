@@ -1,45 +1,31 @@
 import {
-  // getUsersListsFromGroup,
   responsePostMemberToGroup,
   responseRemovetMemberToGroup,
-  responseUsersFromGroup,
   useGetGroupUsers,
 } from "@/src/services/routes/groupRoutes";
-import {
-  getAllStudentsList,
-  responseStudents,
-  useGetStudentGroups,
-  useGetStudents,
-} from "@/src/services/routes/studentRoutes";
-import React, { useEffect, useState } from "react";
+import { useGetStudents } from "@/src/services/routes/studentRoutes";
+import React, { useState } from "react";
 import UserDisplayInGroup from "../../components/UserDisplayInGroup";
 import StudentDisplayInGroup from "../../components/StudentsDisplayInGroup";
 import ButtonTab from "@/src/components/buttons/button-tab/ButtonTab";
 import CustomField from "@/src/components/custom-field/CustomField";
 import CustomErros from "@/src/components/custom-errors/CustomErrors";
 import { useQueryClient } from "@tanstack/react-query";
+
 interface Props {
   groupId: number;
 }
 const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
-  // const [students, setStudents] = useState<any>([]);
-  //const [usersInGroup, setUsersInGroup] = useState<any>([]);
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [errors, setErrors] = useState<any>([]);
   const { data: studentsAll = [], isLoading, isError } = useGetStudents();
-  // const { data: groups = [], isLoading, isError } = useGetStudentGroups(userId);
-  // useEffect(() => {
-  //   getAllStudentsList(setStudents);
-  // }, []);
+
   const {
     data: usersInGroup = [],
     isLoading: isLoadingGroupUsers,
     isError: isErrorGroupUsers,
   } = useGetGroupUsers(groupId);
   const queryClient = useQueryClient();
-  // useEffect(() => {
-  //   getUsersListsFromGroup(groupId, setUsersInGroup);
-  // }, [groupId]);
 
   const handleItemClick = (item: any) => {
     setSelectedItem(item);
@@ -54,9 +40,6 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
     if (response.error) {
       setErrors([response.error]);
     }
-    //  else {
-    //   getUsersListsFromGroup(groupId, setUsersInGroup);
-    // }
   };
 
   const handleRemoveUserToGroup = async () => {
@@ -68,9 +51,6 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
     if (response.error) {
       setErrors([response.error]);
     }
-    // else {
-    //   getUsersListsFromGroup(groupId, setUsersInGroup);
-    // }
   };
   if (isLoading) return <p>Loading students...</p>;
   if (isError) return <p>Error loading students</p>;
