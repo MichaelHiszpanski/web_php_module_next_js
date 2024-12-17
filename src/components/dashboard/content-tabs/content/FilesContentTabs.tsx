@@ -15,7 +15,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [errors, setErrors] = useState<any>([]);
-
+  const queryClient = useQueryClient();
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setSelectedFile(event.target.files[0]);
@@ -33,7 +33,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
       setUploadStatus("No file selected");
       return;
     }
-    const queryClient = useQueryClient();
+
     try {
       const response = await responsePostFileToGroup(
         groupId,
