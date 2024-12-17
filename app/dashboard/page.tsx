@@ -28,6 +28,8 @@ import { NewGroupModel } from "@/src/models/NewGroupModel";
 import {
   responseNewGroup,
   responsePostMemberToGroup,
+  responseUsersFromGroup,
+  useAddMemberToGroup,
   usePostNewGroup,
 } from "@/src/services/routes/groupRoutes";
 import {
@@ -56,6 +58,8 @@ const Dashboard: NextPage = () => {
   const [groupId, setGroupId] = useState<number>(0);
   const [activeTab, setActiveTab] = useState(0);
   const [errors, setErrors] = useState<any>([]);
+
+  const { mutate: addMember } = useAddMemberToGroup();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -177,7 +181,9 @@ const Dashboard: NextPage = () => {
 
     if (response.message === "success") {
       const groupID = response.groupid;
-      await responsePostMemberToGroup(userStore.user.userId, groupID);
+      // await responsePostMemberToGroup(userStore.user.userId, groupID);
+      const userID = userStore.user.userId;
+      addMember({ userID, groupID });
       setIsSecondModalOpen(false);
     }
   };

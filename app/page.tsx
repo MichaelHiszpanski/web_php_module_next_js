@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
+import { FaDotCircle } from "react-icons/fa";
 const Home: NextPage = ({}) => {
   const [comment, setComment] = useState("");
   const [message, setMessage] = useState("");
@@ -68,13 +69,16 @@ const Home: NextPage = ({}) => {
               <h2 className="text-2xl text-colorSrcOne font-orbitron_variable font-bold px-2 border-b-[0.5px] pb-2 border-colorSrcOne mb-2">
                 {dictionary.home_content[0].postgresSql}
               </h2>
-              <p className=" font-mono">
+              <p className=" font-sans px-2">
                 {
                   dictionary.home_content?.[0]?.postgresSql_description?.[0]
                     ?.description_one
                 }
               </p>
-              <ul className="list-disc pl-5 marker:bg-colorSrcOne mt-2">
+              <ul
+                className="list-disc pl-5 marker:bg-colorSrcOne mt-2 bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree 
+                      bg-clip-text text-transparent"
+              >
                 <li className=" font-orbitron_variable">
                   {
                     dictionary.home_content?.[0]?.postgresSql_description?.[0]
@@ -118,13 +122,16 @@ const Home: NextPage = ({}) => {
               <h2 className="text-2xl text-colorSrcTwo font-orbitron_variable font-bold px-2 border-b-[0.5px] pb-2 border-colorSrcTwo mb-2">
                 {dictionary.home_content[1].clerk}
               </h2>
-              <p className=" font-mono">
+              <p className=" font-sans px-2">
                 {
                   dictionary.home_content?.[1]?.clerk_description?.[0]
                     ?.description_one
                 }
               </p>
-              <ul className="list-disc pl-5 marker:bg-colorSrcTwo mt-2">
+              <ul
+                className="list-disc pl-5 marker:bg-colorSrcOne mt-2 bg-gradient-to-r from-colorSrcTwo via-colorSrcThree to-colorSrcOne 
+                      bg-clip-text text-transparent"
+              >
                 <li className=" font-orbitron_variable">
                   {
                     dictionary.home_content?.[1]?.clerk_description?.[0]
@@ -169,13 +176,16 @@ const Home: NextPage = ({}) => {
               <h2 className="text-2xl text-colorSrcThree font-orbitron_variable font-bold px-2 border-b-[0.5px] pb-2 border-colorSrcThree mb-2">
                 {dictionary.home_content[2].tanstack_query}
               </h2>
-              <p className=" font-mono">
+              <p className=" font-sans px-2">
                 {
                   dictionary.home_content?.[2]?.tanstack_query_description?.[0]
                     ?.description_one
                 }
               </p>
-              <ul className="list-disc pl-5 marker:bg-colorSrcThree mt-2">
+              <ul
+                className="list-disc pl-5 marker:bg-colorSrcOne mt-2 bg-gradient-to-r from-colorSrcThree via-colorSrcOne to-colorSrcTwo 
+                      bg-clip-text text-transparent"
+              >
                 <li className=" font-orbitron_variable">
                   {
                     dictionary.home_content?.[2]

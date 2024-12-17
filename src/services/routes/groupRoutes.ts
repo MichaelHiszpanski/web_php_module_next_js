@@ -1,6 +1,10 @@
 import { NewGroupModel } from "@/src/models/NewGroupModel";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+interface AddMemberProps {
+  userID: string;
+  groupID: number;
+}
 export const responseNewGroup = async (groupData: NewGroupModel) => {
   const response = await fetch("/api/groups/group", {
     method: "POST",
@@ -63,6 +67,17 @@ export const responsePostMemberToGroup = async (
   });
 
   return await response.json();
+};
+
+export const useAddMemberToGroup = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ userID, groupID }: AddMemberProps) =>
+      responsePostMemberToGroup(userID, groupID),
+    onSuccess: (_, { groupID }) => {
+      queryClient.invalidateQueries({ queryKey: ["groupUsers", groupID] });
+    },
+  });
 };
 export const responseRemovetMemberToGroup = async (
   userID: string,

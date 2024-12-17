@@ -1,6 +1,7 @@
 import {
   responsePostMemberToGroup,
   responseRemovetMemberToGroup,
+  responseUsersFromGroup,
   useGetGroupUsers,
 } from "@/src/services/routes/groupRoutes";
 import { useGetStudents } from "@/src/services/routes/studentRoutes";
@@ -40,6 +41,7 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
     if (response.error) {
       setErrors([response.error]);
     }
+    handleRefreshGroupUsers();
   };
 
   const handleRemoveUserToGroup = async () => {
@@ -51,7 +53,11 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
     if (response.error) {
       setErrors([response.error]);
     }
+    handleRefreshGroupUsers();
   };
+  function handleRefreshGroupUsers() {
+    queryClient.invalidateQueries({ queryKey: ["groupUsers", groupId] });
+  }
   if (isLoading) return <p>Loading students...</p>;
   if (isError) return <p>Error loading students</p>;
 
