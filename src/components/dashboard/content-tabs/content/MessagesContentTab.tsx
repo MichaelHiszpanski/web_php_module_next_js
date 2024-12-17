@@ -75,7 +75,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
                 messageid={item.messageid}
                 messagecontext={item.messagecontext}
                 username={item.username}
-                datecreated={dateTimeFormater(item.datecreated)}
+                datecreated={item.datecreated}
               />
             ))
           ) : (
