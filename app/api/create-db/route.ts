@@ -11,6 +11,7 @@ export async function POST(req: Request) {
     const dropGroupMembersTable = `DROP TABLE IF EXISTS GroupMembers CASCADE;`;
     const dropMessagesTable = `DROP TABLE IF EXISTS Messages CASCADE;`;
     const dropFilesTable = `DROP TABLE IF EXISTS Files CASCADE;`;
+    const dropToDoList = `DROP TABLE IF EXISTS ToDoList CASCADE;`;
     await sql(dropUsersTable);
     await sql(dropRolesTable);
     await sql(dropStudentTable);
@@ -130,6 +131,21 @@ export async function POST(req: Request) {
     );
     `;
     await sql(createFilesTable);
+
+    const createToDoListTable = `
+    CREATE TABLE IF NOT EXISTS ToDoList (
+      ToDoID SERIAL PRIMARY KEY,
+      StudentID INT NOT NULL,
+      TaskTitle VARCHAR(255) NOT NULL,
+      TaskDescription TEXT,
+      DueDate TIMESTAMP,
+      IsCompleted BOOLEAN DEFAULT FALSE,
+      DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (StudentID) REFERENCES Students(StudentID)
+    );
+  `;
+    await sql(createToDoListTable);
+
     return NextResponse.json({ message: "All Tables created successfully!" });
   } catch (error: any) {
     console.error("Error:", error);

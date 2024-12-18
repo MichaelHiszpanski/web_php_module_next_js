@@ -42,11 +42,13 @@ import Footer from "@/src/components/footer/Footer";
 import { runInAction } from "mobx";
 import LoaderComponent from "@/src/components/loader/Loader";
 import CustomErros from "@/src/components/custom-errors/CustomErrors";
+import { getStudentID } from "@/src/services/routes/studentRoutes";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isStudent, setIsStudent] = useState<boolean>(true);
+  const [isStudentId, setIsStudentId] = useState<number>(3);
   const [userData, setUserData] = useState<any>(defaultUserDetails);
 
   const { isLoaded, isSignedIn, user } = useUser();
@@ -114,6 +116,9 @@ const Dashboard: NextPage = () => {
       if (userData.roleid === 2) {
         await fetchTeacherID();
       }
+      if (userData.roleid == 1) {
+        await fetchStudentID();
+      }
     };
 
     fetchData();
@@ -131,6 +136,27 @@ const Dashboard: NextPage = () => {
           groupName: prev?.groupName ?? "",
           groupDescription: prev?.groupDescription ?? "",
         }));
+      } else {
+        setErrors("No Teacher ID found in response!");
+      }
+    } catch (error) {
+      setErrors("Error fetching Teacher ID:");
+    }
+  };
+
+  const fetchStudentID = async () => {
+    try {
+      const studentResponse = await getStudentID(userData.userid);
+      const studentId = studentResponse?.StudentID;
+
+      if (studentId) {
+        // setGroupForm((prev: NewGroupModel | null) => ({
+        //   ...prev,
+        //   teacherID: studentId,
+        //   groupName: prev?.groupName ?? "",
+        //   groupDescription: prev?.groupDescription ?? "",
+        // }));
+        setIsStudentId(studentId);
       } else {
         setErrors("No Teacher ID found in response!");
       }
@@ -208,7 +234,7 @@ const Dashboard: NextPage = () => {
     //   isStudent ? "bg-gray-300" : "bg-white"
     // }
     <div
-      className={`flex flex-row h-full bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree
+      className={`flex min-h-screen flex-row h-full bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree
        opacity-95`}
     >
       <SidePanel
@@ -232,6 +258,7 @@ const Dashboard: NextPage = () => {
           isStudent={isStudent}
           currentActiveTab={activeTab}
           groupId={groupId}
+          studentId={isStudentId}
         />
       </div>
       <CustomModal

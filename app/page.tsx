@@ -219,16 +219,18 @@ const Home: NextPage = ({}) => {
               </p>
             </div>
           </div>
-          {/* <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Write a comment"
-            name="comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <button type="submit">Submit</button>
-        </form> */}
+          {/* <div className="bg-white mb-[200px]">
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Write a comment"
+                name="comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+              <button type="submit">Submit</button>
+            </form>
+          </div> */}
 
           {message && <p>{message}</p>}
         </div>

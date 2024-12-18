@@ -10,12 +10,14 @@ interface Props {
   isStudent: boolean;
   currentActiveTab: number;
   groupId: number;
+  studentId?: number;
 }
 const ContentTabs: React.FC<Props> = ({
   isBoardOpen,
   isStudent,
   currentActiveTab,
   groupId,
+  studentId = -99,
 }) => {
   const [activeTab, setActiveTab] = useState(currentActiveTab);
 
@@ -26,7 +28,7 @@ const ContentTabs: React.FC<Props> = ({
   const content = [
     isStudent === false
       ? { key: "students", element: <StudentsContentTab groupId={groupId} /> }
-      : { key: "notes", element: <StudentNotes /> },
+      : { key: "notes", element: <StudentNotes studentId={studentId} /> },
     { key: "messages", element: <MessagesContentTab groupId={groupId} /> },
     { key: "files", element: <FilesContentTab groupId={groupId} /> },
   ];

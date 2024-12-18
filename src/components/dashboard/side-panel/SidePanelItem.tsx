@@ -3,6 +3,7 @@ import { responseDeleteGroup } from "@/src/services/routes/groupRoutes";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import React from "react";
 import { IoTrashBin } from "react-icons/io5";
+
 interface Props {
   groupName: string;
   description: string;

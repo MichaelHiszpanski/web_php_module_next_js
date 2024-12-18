@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
-import { FaFacebookMessenger, FaRegEye, FaTransgender } from "react-icons/fa";
-import { FaRegEyeSlash } from "react-icons/fa";
+import { FaFacebookMessenger } from "react-icons/fa";
+
 interface Props {
   label: string;
   value: string;
@@ -39,7 +39,7 @@ const MessageInput: FC<Props> = ({
           }}
           onBlur={() => setIsFocused(false)}
           rows={3}
-          className={`w-full p-2 border rounded resize-none bg-colorNine`} // Add `resize-none` to prevent manual resizing
+          className={`w-full p-2 border rounded resize-none bg-blue-200 font-mono`}
         />
         <div className="flex flex-col items-center justify-center ml-2 cursor-pointer">
           <FaFacebookMessenger size={25} color="colorFive" onClick={onSend} />

@@ -52,3 +52,22 @@ export const useGetStudentGroups = (userId: string) => {
     retry: 2,
   });
 };
+
+export const getStudentID = async (userId: string) => {
+  const response = await fetch(
+    `/api/students/student/student-id?UserID=${userId}`,
+    {
+      method: "GET",
+    }
+  );
+
+  return response.json();
+};
+
+export const useGetStudentId = (userId: string) => {
+  return useQuery({
+    queryKey: ["StudentId", userId],
+    queryFn: () => getStudentID(userId),
+    enabled: !!userId,
+  });
+};

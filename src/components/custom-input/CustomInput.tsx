@@ -32,7 +32,7 @@ const CustomInput: FC<Props> = ({
   };
   return (
     <div className="mb-4 w-full">
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label className="block text-sm font-medium text-gray-700 dark:text-white mb-1">
         {label}
       </label>
       <div className=" relative">
@@ -47,7 +47,7 @@ const CustomInput: FC<Props> = ({
             setIsFocused(true);
           }}
           onBlur={() => setIsFocused(false)}
-          className={`w-full p-2 border rounded ${
+          className={`w-full text-colorOne p-2 border rounded ${
             error ? "border-red-500" : "border-gray-300"
           } focus:outline-none focus:ring-2 focus:ring-blue-500`}
         />
