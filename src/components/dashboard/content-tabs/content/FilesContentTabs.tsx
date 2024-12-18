@@ -1,5 +1,5 @@
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
-import userStore from "@/src/mobX/user-store/user_store";
+import userStore from "@/src/mobX/user_store";
 import {
   responsePostFileToGroup,
   useGetGroupFilesList,

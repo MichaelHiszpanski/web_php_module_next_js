@@ -1,4 +1,4 @@
-import userStore from "@/src/mobX/user-store/user_store";
+import userStore from "@/src/mobX/user_store";
 import { PersonalDetailModel } from "@/src/models/PersonalDetailsModel";
 
 import { useQuery } from "@tanstack/react-query";

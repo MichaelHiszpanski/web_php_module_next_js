@@ -31,30 +31,11 @@ const NavigationBar: FC = () => {
   return (
     <nav
       className="w-full relative h-[100px] flex flex-row justify-evenly items-center 
-        bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree opacity-95  "
-      // style={{
-      //   backgroundImage: `url(/sky2.jpg)`,
-      //   backgroundSize: "100%",
-      //   backgroundPosition: "center",
-      //   height: "100px",
-      // }}
+        bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree "
     >
-      {/* <Image
-        src={"/nav.png"}
-        width={100}
-        height={100}
-        alt="bg"
-        className=" w-full absolute top-0 md:top-[-60px]  select-none overflow-hidden "
-        style={{
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-        onDragStart={(e) => e.preventDefault()}
-        onClick={(e) => e.preventDefault()}
-      /> */}
       <div
         className="flex flex-row md:justify-evenly ml-5 md:ml-0 justify-between pr-20 
-         items-center w-full h-full z-50 "
+         items-center w-full h-full  "
       >
         <div className=" rounded-3xl bg-white  md:px-5 px-2  shadow-xl">
           <Image
@@ -92,7 +73,7 @@ const NavigationBar: FC = () => {
         </div>
       </div>
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center z-50">
+        <div className="fixed z-[9999] inset-0 bg-black bg-opacity-50 flex justify-center ">
           <div
             className="bg-gradient-to-r from-colorSix to-colorSeven w-[250px] rounded-full justify-center items-center flex flex-col shadow-sm  h-[250px] mt-[100px] "
             ref={navRef}

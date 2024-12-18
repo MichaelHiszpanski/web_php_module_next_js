@@ -2,7 +2,7 @@
 import CustomModal from "@/src/components/custom-modal/CustomModal";
 import SidePanel from "@/src/components/dashboard/side-panel/SidePanel";
 import PersonalDetailsForm from "@/src/components/forms/PersonalDetailsForm";
-import userStore from "@/src/mobX/user-store/user_store";
+import userStore from "@/src/mobX/user_store";
 import { useUser } from "@clerk/nextjs";
 import { NextPage } from "next";
 import React, { useState } from "react";
@@ -27,8 +27,6 @@ import NewGroupForm from "@/src/components/forms/NewGroupForm";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 import {
   responseNewGroup,
-  responsePostMemberToGroup,
-  responseUsersFromGroup,
   useAddMemberToGroup,
   usePostNewGroup,
 } from "@/src/services/routes/groupRoutes";
@@ -42,7 +40,10 @@ import Footer from "@/src/components/footer/Footer";
 import { runInAction } from "mobx";
 import LoaderComponent from "@/src/components/loader/Loader";
 import CustomErros from "@/src/components/custom-errors/CustomErrors";
-import { getStudentID } from "@/src/services/routes/studentRoutes";
+import {
+  getStudentID,
+  useGetStudentId,
+} from "@/src/services/routes/studentRoutes";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(false);
@@ -62,7 +63,8 @@ const Dashboard: NextPage = () => {
   const [errors, setErrors] = useState<any>([]);
 
   const { mutate: addMember } = useAddMemberToGroup();
-
+  const { data: teacherResponse } = useGetTeacherId(userData.userid);
+  const { data: studentResponse } = useGetStudentId(userData.userid);
   useEffect(() => {
     const fetchUserData = async () => {
       if (!user) return <LoaderComponent />;
@@ -98,6 +100,7 @@ const Dashboard: NextPage = () => {
   }, [isSignedIn, user]);
 
   useEffect(() => {
+    setIsStudent(false);
     setIsStudent(userData.roleid === 1 ? true : false);
     setIsBoardOpen(true);
 
@@ -106,10 +109,10 @@ const Dashboard: NextPage = () => {
     }, 1000);
   }, [userData]);
 
-  useEffect(() => {
-    setIsStudent(false);
-    setIsStudent(userData.roleid === 1 ? true : false);
-  }, []);
+  // useEffect(() => {
+  //   setIsStudent(false);
+  //   setIsStudent(userData.roleid === 1 ? true : false);
+  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -126,7 +129,6 @@ const Dashboard: NextPage = () => {
 
   const fetchTeacherID = async () => {
     try {
-      const teacherResponse = await getTeacherID(userData.userid);
       const teacherId = teacherResponse?.TeacherID;
 
       if (teacherId) {
@@ -136,6 +138,8 @@ const Dashboard: NextPage = () => {
           groupName: prev?.groupName ?? "",
           groupDescription: prev?.groupDescription ?? "",
         }));
+        userStore.updateUserDataBaseID(teacherId);
+        userStore.updateUserIsStudent(false);
       } else {
         setErrors("No Teacher ID found in response!");
       }
@@ -146,22 +150,18 @@ const Dashboard: NextPage = () => {
 
   const fetchStudentID = async () => {
     try {
-      const studentResponse = await getStudentID(userData.userid);
+      // const studentResponse = await getStudentID(userData.userid);
       const studentId = studentResponse?.StudentID;
 
       if (studentId) {
-        // setGroupForm((prev: NewGroupModel | null) => ({
-        //   ...prev,
-        //   teacherID: studentId,
-        //   groupName: prev?.groupName ?? "",
-        //   groupDescription: prev?.groupDescription ?? "",
-        // }));
         setIsStudentId(studentId);
+        userStore.updateUserDataBaseID(studentId);
+        userStore.updateUserIsStudent(true);
       } else {
-        setErrors("No Teacher ID found in response!");
+        setErrors("No Studnet ID found in response!");
       }
     } catch (error) {
-      setErrors("Error fetching Teacher ID:");
+      setErrors("Error fetching Studnet ID:");
     }
   };
 
@@ -207,7 +207,6 @@ const Dashboard: NextPage = () => {
 
     if (response.message === "success") {
       const groupID = response.groupid;
-      // await responsePostMemberToGroup(userStore.user.userId, groupID);
       const userID = userStore.user.userId;
       addMember({ userID, groupID });
       setIsSecondModalOpen(false);
@@ -230,12 +229,9 @@ const Dashboard: NextPage = () => {
   }
 
   return (
-    // ${
-    //   isStudent ? "bg-gray-300" : "bg-white"
-    // }
     <div
       className={`flex min-h-screen flex-row h-full bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree
-       opacity-95`}
+       `}
     >
       <SidePanel
         isBoardOpen={isBoardOpen}
@@ -294,7 +290,6 @@ const Dashboard: NextPage = () => {
           />
         </div>
       </CustomModal>
-      {/* <Footer backgroudnColor="bg-colorSix " fontColor="text-colorOne" /> */}
     </div>
   );
 };

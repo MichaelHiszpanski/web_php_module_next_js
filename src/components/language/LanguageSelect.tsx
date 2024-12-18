@@ -85,7 +85,8 @@ export const LanguageSelect = () => {
       </button>
       {isOpen && (
         <div
-          className="absolute right-0 z-50 mt-2 w-40 origin-top-right cursor-pointer rounded-md bg-white p-2 shadow-lg ring-1 ring-black ring-opacity-5 transition ease-in-out focus:outline-none dark:bg-darkBg"
+          className="absolute  -top-10 left-24 z-50 mt-2 w-40 origin-top-right cursor-pointer rounded-md
+           bg-white p-2 shadow-lg ring-1 ring-black ring-opacity-5 transition ease-in-out focus:outline-none dark:bg-darkBg"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"

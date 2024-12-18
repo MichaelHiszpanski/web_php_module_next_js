@@ -2,7 +2,7 @@
 
 import React, { createContext, ReactNode, useContext } from "react";
 import { useLocalObservable } from "mobx-react-lite";
-import userStore, { UserStore } from "@/src/mobX/user-store/user_store";
+import userStore, { UserStore } from "@/src/mobX/user_store";
 
 type Type = {
   userStore: UserStore;

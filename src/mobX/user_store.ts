@@ -6,6 +6,8 @@ export class UserStore {
     password: "",
     userId: "",
     name: "",
+    dataBaseID: -99,
+    isStudent: false,
   };
 
   constructor() {
@@ -18,12 +20,20 @@ export class UserStore {
       password: string;
       userId: string;
       name: string;
+      dataBaseID: number;
+      isStudent: boolean;
     }>
   ) {
     this.user = { ...this.user, ...userDetails };
   }
   updateUserName(name: string) {
     this.user = { ...this.user, name };
+  }
+  updateUserDataBaseID(id: number) {
+    this.user = { ...this.user, dataBaseID: id };
+  }
+  updateUserIsStudent(isStudent: boolean) {
+    this.user = { ...this.user, isStudent: isStudent };
   }
 
   clearUser() {
@@ -32,6 +42,8 @@ export class UserStore {
       password: "",
       userId: "",
       name: "",
+      dataBaseID: -99,
+      isStudent: false,
     };
   }
 }

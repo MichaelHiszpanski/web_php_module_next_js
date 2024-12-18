@@ -16,7 +16,7 @@ const CustomModal: FC<Props> = ({
   if (!isModalOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg w-max">
         <div className="flex justify-end p-4">
           {isCloseButtonavaiable && (

@@ -1,5 +1,5 @@
 import MessageInput from "@/src/components/message-input/MesageInput";
-import userStore from "@/src/mobX/user-store/user_store";
+import userStore from "@/src/mobX/user_store";
 import {
   useGetMessagesListFromGroup,
   responsePostMessageToGroup,

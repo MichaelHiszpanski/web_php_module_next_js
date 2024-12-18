@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { FaScroll, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import SidePanelItem from "./SidePanelItem";
 import { responseStudentGroups } from "@/src/services/routes/studentRoutes";
-import userStore from "@/src/mobX/user-store/user_store";
+import userStore from "@/src/mobX/user_store";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
 
 interface Props {
@@ -69,7 +69,7 @@ const SidePanel: FC<Props> = ({
     <div
       className={`min-h-[700px]  w-[250px] bg-transparent  border border-colorOne
        transform transition-transform duration-400 ${
-         isBoardOpen ? "translate-x-0" : "-translate-x-[80%]"
+         isBoardOpen ? "translate-x-0" : "-translate-x-[80%] z-0"
        }`}
     >
       <div className="flex flex-col w-full items-center text-start px-2 bg-white h-[60px]">

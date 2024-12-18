@@ -17,7 +17,8 @@ const TopPanel: React.FC<Props> = ({ isBoardOpen, isStudent, onChnageTab }) => {
     <div
       className={`w-full  h-[60px] transform transition-transform duration-400  border-t border-r border-colorOne ${
         isBoardOpen ? " flex translate-y-0" : " hidden -translate-y-full"
-      } bg-transparent`}
+      }`}
+      style={{ zIndex: 10 }}
     >
       <div className=" relative flex w-full justify-around border-b-[2px] border-gray-300 transition-all duration-500">
         <div

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import CustomInput from "@/src/components/custom-input/CustomInput";
 import Link from "next/link";
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
-import userStore from "@/src/mobX/user-store/user_store";
+import userStore from "@/src/mobX/user_store";
 import { NextPage } from "next";
 import { useState } from "react";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";

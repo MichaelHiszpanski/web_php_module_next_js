@@ -1,6 +1,6 @@
 "use client";
 import Footer from "@/src/components/footer/Footer";
-import userStore from "@/src/mobX/user-store/user_store";
+import userStore from "@/src/mobX/user_store";
 import { useUser } from "@clerk/nextjs";
 import { NextPage } from "next";
 import React, { useEffect, useState } from "react";
