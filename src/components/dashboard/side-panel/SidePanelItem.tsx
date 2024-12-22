@@ -1,5 +1,6 @@
 import { sidePanelItemStyling } from "@/src/consts/styles";
 import { responseDeleteGroup } from "@/src/services/routes/groupRoutes";
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import React from "react";
 import { IoTrashBin } from "react-icons/io5";
@@ -18,6 +19,7 @@ const SidePanelItem: React.FC<Props> = ({
   groupid,
   onClick,
 }) => {
+  const { dictionary } = useTranslation();
   const deleteGroup = async (groupID: number) => {
     const deleteGroupConfirmation = window.confirm(
       "Are you sure you want to delete this Group?"
@@ -41,17 +43,17 @@ const SidePanelItem: React.FC<Props> = ({
     >
       <div className="border-b-[1.5px] border-b-colorNine shadow-sm my-1">
         <h3 className={sidePanelItemStyling.name} style={{ fontSize: "14px" }}>
-          Name: {groupName}
+          {dictionary.side_panel_item[0].name} {groupName}
         </h3>
       </div>
       <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
-        <strong>Info:</strong> {description}
+        <strong>{dictionary.side_panel_item[0].info}</strong> {description}
       </p>
       {/* <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
         ID: {groupid.toString()}
       </p> */}
       <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
-        <strong>Created:</strong>
+        <strong> {dictionary.side_panel_item[0].created} </strong>
       </p>
       <div className=" flex flex-row w-full justify-between">
         <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>

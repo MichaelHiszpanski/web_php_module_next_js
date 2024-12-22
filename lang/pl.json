@@ -78,5 +78,37 @@
         }
       ]
     }
+  ],
+  "side_panel_item": [
+    { "name": "Nazwa:", "info": "Informacje:", "created": "Utworzono:" }
+  ],
+  "user_display_in_group": [
+    {
+      "first_name": "Imię:",
+      "last_name": "Nazwisko:",
+      "role": "Rola:",
+      "email": "E-mail:"
+    }
+  ],
+  "students_display_in_group": [
+    {
+      "first_name": "Imię:",
+      "last_name": "Nazwisko:",
+      "city": "Miasto:",
+      "post_code": "Kod pocztowy:",
+      "street": "Ulica:",
+      "house_no": "Nr domu:"
+    }
+  ],
+  "message_display": [
+    {
+      "send": "Wyślij:",
+      "date": "Data:"
+    }
+  ],
+  "file_display": [
+    {
+      "download": "Pobierz:"
+    }
   ]
 }

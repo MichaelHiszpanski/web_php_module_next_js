@@ -76,5 +76,37 @@
         }
       ]
     }
+  ],
+  "side_panel_item": [
+    { "name": "Name:", "info": "Info:", "created": "Cretaed:" }
+  ],
+  "user_display_in_group": [
+    {
+      "first_name": "First Name:",
+      "last_name": "Lats Name:",
+      "role": "Role:",
+      "email": "Email:"
+    }
+  ],
+  "students_display_in_group": [
+    {
+      "first_name": "First Name:",
+      "last_name": "Lats Name:",
+      "city": "City:",
+      "post_code": "Post Code:",
+      "street": "Street:",
+      "house_no": "House No:"
+    }
+  ],
+  "message_display": [
+    {
+      "send": "Send:",
+      "date": "Date:"
+    }
+  ],
+  "file_display": [
+    {
+      "download": "Download:"
+    }
   ]
 }

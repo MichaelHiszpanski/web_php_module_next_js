@@ -1,4 +1,5 @@
 import { responseDownloadFile } from "@/src/services/routes/fileRoutes";
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import React, { useState } from "react";
 import { FaDownload, FaFileAlt, FaIcons, FaTruckLoading } from "react-icons/fa";
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 const FileDisplay: React.FC<Props> = ({ file, index, onDownloadError }) => {
   const [isDownlaodingFile, setIsDownlaodingFile] = useState(false);
+  const { dictionary } = useTranslation();
   const downloadFile = async () => {
     try {
       setIsDownlaodingFile(true);
@@ -43,7 +45,7 @@ const FileDisplay: React.FC<Props> = ({ file, index, onDownloadError }) => {
           style={{ fontSize: "14px" }}
           className=" font-mono text-red-600 mr-1"
         >
-          Download:
+          {dictionary.file_display[0].download}
         </p>
         <div onClick={downloadFile}>
           {isDownlaodingFile ? <FaTruckLoading /> : <FaDownload />}

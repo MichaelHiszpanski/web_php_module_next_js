@@ -1,3 +1,4 @@
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import React from "react";
 interface Props {
@@ -13,6 +14,7 @@ const MessageDisplay: React.FC<Props> = ({
   username,
   datecreated,
 }) => {
+  const { dictionary } = useTranslation();
   return (
     <div
       key={messageid}
@@ -24,8 +26,8 @@ const MessageDisplay: React.FC<Props> = ({
         style={{ fontSize: "12px" }}
       >
         <div className="w-min flex mt-1 flex-row  border-[0.5px] border-colorSrcTwo px-2 py-1 rounded-xl whitespace-nowrap overflow-hidden text-ellipsis">
-          <strong>Send:</strong> {username}{" "}
-          <strong className="ml-2"> Date:</strong>{" "}
+          <strong>{dictionary.message_display[0].send}</strong> {username}{" "}
+          <strong className="ml-2">{dictionary.message_display[0].date}</strong>{" "}
           {dateTimeFormater(datecreated)}
         </div>
       </div>
