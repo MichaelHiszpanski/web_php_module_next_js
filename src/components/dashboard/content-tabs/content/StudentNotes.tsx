@@ -6,7 +6,7 @@ import userStore from "@/src/mobX/user_store";
 import { useStudentNotes } from "@/src/routes/studentNotesRoute";
 import { useQueryClient } from "@tanstack/react-query";
 
-const StudentNotes: React.FC<Props> = () => {
+const StudentNotes: React.FC = () => {
   const [textInput, setTextInput] = useState("");
   const queryClient = useQueryClient();
   const [id, setId] = useState(userStore.user.dataBaseID);
