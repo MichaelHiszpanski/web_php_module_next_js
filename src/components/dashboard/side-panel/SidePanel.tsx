@@ -46,6 +46,12 @@ const SidePanel: FC<Props> = ({
     if (!teacherID) {
       getStudentsGroups();
     }
+  }, []);
+
+  useEffect(() => {
+    if (!teacherID) {
+      getStudentsGroups();
+    }
   }, [teacherID]);
 
   const groups = teacherID ? teacherGroups : studentGroups;
@@ -63,9 +69,6 @@ const SidePanel: FC<Props> = ({
   };
 
   return (
-    // ${
-    //   isStudent ? "bg-colorEight" : "bg-colorSix"
-    // }
     <div
       className={`min-h-[700px]  w-[250px] bg-transparent  border border-colorOne
        transform transition-transform duration-400 ${
@@ -105,18 +108,16 @@ const SidePanel: FC<Props> = ({
           </div>
         </div>
 
-        {/* <h2 className="text-colorOne  my-2 text-sm w-full text-start ml-[15px] font-mono">
-          Groups Created
-        </h2> */}
-
         <div
           style={{ overflowY: "auto" }}
           className=" h-[500px]  rounded-md p-2 mx-2 bg-white bg-opacity-50 mt-5"
         >
           {isTeacherLoading ? (
-            <p>Loading...</p>
+            <p className="text-white w-full text-center">Loading...</p>
           ) : isTeacherError ? (
-            <p>Error loading groups.</p>
+            <p className="text-white w-full text-center">
+              Error loading groups.
+            </p>
           ) : groups.length > 0 ? (
             groups.map((group: any) => (
               <SidePanelItem

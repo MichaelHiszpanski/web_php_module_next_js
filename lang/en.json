@@ -1,6 +1,6 @@
 {
   "logo": "School Manager",
-  "navigation": ["Home", "Dashboard", "Contact", "Sign In"],
+  "navigation": ["Home", "Dashboard", "Profile", "Sign In"],
   "sign_in": "Sign-In",
   "sign_up": "Sign-Up",
   "email_text": "Enter email address",
@@ -107,6 +107,40 @@
   "file_display": [
     {
       "download": "Download:"
+    }
+  ],
+  "students_content_tab": [
+    {
+      "loading_students": "Loading students...",
+      "error_loading_students": "Error loading students",
+      "students_in_group": "Students in Group",
+      "all_studnets": "ALL Students",
+      "loading": "Loading...",
+      "error_loading_group_users": "Error loading group users.",
+      "empty": "Empty",
+      "details": "Details",
+      "selected_item_details": "Selected Item Details:",
+      "click_on_student": "Click on a student or user to see details here.",
+      "actions": "Actions",
+      "add": "Add student to group",
+      "remove": "Remove student from group"
+    }
+  ],
+  "top_panel": [
+    {
+      "students": "Students",
+      "messages": "Messages",
+      "files": "Files"
+    }
+  ],
+  "files_content_tab": [
+    {
+      "no_file_selected": "No file selected",
+      "file_uploaded_successfuly": "File uploaded successfully",
+      "loading": "Loading...",
+      "error_loadoing": "Error loading files.",
+      "no_files_selected": "No files selected",
+      "upload_file": "Uplaod File"
     }
   ]
 }

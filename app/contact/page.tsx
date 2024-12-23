@@ -35,7 +35,6 @@ const Contact: NextPage = () => {
         <PersonalDetailsForm onSubmit={handleFormSubmit} />
       </div>
       <div className="h-[120px]" />
-      <Footer fontColor="text-colorOne" />
     </div>
   );
 };

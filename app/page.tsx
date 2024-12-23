@@ -235,10 +235,10 @@ const Home: NextPage = ({}) => {
           {message && <p>{message}</p>}
         </div>
         <div></div>
-        <Footer
+        {/* <Footer
           backgroudnColor="bg-colorNine bg-opacity-45"
           fontColor="text-colorOne"
-        />
+        /> */}
       </div>
     </div>
   );

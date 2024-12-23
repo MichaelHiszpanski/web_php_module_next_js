@@ -26,12 +26,12 @@ const NavigationBar: FC = () => {
     { hrefLink: "/", name: dictionary.navigation[0] },
     { hrefLink: "/dashboard", name: dictionary.navigation[1] },
 
-    { hrefLink: "/contact", name: dictionary.navigation[2] },
+    { hrefLink: "/profile", name: dictionary.navigation[2] },
   ];
   return (
     <nav
-      className="w-full relative h-[100px] flex flex-row justify-evenly items-center 
-        bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree "
+      className="w-full fixed top-0 h-[100px] flex flex-row justify-evenly items-center 
+        bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree z-50"
     >
       <div
         className="flex flex-row md:justify-evenly ml-5 md:ml-0 justify-between pr-20 

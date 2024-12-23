@@ -1,7 +1,7 @@
 import { languageAtom, useTranslation } from "../../utils/hooks/useTranslation";
 import { useAtom } from "jotai";
 import Image from "next/image";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChrevronDown } from "./ChrevronDown";
 import { ChevronUp } from "./ChevronUp";
 

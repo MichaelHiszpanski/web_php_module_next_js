@@ -19,7 +19,7 @@ const Footer: FC<Props> = ({
   };
   return (
     <footer //
-      className={`fixed bottom-0 left-0 w-full h-[85px] flex flex-col md:flex-row 
+      className={`flex w-full h-[85px] flex-col md:flex-row 
                 items-center bg-gradient-to-r  ${backgroudnColor} justify-center md:justify-between 
                  text-[#808A9D] dark:text-darkSecondary z-40 transition-opacity duration-300 ${
                    isVisible ? "opacity-100" : "opacity-0 pointer-events-none"

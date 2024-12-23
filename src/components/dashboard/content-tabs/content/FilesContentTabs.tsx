@@ -4,10 +4,11 @@ import {
   responsePostFileToGroup,
   useGetGroupFilesList,
 } from "@/src/services/routes/fileRoutes";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import FileDisplay from "../../components/FileDisplay";
 import CustomErros from "@/src/components/custom-errors/CustomErrors";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 interface Props {
   groupId: number;
 }
@@ -16,6 +17,9 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [errors, setErrors] = useState<any>([]);
   const queryClient = useQueryClient();
+  const { dictionary } = useTranslation();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setSelectedFile(event.target.files[0]);
@@ -30,32 +34,35 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
 
   const handleFileUpload = async () => {
     if (!selectedFile) {
-      setUploadStatus("No file selected");
+      setUploadStatus(dictionary.files_content_tab[0].no_file_selected);
       return;
     }
 
-    try {
-      const response = await responsePostFileToGroup(
-        groupId,
-        userStore.user.userId,
-        selectedFile
-      );
+    const response = await responsePostFileToGroup(
+      groupId,
+      userStore.user.userId,
+      selectedFile
+    );
 
-      if (response.success) {
-        setUploadStatus("File uploaded successfully");
-        queryClient.invalidateQueries({ queryKey: ["groupFiles", groupId] });
-      } else {
-        setUploadStatus(`Error: ${response.error}`);
+    if (response.success) {
+      setUploadStatus(
+        dictionary.files_content_tab[0].file_uploaded_successfuly
+      );
+      queryClient.invalidateQueries({ queryKey: ["groupFiles", groupId] });
+      setSelectedFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
       }
-    } catch (e) {}
+    } else {
+      setUploadStatus(`Error: ${response.error}`);
+    }
   };
 
   return (
     <div className="w-full flex flex-col min-h-[700px]  items-center">
-      {/* <h1 className="text-2xl font-orbitron_variable font-bold text-white">
-        Files
-      </h1> */}
-      <CustomErros errors={errors} />
+      {uploadStatus && (
+        <p className="mt-2 text-2xl mb-2 text-white">{uploadStatus}</p>
+      )}
       <div
         className="w-[90%] h-[600px] rounded-2xl border-2 shadow-xl 
                  border-colorOne bg-colorEight flex flex-col items-start 
@@ -65,10 +72,12 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
       >
         <div className="grid grid-cols-5 gap-4">
           {isLoading ? (
-            <p className="text-2xl w-full text-center font-jaro">Loading...</p>
+            <p className="text-2xl w-full text-center font-jaro">
+              {dictionary.files_content_tab[0].loading}
+            </p>
           ) : isError ? (
             <p className="text-2xl w-full text-center font-jaro">
-              Error loading files.
+              {dictionary.files_content_tab[0].error_loadoing}
             </p>
           ) : groupFiles.length > 0 ? (
             groupFiles.map((file: any, index: number) => (
@@ -83,7 +92,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
             ))
           ) : (
             <p className=" text-2xl w-full text-center font-jaro text-colorOne">
-              No files selected
+              {dictionary.files_content_tab[0].no_files_selected}
             </p>
           )}
         </div>
@@ -93,19 +102,16 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
           type="file"
           onChange={handleFileChange}
           className="p-2 text-white"
+          ref={fileInputRef}
         />
         <div className="w-full mr-2">
           <ButtonPrimary
-            title={"Uplaod File"}
+            title={dictionary.files_content_tab[0].upload_file}
             onClick={handleFileUpload}
             className="bg-blue-500 text-white"
           />
         </div>
       </div>
-
-      {uploadStatus && (
-        <p className="mt-2 text-sm text-gray-700">{uploadStatus}</p>
-      )}
     </div>
   );
 };

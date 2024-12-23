@@ -230,7 +230,7 @@ const Dashboard: NextPage = () => {
 
   return (
     <div
-      className={`flex min-h-screen flex-row h-full bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree
+      className={`flex h-screen flex-row  bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree
        `}
     >
       <SidePanel

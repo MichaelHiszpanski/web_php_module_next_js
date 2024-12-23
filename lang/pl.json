@@ -1,6 +1,6 @@
 {
   "logo": "Menedżer Szkoły",
-  "navigation": ["Strona główna", "Pulpit", "Kontakt", "Zaloguj się"],
+  "navigation": ["Strona główna", "Pulpit", "Profil", "Zaloguj się"],
   "sign_in": "Zaloguj się",
   "sign_up": "Zarejestruj się",
   "email_text": "Wprowadź adres e-mail",
@@ -109,6 +109,40 @@
   "file_display": [
     {
       "download": "Pobierz:"
+    }
+  ],
+  "students_content_tab": [
+    {
+      "loading_students": "Ładowanie studentów...",
+      "error_loading_students": "Błąd podczas ładowania studentów",
+      "students_in_group": "Studenci w grupie",
+      "all_studnets": "Wszyscy studenci",
+      "loading": "Ładowanie...",
+      "error_loading_group_users": "Błąd podczas ładowania użytkowników grupy.",
+      "empty": "Puste",
+      "details": "Szczegóły",
+      "selected_item_details": "Szczegóły wybranego elementu:",
+      "click_on_student": "Kliknij na studenta lub użytkownika, aby zobaczyć szczegóły tutaj.",
+      "actions": "Akcje",
+      "add": "Dodaj studenta do grupy",
+      "remove": "Usuń studenta z grupy"
+    }
+  ],
+  "top_panel": [
+    {
+      "students": "Studenci",
+      "messages": "Wiadomości",
+      "files": "Pliki"
+    }
+  ],
+  "files_content_tab": [
+    {
+      "no_file_selected": "Nie wybrano pliku",
+      "file_uploaded_successfuly": "Plik przesłano pomyślnie",
+      "loading": "Ładowanie...",
+      "error_loadoing": "Błąd podczas ładowania plików.",
+      "no_files_selected": "Nie wybrano plików",
+      "upload_file": "Prześlij plik"
     }
   ]
 }

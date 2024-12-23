@@ -5,8 +5,8 @@ interface Props {
 const StudentNotes: React.FC<Props> = ({ studentId }) => {
   const [toDoList, setToDoList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [noteInput, setNoteInput] = useState("");
-
+  const [textInput, setTextInput] = useState("");
+  //??????????????????????????????????????  fix file
   const fetchToDoList = async () => {
     try {
       setLoading(true);
@@ -26,14 +26,14 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
   };
 
   const handleAddNote = async () => {
-    if (noteInput.trim() === "") return;
+    if (textInput.trim() === "") return;
     try {
       const response = await fetch(`/api/students/student/to-do`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           StudentID: studentId,
-          TaskTitle: noteInput.trim(),
+          TaskTitle: textInput.trim(),
           TaskDescription: "Default description",
           DueDate: new Date().toISOString(),
         }),
@@ -48,12 +48,12 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
         ...prev,
         {
           ToDoID: newNote.toDoId,
-          TaskTitle: noteInput.trim(),
+          TaskTitle: textInput.trim(),
           TaskDescription: "Default description",
           DueDate: new Date().toISOString(),
         },
       ]);
-      setNoteInput("");
+      setTextInput("");
     } catch (error) {
       console.error("Error adding note:", error);
     }
@@ -85,13 +85,12 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Student To-Do List</h1>
 
-      {/* Add Note Form */}
       <div className="flex w-full gap-4 mb-6">
         <input
           type="text"
           placeholder="Enter your note"
-          value={noteInput}
-          onChange={(e) => setNoteInput(e.target.value)}
+          value={textInput}
+          onChange={(e) => setTextInput(e.target.value)}
           className="flex-1 border border-gray-300 rounded-lg p-2"
         />
         <button
@@ -102,7 +101,6 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
         </button>
       </div>
 
-      {/* Render To-Do List */}
       {loading ? (
         <p>Loading To-Do list...</p>
       ) : (

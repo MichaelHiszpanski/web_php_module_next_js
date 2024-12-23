@@ -1,3 +1,4 @@
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import React, { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 interface Props {
@@ -7,7 +8,12 @@ interface Props {
 }
 const TopPanel: React.FC<Props> = ({ isBoardOpen, isStudent, onChnageTab }) => {
   const [activeTab, setActiveTab] = useState(0);
-  const tabs = ["Students", "Messages", "Files"];
+  const { dictionary } = useTranslation();
+  const tabs = [
+    dictionary.top_panel[0].students,
+    dictionary.top_panel[0].messages,
+    dictionary.top_panel[0].files,
+  ];
 
   useEffect(() => {
     onChnageTab(activeTab);

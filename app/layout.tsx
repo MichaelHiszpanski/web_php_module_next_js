@@ -33,10 +33,14 @@ export default function RootLayout({
       <ReactQueryProvider>
         <html lang="en">
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased mt-[100px]`}
           >
             <NavigationBar />
             <StoreProvider>{children}</StoreProvider>
+            <Footer
+              backgroudnColor="bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree "
+              fontColor="text-white"
+            />
           </body>
         </html>
       </ReactQueryProvider>
