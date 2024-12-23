@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import AddStudentNote from "../../components/AddStudentNote";
 import ButtonTab from "@/src/components/buttons/button-tab/ButtonTab";
 import userStore from "@/src/mobX/user_store";
-import { useStudentNotes } from "@/src/routes/studentNotesRoute";
+import {
+  responseAddNote,
+  responseDeleteNote,
+  useStudentNotes,
+} from "@/src/routes/studentNotesRoute";
 import { useQueryClient } from "@tanstack/react-query";
 
 const StudentNotes: React.FC = () => {
@@ -22,30 +26,14 @@ const StudentNotes: React.FC = () => {
   const handleAddNote = async () => {
     if (textInput.trim() === "") return;
 
-    const response = await fetch(`/api/students/student/to-do`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        StudentID: id,
-        TaskTitle: textInput.trim(),
-        TaskDescription: "Default description",
-        DueDate: new Date().toISOString(),
-      }),
-    });
-
-    const newNote = await response.json();
+    await responseAddNote(id, textInput, "Default description", selectedDate!);
     queryClient.invalidateQueries({ queryKey: ["studentNotes", id] });
     setTextInput("");
     setIsAddModal(false);
   };
 
   const handleDeleteNote = async (toDoId: number) => {
-    const response = await fetch(`/api/students/student/to-do`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ToDoID: toDoId }),
-    });
-
+    await responseDeleteNote(toDoId);
     queryClient.invalidateQueries({ queryKey: ["studentNotes", id] });
   };
   const handleDatePickerChange = (date: Date | null) => {
@@ -53,13 +41,15 @@ const StudentNotes: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("Fetched student notes:", toDoList);
     if (userStore.user.dataBaseID) {
       queryClient.invalidateQueries({ queryKey: ["studentNotes", id] });
     }
   }, [userStore.user.dataBaseID]);
+
   if (isLoading || isFetching) return <div>Loading...</div>;
+
   if (error) return <div>Error: {error.message}</div>;
+
   return (
     <div className="container mx-auto p-6 h-screen">
       <ButtonTab
