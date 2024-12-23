@@ -12,6 +12,13 @@ export class UserStore {
 
   constructor() {
     makeAutoObservable(this);
+
+    if (typeof window !== "undefined") {
+      const savedUser = localStorage.getItem("user");
+      if (savedUser) {
+        this.user = JSON.parse(savedUser);
+      }
+    }
   }
 
   setUser(
@@ -25,12 +32,14 @@ export class UserStore {
     }>
   ) {
     this.user = { ...this.user, ...userDetails };
+    localStorage.setItem("user", JSON.stringify(this.user));
   }
   updateUserName(name: string) {
     this.user = { ...this.user, name };
   }
   updateUserDataBaseID(id: number) {
     this.user = { ...this.user, dataBaseID: id };
+    localStorage.setItem("user", JSON.stringify(this.user));
   }
   updateUserIsStudent(isStudent: boolean) {
     this.user = { ...this.user, isStudent: isStudent };
@@ -45,6 +54,7 @@ export class UserStore {
       dataBaseID: -99,
       isStudent: false,
     };
+    localStorage.removeItem("user");
   }
 }
 

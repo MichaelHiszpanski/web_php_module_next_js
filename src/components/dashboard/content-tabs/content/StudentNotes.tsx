@@ -3,6 +3,7 @@ import CustomModal from "@/src/components/custom-modal/CustomModal";
 import React, { useEffect, useState } from "react";
 import AddStudentNote from "../../components/AddStudentNote";
 import ButtonTab from "@/src/components/buttons/button-tab/ButtonTab";
+import userStore from "@/src/mobX/user_store";
 interface Props {
   studentId: number;
 }
@@ -10,14 +11,17 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
   const [toDoList, setToDoList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [textInput, setTextInput] = useState("");
+  const [id, setId] = useState(userStore.user.dataBaseID);
   const [isAddModal, setIsAddModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  //??????????????????????????????????????  fix file
+  const [error, setError] = useState<string | null>(null);
+
   const fetchToDoList = async () => {
     try {
       setLoading(true);
+      setError(null);
       const response = await fetch(
-        `/api/students/student/to-do?StudentID=${studentId}`
+        `/api/students/student/to-do?StudentID=${userStore.user.dataBaseID}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch To-Do list");
@@ -25,7 +29,7 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
       const data = await response.json();
       setToDoList(data);
     } catch (error) {
-      console.error("Error fetching To-Do list:", error);
+      setError("Failed to load To-Do list. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -33,67 +37,59 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
 
   const handleAddNote = async () => {
     if (textInput.trim() === "") return;
-    try {
-      const response = await fetch(`/api/students/student/to-do`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          StudentID: studentId,
-          TaskTitle: textInput.trim(),
-          TaskDescription: "Default description",
-          DueDate: new Date().toISOString(),
-        }),
-      });
 
-      if (!response.ok) {
-        throw new Error("Failed to add note");
-      }
+    const response = await fetch(`/api/students/student/to-do`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        StudentID: id,
+        TaskTitle: textInput.trim(),
+        TaskDescription: "Default description",
+        DueDate: new Date().toISOString(),
+      }),
+    });
 
-      const newNote = await response.json();
-      setToDoList((prev) => [
-        ...prev,
-        {
-          ToDoID: newNote.toDoId,
-          TaskTitle: textInput.trim(),
-          TaskDescription: "Default description",
-          DueDate: new Date().toISOString(),
-        },
-      ]);
-      setTextInput("");
-    } catch (error) {
-      console.error("Error adding note:", error);
-    }
+    const newNote = await response.json();
+    setToDoList((prev) => [
+      ...prev,
+      {
+        ToDoID: newNote.toDoId,
+        TaskTitle: textInput.trim(),
+        TaskDescription: "Default description",
+        DueDate: new Date().toISOString(),
+      },
+    ]);
+    setTextInput("");
+    setIsAddModal(false);
   };
 
   const handleDeleteNote = async (toDoId: number) => {
-    try {
-      const response = await fetch(`/api/students/student/to-do`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ToDoID: toDoId }),
-      });
+    const response = await fetch(`/api/students/student/to-do`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ToDoID: toDoId }),
+    });
 
-      if (!response.ok) {
-        throw new Error("Failed to delete note");
-      }
-
-      setToDoList((prev) => prev.filter((item) => item.ToDoID !== toDoId));
-    } catch (error) {
-      console.error("Error deleting note:", error);
-    }
+    setToDoList((prev) => prev.filter((item) => item.ToDoID !== toDoId));
+    fetchToDoList();
   };
-  const handleDateChange = (date: Date | null) => {
+  const handleDatePickerChange = (date: Date | null) => {
     setSelectedDate(date);
-    console.log("Selected date:", date);
   };
 
   useEffect(() => {
-    fetchToDoList();
-  }, []);
+    if (userStore.user.dataBaseID) {
+      fetchToDoList();
+    }
+  }, [userStore.user.dataBaseID]);
 
   return (
-    <div className="container mx-auto p-6 min-h-screen">
-      <ButtonTab title={"Add Note"} onClick={() => setIsAddModal(true)} />
+    <div className="container mx-auto p-6 h-screen">
+      <ButtonTab
+        title={"Add Note"}
+        className="text-2xl font-orbitron_variable text-white bg-blue-500"
+        onClick={() => setIsAddModal(true)}
+      />
       <CustomModal
         isModalOpen={isAddModal}
         onCloseModal={() => setIsAddModal(false)}
@@ -102,18 +98,22 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
           textInput={textInput}
           setTextInput={setTextInput}
           selectedDate={selectedDate}
-          handleDateChange={handleDateChange}
+          handleDateChange={handleDatePickerChange}
           handleAddNote={handleAddNote}
         />
       </CustomModal>
-
+      {error && (
+        <p className="text-red-500 bg-white p-1 text-center rounded-xl mx-10">
+          {error}
+        </p>
+      )}
       {loading ? (
         <p>Loading To-Do list...</p>
       ) : (
-        <ul className="space-y-4">
+        <ul className="space-y-4 h-[80%]" style={{ overflowY: "auto" }}>
           {toDoList.map((item) => (
             <li
-              key={item.ToDoID}
+              key={item.todoid}
               className="p-4 border border-gray-300 bg-white rounded-lg shadow-sm flex justify-between items-center"
             >
               <div>
