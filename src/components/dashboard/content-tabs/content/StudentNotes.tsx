@@ -1,4 +1,3 @@
-import CustomDatePicker from "@/src/components/custom-datePicker/CustomDatePicker";
 import CustomModal from "@/src/components/custom-modal/CustomModal";
 import React, { useEffect, useState } from "react";
 import AddStudentNote from "../../components/AddStudentNote";
@@ -7,7 +6,6 @@ import userStore from "@/src/mobX/user_store";
 import { useStudentNotes } from "@/src/routes/studentNotesRoute";
 import { useQueryClient } from "@tanstack/react-query";
 
-interface Props {}
 const StudentNotes: React.FC<Props> = () => {
   const [textInput, setTextInput] = useState("");
   const queryClient = useQueryClient();
@@ -84,7 +82,6 @@ const StudentNotes: React.FC<Props> = () => {
 
       {
         <ul className="space-y-4 h-[80%]" style={{ overflowY: "auto" }}>
-          {/* {toDoList.map((item) => ( */}
           {toDoList.map((item: any) => (
             <li
               key={item.todoid}
