@@ -37,6 +37,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
       handleRefreshGroupMessages();
     },
   });
+
   const sendMessage = () => {
     if (!message.trim()) return;
     queryMessageMutation.mutate(message);

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSwipeable } from "react-swipeable";
 import MessagesContentTab from "./content/MessagesContentTab";
 import FilesContentTab from "./content/FilesContentTabs";
 import StudentsContentTab from "./content/StudentsContentTab";
-import { group } from "console";
 import StudentNotes from "./content/StudentNotes";
 interface Props {
   isBoardOpen: boolean;

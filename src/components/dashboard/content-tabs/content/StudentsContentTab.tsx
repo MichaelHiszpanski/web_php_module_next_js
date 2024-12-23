@@ -55,9 +55,11 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
     }
     handleRefreshGroupUsers();
   };
+
   function handleRefreshGroupUsers() {
     queryClient.invalidateQueries({ queryKey: ["groupUsers", groupId] });
   }
+
   if (isLoading)
     return (
       <p className="text-white">

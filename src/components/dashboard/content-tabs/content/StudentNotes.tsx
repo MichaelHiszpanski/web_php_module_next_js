@@ -9,9 +9,11 @@ import {
   useStudentNotes,
 } from "@/src/routes/studentNotesRoute";
 import { useQueryClient } from "@tanstack/react-query";
+import StudentNote from "../../components/StudentNote";
 
 const StudentNotes: React.FC = () => {
   const [textInput, setTextInput] = useState("");
+  const [description, setDescription] = useState("");
   const queryClient = useQueryClient();
   const [id, setId] = useState(userStore.user.dataBaseID);
   const [isAddModal, setIsAddModal] = useState(false);
@@ -26,16 +28,19 @@ const StudentNotes: React.FC = () => {
   const handleAddNote = async () => {
     if (textInput.trim() === "") return;
 
-    await responseAddNote(id, textInput, "Default description", selectedDate!);
+    await responseAddNote(id, textInput, description, selectedDate!);
     queryClient.invalidateQueries({ queryKey: ["studentNotes", id] });
     setTextInput("");
     setIsAddModal(false);
+    setSelectedDate(null);
+    setDescription("");
   };
 
   const handleDeleteNote = async (toDoId: number) => {
     await responseDeleteNote(toDoId);
     queryClient.invalidateQueries({ queryKey: ["studentNotes", id] });
   };
+
   const handleDatePickerChange = (date: Date | null) => {
     setSelectedDate(date);
   };
@@ -67,31 +72,19 @@ const StudentNotes: React.FC = () => {
           selectedDate={selectedDate}
           handleDateChange={handleDatePickerChange}
           handleAddNote={handleAddNote}
+          description={description}
+          setDescriptiont={setDescription}
         />
       </CustomModal>
 
       {
         <ul className="space-y-4 h-[80%]" style={{ overflowY: "auto" }}>
           {toDoList.map((item: any) => (
-            <li
+            <StudentNote
               key={item.todoid}
-              className="p-4 border border-gray-300 bg-white rounded-lg shadow-sm flex justify-between items-center"
-            >
-              <div>
-                <h3 className="text-lg font-semibold">{item.TaskTitle}</h3>
-                <p>{item.tasktitle}</p>
-                <p className="text-sm text-gray-500">
-                  Due: {new Date(item.DueDate).toLocaleDateString()}
-                </p>
-                <p>ID: {item.todoid}</p>
-              </div>
-              <button
-                onClick={() => handleDeleteNote(item.todoid)}
-                className="text-red-500 hover:underline"
-              >
-                Delete
-              </button>
-            </li>
+              item={item}
+              handleDeleteNote={handleDeleteNote}
+            />
           ))}
         </ul>
       }

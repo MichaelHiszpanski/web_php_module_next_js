@@ -2,14 +2,18 @@ import React, { Dispatch, SetStateAction } from "react";
 import CustomDatePicker from "../../custom-datePicker/CustomDatePicker";
 interface Props {
   textInput: string;
+  description: string;
   setTextInput: Dispatch<SetStateAction<string>>;
+  setDescriptiont: Dispatch<SetStateAction<string>>;
   selectedDate: Date | null;
   handleDateChange: (date: Date | null) => void;
   handleAddNote: () => void;
 }
 const AddStudentNote: React.FC<Props> = ({
   textInput,
+  description,
   setTextInput,
+  setDescriptiont,
   selectedDate,
   handleAddNote,
   handleDateChange,
@@ -21,9 +25,16 @@ const AddStudentNote: React.FC<Props> = ({
       <div className="flex flex-col w-full gap-4 mb-6">
         <input
           type="text"
-          placeholder="Enter your note"
+          placeholder="Enter your note Title"
           value={textInput}
           onChange={(e) => setTextInput(e.target.value)}
+          className="flex-1 border border-gray-300 rounded-lg p-2"
+        />
+        <input
+          type="text"
+          placeholder="Enter your note Description"
+          value={description}
+          onChange={(e) => setDescriptiont(e.target.value)}
           className="flex-1 border border-gray-300 rounded-lg p-2"
         />
         <div className="p-4">
