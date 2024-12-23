@@ -52,12 +52,14 @@ const Home: NextPage = ({}) => {
           height: "100%",
         }}
       >
-        <h1
-          className="text-[40px] md:text-[70px] font-bold font-mono bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree 
-                      bg-clip-text text-transparent  mt-20 mb-5 select-none"
-        >
-          {dictionary.logo}
-        </h1>
+        <div className=" bg-white  rounded-3xl bg-opacity-50  mt-20 border-2 border-colorSrcTwo px-5 mb-10">
+          <h1
+            className="text-[40px] md:text-[70px] font-bold font-mono bg-gradient-to-r from-colorSrcOne via-colorSrcTwo to-colorSrcThree 
+                      bg-clip-text text-transparent  select-none  "
+          >
+            {dictionary.logo}
+          </h1>
+        </div>
         <div className="w-full">
           <div className="w-full pl-[15%] justify-start flex flex-row  pr-[15%]">
             <div

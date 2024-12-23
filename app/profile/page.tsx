@@ -5,7 +5,6 @@ import PersonalDetailsForm from "@/src/components/forms/PersonalDetailsForm";
 import { PersonalDetailModel } from "@/src/models/PersonalDetailsModel";
 import { useState } from "react";
 import { UserDetailsModel } from "@/src/models/UserDetailsModel";
-import Footer from "@/src/components/footer/Footer";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
 
 const Contact: NextPage = () => {
