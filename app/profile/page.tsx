@@ -27,7 +27,7 @@ const Contact: NextPage = () => {
     <div className="w-full min-h-screen flex flex-col bg-red-200  items-center justify-center bg-gradient-to-r from-colorSeven via-colorTwo to-colorNine">
       <h1
         className="text-[40px] md:text-[70px] font-bold font-mono bg-gradient-to-r from-colorSrcThree via-colorSrcTwo to-colorSrcOne 
-                      bg-clip-text text-transparent  mt-20 mb-5 select-none"
+                      bg-clip-text text-transparent  mt-5 mb-5 select-none"
       >
         {dictionary.navigation[2]}
       </h1>

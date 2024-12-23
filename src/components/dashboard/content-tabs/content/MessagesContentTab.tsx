@@ -4,7 +4,6 @@ import {
   useGetMessagesListFromGroup,
   responsePostMessageToGroup,
 } from "@/src/routes/messageRoute";
-import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
 import MessageDisplay from "../../components/MessageDisplay";
@@ -55,7 +54,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
     <div className="w-full flex flex-col min-h-[700px] items-center mb-[100px]">
       {/* <h1 className="text-2xl font-orbitron_variable font-bold">Messanger</h1> */}
       <div
-        className="w-[90%] h-[600px] rounded-2xl border-2 shadow-xl 
+        className="w-[90%] h-[700px] rounded-2xl border-2 shadow-xl 
                  border-colorOne bg-white flex flex-col items-start 
                  gap-2 p-4 overflow-y-auto"
         aria-label="Students List"

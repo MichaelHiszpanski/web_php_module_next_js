@@ -56,7 +56,7 @@ const StudentNotes: React.FC = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="container mx-auto p-6 h-screen">
+    <div className="container mx-auto p-6 h-screen md:px-[150px]">
       <ButtonTab
         title={"Add Note"}
         className="text-2xl font-orbitron_variable text-white bg-blue-500"
@@ -77,17 +77,15 @@ const StudentNotes: React.FC = () => {
         />
       </CustomModal>
 
-      {
-        <ul className="space-y-4 h-[80%]" style={{ overflowY: "auto" }}>
-          {toDoList.map((item: any) => (
-            <StudentNote
-              key={item.todoid}
-              item={item}
-              handleDeleteNote={handleDeleteNote}
-            />
-          ))}
-        </ul>
-      }
+      <ul className="space-y-4 h-[80%]" style={{ overflowY: "auto" }}>
+        {toDoList.map((item: any) => (
+          <StudentNote
+            key={item.todoid}
+            item={item}
+            handleDeleteNote={handleDeleteNote}
+          />
+        ))}
+      </ul>
     </div>
   );
 };
