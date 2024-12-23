@@ -3,7 +3,7 @@
 ---
 ## Deploy on Vercel
 
-Link: [Check out the Project](https://schoolmanager-mu.vercel.app/)
+Link: [Check out the Project](https://schoolmanager-mu.vercel.app/)     Desktop version only
 
 
 ---
