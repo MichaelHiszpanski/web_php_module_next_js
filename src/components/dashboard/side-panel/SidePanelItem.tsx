@@ -1,5 +1,5 @@
 import { sidePanelItemStyling } from "@/src/consts/styles";
-import { responseDeleteGroup } from "@/src/services/routes/groupRoutes";
+import { responseDeleteGroup } from "@/src/routes/groupRoutes";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import React from "react";

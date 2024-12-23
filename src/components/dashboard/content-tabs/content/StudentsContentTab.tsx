@@ -2,8 +2,8 @@ import {
   responsePostMemberToGroup,
   responseRemovetMemberToGroup,
   useGetGroupUsers,
-} from "@/src/services/routes/groupRoutes";
-import { useGetStudents } from "@/src/services/routes/studentRoutes";
+} from "@/src/routes/groupRoutes";
+import { useGetStudents } from "@/src/routes/studentRoutes";
 import React, { useState } from "react";
 import UserDisplayInGroup from "../../components/UserDisplayInGroup";
 import StudentDisplayInGroup from "../../components/StudentsDisplayInGroup";

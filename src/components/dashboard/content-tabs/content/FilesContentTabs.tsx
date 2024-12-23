@@ -3,7 +3,7 @@ import userStore from "@/src/mobX/user_store";
 import {
   responsePostFileToGroup,
   useGetGroupFilesList,
-} from "@/src/services/routes/fileRoutes";
+} from "@/src/routes/fileRoutes";
 import React, { useRef, useState } from "react";
 import FileDisplay from "../../components/FileDisplay";
 import CustomErros from "@/src/components/custom-errors/CustomErrors";

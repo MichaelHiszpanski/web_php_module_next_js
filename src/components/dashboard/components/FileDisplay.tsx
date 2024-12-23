@@ -1,4 +1,4 @@
-import { responseDownloadFile } from "@/src/services/routes/fileRoutes";
+import { responseDownloadFile } from "@/src/routes/fileRoutes";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import React, { useState } from "react";
 import { FaDownload, FaFileAlt, FaIcons, FaTruckLoading } from "react-icons/fa";

@@ -1,8 +1,8 @@
-import { useGetGroups } from "@/src/services/routes/groupRoutes";
+import { useGetGroups } from "@/src/routes/groupRoutes";
 import React, { FC, useEffect, useState } from "react";
 import { FaScroll, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import SidePanelItem from "./SidePanelItem";
-import { responseStudentGroups } from "@/src/services/routes/studentRoutes";
+import { responseStudentGroups } from "@/src/routes/studentRoutes";
 import userStore from "@/src/mobX/user_store";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
 

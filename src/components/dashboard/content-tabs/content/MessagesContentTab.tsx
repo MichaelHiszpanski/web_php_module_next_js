@@ -3,7 +3,7 @@ import userStore from "@/src/mobX/user_store";
 import {
   useGetMessagesListFromGroup,
   responsePostMessageToGroup,
-} from "@/src/services/routes/messageRoute";
+} from "@/src/routes/messageRoute";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";

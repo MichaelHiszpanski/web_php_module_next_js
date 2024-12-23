@@ -4,36 +4,22 @@ import React, { useEffect, useState } from "react";
 import AddStudentNote from "../../components/AddStudentNote";
 import ButtonTab from "@/src/components/buttons/button-tab/ButtonTab";
 import userStore from "@/src/mobX/user_store";
-interface Props {
-  studentId: number;
-}
-const StudentNotes: React.FC<Props> = ({ studentId }) => {
-  const [toDoList, setToDoList] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+import { useStudentNotes } from "@/src/routes/studentNotesRoute";
+import { useQueryClient } from "@tanstack/react-query";
+
+interface Props {}
+const StudentNotes: React.FC<Props> = () => {
   const [textInput, setTextInput] = useState("");
+  const queryClient = useQueryClient();
   const [id, setId] = useState(userStore.user.dataBaseID);
   const [isAddModal, setIsAddModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchToDoList = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch(
-        `/api/students/student/to-do?StudentID=${userStore.user.dataBaseID}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch To-Do list");
-      }
-      const data = await response.json();
-      setToDoList(data);
-    } catch (error) {
-      setError("Failed to load To-Do list. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    data: toDoList = [],
+    isLoading,
+    isFetching,
+    error,
+  } = useStudentNotes(id);
 
   const handleAddNote = async () => {
     if (textInput.trim() === "") return;
@@ -50,15 +36,7 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
     });
 
     const newNote = await response.json();
-    setToDoList((prev) => [
-      ...prev,
-      {
-        ToDoID: newNote.toDoId,
-        TaskTitle: textInput.trim(),
-        TaskDescription: "Default description",
-        DueDate: new Date().toISOString(),
-      },
-    ]);
+    queryClient.invalidateQueries({ queryKey: ["studentNotes", id] });
     setTextInput("");
     setIsAddModal(false);
   };
@@ -70,19 +48,20 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
       body: JSON.stringify({ ToDoID: toDoId }),
     });
 
-    setToDoList((prev) => prev.filter((item) => item.ToDoID !== toDoId));
-    fetchToDoList();
+    queryClient.invalidateQueries({ queryKey: ["studentNotes", id] });
   };
   const handleDatePickerChange = (date: Date | null) => {
     setSelectedDate(date);
   };
 
   useEffect(() => {
+    console.log("Fetched student notes:", toDoList);
     if (userStore.user.dataBaseID) {
-      fetchToDoList();
+      queryClient.invalidateQueries({ queryKey: ["studentNotes", id] });
     }
   }, [userStore.user.dataBaseID]);
-
+  if (isLoading || isFetching) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
   return (
     <div className="container mx-auto p-6 h-screen">
       <ButtonTab
@@ -102,16 +81,11 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
           handleAddNote={handleAddNote}
         />
       </CustomModal>
-      {error && (
-        <p className="text-red-500 bg-white p-1 text-center rounded-xl mx-10">
-          {error}
-        </p>
-      )}
-      {loading ? (
-        <p>Loading To-Do list...</p>
-      ) : (
+
+      {
         <ul className="space-y-4 h-[80%]" style={{ overflowY: "auto" }}>
-          {toDoList.map((item) => (
+          {/* {toDoList.map((item) => ( */}
+          {toDoList.map((item: any) => (
             <li
               key={item.todoid}
               className="p-4 border border-gray-300 bg-white rounded-lg shadow-sm flex justify-between items-center"
@@ -133,7 +107,7 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
             </li>
           ))}
         </ul>
-      )}
+      }
     </div>
   );
 };

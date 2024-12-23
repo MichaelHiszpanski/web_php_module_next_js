@@ -32,7 +32,7 @@ const CustomInput: FC<Props> = ({
   };
   return (
     <div className="mb-4 w-full">
-      <label className="block text-sm font-medium text-gray-700 dark:text-white mb-1">
+      <label className="block text-sm font-medium text-colorOne bg-white dark:text-white mb-1">
         {label}
       </label>
       <div className=" relative">

@@ -15,35 +15,26 @@ import {
   UserDetailsModel,
   defaultUserDetails,
 } from "@/src/models/UserDetailsModel";
-import {
-  responseGetUser,
-  responsePostUser,
-} from "@/src/services/routes/userRoutes";
+import { responseGetUser, responsePostUser } from "@/src/routes/userRoutes";
 import {
   responseAddStudnetORTeacher,
   usePostStudentOrTeacher,
-} from "@/src/services/routes/dashboardRoutes";
+} from "@/src/routes/dashboardRoutes";
 import NewGroupForm from "@/src/components/forms/NewGroupForm";
 import { NewGroupModel } from "@/src/models/NewGroupModel";
 import {
   responseNewGroup,
   useAddMemberToGroup,
   usePostNewGroup,
-} from "@/src/services/routes/groupRoutes";
-import {
-  getTeacherID,
-  useGetTeacherId,
-} from "@/src/services/routes/teacherRoutes";
+} from "@/src/routes/groupRoutes";
+import { getTeacherID, useGetTeacherId } from "@/src/routes/teacherRoutes";
 import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
 import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
 import Footer from "@/src/components/footer/Footer";
 import { runInAction } from "mobx";
 import LoaderComponent from "@/src/components/loader/Loader";
 import CustomErros from "@/src/components/custom-errors/CustomErrors";
-import {
-  getStudentID,
-  useGetStudentId,
-} from "@/src/services/routes/studentRoutes";
+import { getStudentID, useGetStudentId } from "@/src/routes/studentRoutes";
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const [isBoardOpen, setIsBoardOpen] = useState<boolean>(false);
@@ -254,7 +245,6 @@ const Dashboard: NextPage = () => {
           isStudent={isStudent}
           currentActiveTab={activeTab}
           groupId={groupId}
-          studentId={isStudentId}
         />
       </div>
       <CustomModal
