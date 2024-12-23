@@ -1,4 +1,8 @@
+import CustomDatePicker from "@/src/components/custom-datePicker/CustomDatePicker";
+import CustomModal from "@/src/components/custom-modal/CustomModal";
 import React, { useEffect, useState } from "react";
+import AddStudentNote from "../../components/AddStudentNote";
+import ButtonTab from "@/src/components/buttons/button-tab/ButtonTab";
 interface Props {
   studentId: number;
 }
@@ -6,6 +10,8 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
   const [toDoList, setToDoList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [textInput, setTextInput] = useState("");
+  const [isAddModal, setIsAddModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   //??????????????????????????????????????  fix file
   const fetchToDoList = async () => {
     try {
@@ -76,30 +82,30 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
       console.error("Error deleting note:", error);
     }
   };
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    console.log("Selected date:", date);
+  };
 
   useEffect(() => {
     fetchToDoList();
   }, []);
 
   return (
-    <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Student To-Do List</h1>
-
-      <div className="flex w-full gap-4 mb-6">
-        <input
-          type="text"
-          placeholder="Enter your note"
-          value={textInput}
-          onChange={(e) => setTextInput(e.target.value)}
-          className="flex-1 border border-gray-300 rounded-lg p-2"
+    <div className="container mx-auto p-6 min-h-screen">
+      <ButtonTab title={"Add Note"} onClick={() => setIsAddModal(true)} />
+      <CustomModal
+        isModalOpen={isAddModal}
+        onCloseModal={() => setIsAddModal(false)}
+      >
+        <AddStudentNote
+          textInput={textInput}
+          setTextInput={setTextInput}
+          selectedDate={selectedDate}
+          handleDateChange={handleDateChange}
+          handleAddNote={handleAddNote}
         />
-        <button
-          onClick={handleAddNote}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600"
-        >
-          Add Note
-        </button>
-      </div>
+      </CustomModal>
 
       {loading ? (
         <p>Loading To-Do list...</p>
@@ -108,7 +114,7 @@ const StudentNotes: React.FC<Props> = ({ studentId }) => {
           {toDoList.map((item) => (
             <li
               key={item.ToDoID}
-              className="p-4 border border-gray-300 rounded-lg shadow-sm flex justify-between items-center"
+              className="p-4 border border-gray-300 bg-white rounded-lg shadow-sm flex justify-between items-center"
             >
               <div>
                 <h3 className="text-lg font-semibold">{item.TaskTitle}</h3>

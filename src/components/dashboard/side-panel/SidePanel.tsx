@@ -42,11 +42,11 @@ const SidePanel: FC<Props> = ({
     }
   };
 
-  useEffect(() => {
-    if (!teacherID) {
-      getStudentsGroups();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!teacherID) {
+  //     getStudentsGroups();
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (!teacherID) {
