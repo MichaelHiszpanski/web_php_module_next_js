@@ -86,19 +86,6 @@ const Dashboard: NextPage = () => {
     }, 1000);
   }, [userData]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (userData.roleid === 2) {
-        await fetchTeacherID();
-      }
-      if (userData.roleid == 1) {
-        await fetchStudentID();
-      }
-    };
-
-    fetchData();
-  }, [userData.roleid]);
-
   const fetchTeacherID = async () => {
     try {
       const { data: teacherResponseID } = useGetTeacherId(userData.userId);
@@ -134,6 +121,19 @@ const Dashboard: NextPage = () => {
       setErrors("Error fetching Student ID.");
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userData.roleid === 2) {
+        await fetchTeacherID();
+      }
+      if (userData.roleid == 1) {
+        await fetchStudentID();
+      }
+    };
+
+    fetchData();
+  }, [userData.roleid, fetchTeacherID, fetchStudentID]);
 
   const addUserToDB = async (formData: PersonalDetailModel) => {
     try {
