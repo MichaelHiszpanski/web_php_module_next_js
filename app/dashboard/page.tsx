@@ -43,7 +43,7 @@ const Dashboard: NextPage = () => {
   const [groupId, setGroupId] = useState<number>(0);
   const [activeTab, setActiveTab] = useState(0);
   const [errors, setErrors] = useState<any>([]);
-
+  const { data: teacherResponseID } = useGetTeacherId(userData.userId);
   const { mutate: addMember } = useAddMemberToGroup();
 
   useEffect(() => {
@@ -88,7 +88,6 @@ const Dashboard: NextPage = () => {
 
   const fetchTeacherID = async () => {
     try {
-      const { data: teacherResponseID } = useGetTeacherId(userData.userId);
       const teacherId = teacherResponseID?.TeacherID;
 
       if (teacherId) {
