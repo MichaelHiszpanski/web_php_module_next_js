@@ -57,7 +57,12 @@ const StudentNotes: React.FC = () => {
     }
   }, [userStore.user.dataBaseID]);
 
-  if (isLoading || isFetching) return <div>Loading...</div>;
+  if (isLoading || isFetching)
+    return (
+      <div className="text-white text-2xl w-full mt-10 text-center">
+        Loading Notes...
+      </div>
+    );
 
   if (error) return <div>Error: {error.message}</div>;
 

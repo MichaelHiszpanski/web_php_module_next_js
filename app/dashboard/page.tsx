@@ -5,7 +5,7 @@ import PersonalDetailsForm from "@/src/components/forms/PersonalDetailsForm";
 import userStore from "@/src/mobX/user_store";
 import { useUser } from "@clerk/nextjs";
 import { NextPage } from "next";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { PersonalDetailModel } from "@/src/models/PersonalDetailsModel";
@@ -86,10 +86,9 @@ const Dashboard: NextPage = () => {
     }, 1000);
   }, [userData]);
 
-  const fetchTeacherID = async () => {
+  const fetchTeacherID = useCallback(async () => {
     try {
       const teacherId = teacherResponseID?.TeacherID;
-
       if (teacherId) {
         setGroupForm((prev: NewGroupModel | null) => ({
           ...prev,
@@ -98,19 +97,17 @@ const Dashboard: NextPage = () => {
           groupDescription: prev?.groupDescription ?? "",
         }));
         userStore.updateUserDataBaseID(teacherId);
-        // userStore.updateUserIsStudent(false);
       } else {
         setErrors("No Teacher ID found in response!");
       }
     } catch (error) {
       setErrors("Error fetching Teacher ID:");
     }
-  };
+  }, [teacherResponseID]);
 
-  const fetchStudentID = async () => {
+  const fetchStudentID = useCallback(async () => {
     try {
       const response = await getStudentID(userData.userid);
-
       if (response.StudentID) {
         userStore.setUser({ dataBaseID: response.StudentID });
       } else {
@@ -119,7 +116,7 @@ const Dashboard: NextPage = () => {
     } catch (error) {
       setErrors("Error fetching Student ID.");
     }
-  };
+  }, [userData.userid]);
 
   useEffect(() => {
     const fetchData = async () => {
