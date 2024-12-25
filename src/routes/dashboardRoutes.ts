@@ -40,8 +40,6 @@ export const responseAddStudnetORTeacher = async (
 
     if (response.ok) {
       window.location.reload();
-    } else {
-      console.log("Something went wrong...!");
     }
   } catch (e) {}
 };

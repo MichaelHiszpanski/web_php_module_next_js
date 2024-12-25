@@ -2,7 +2,10 @@ import { useGetGroups } from "@/src/routes/groupRoutes";
 import React, { FC, useEffect, useState } from "react";
 import { FaScroll, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import SidePanelItem from "./SidePanelItem";
-import { responseStudentGroups } from "@/src/routes/studentRoutes";
+import {
+  responseStudentGroups,
+  useGetStudentGroups,
+} from "@/src/routes/studentRoutes";
 import userStore from "@/src/mobX/user_store";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
 
@@ -11,7 +14,6 @@ interface Props {
   setIsBoardOpen: (value: boolean) => void;
   isStudent?: boolean;
   openSecondModal: () => void;
-  teacherID?: number;
   setGroupId: React.Dispatch<React.SetStateAction<any>>;
 }
 const SidePanel: FC<Props> = ({
@@ -19,47 +21,27 @@ const SidePanel: FC<Props> = ({
   setIsBoardOpen,
   isStudent = true,
   openSecondModal,
-  teacherID,
+
   setGroupId,
 }) => {
-  const [studentGroups, setStudentGroups] = useState<any[]>([]);
   const [name, setName] = useState<string>("");
   const { dictionary } = useTranslation();
 
   const {
-    data: teacherGroups = [],
-    isLoading: isTeacherLoading,
-    isError: isTeacherError,
-    refetch: refetchTeacherGroups,
-  } = useGetGroups(teacherID!);
+    data: studentGroupsX = [],
+    isLoading: isStudentGroupLoading,
+    isError: isStudentGroupError,
+    refetch: refetchStudentGroupGroups,
+  } = useGetStudentGroups(userStore.user.userId);
 
-  const getStudentsGroups = async () => {
-    try {
-      const response = await responseStudentGroups(userStore.user.userId);
-      setStudentGroups(response);
-    } catch (error) {
-      console.error("Error fetching student groups:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (!teacherID) {
-      getStudentsGroups();
-    }
-  }, [teacherID]);
-
-  const groups = teacherID ? teacherGroups : studentGroups;
+  const groups = studentGroupsX;
 
   const handleGroupClick = (groupid: number, groupName: string) => {
     setGroupId(groupid);
     setName(groupName);
   };
   const handleRefresh = () => {
-    if (teacherID) {
-      refetchTeacherGroups();
-    } else {
-      getStudentsGroups();
-    }
+    refetchStudentGroupGroups();
   };
 
   return (
@@ -106,9 +88,9 @@ const SidePanel: FC<Props> = ({
           style={{ overflowY: "auto" }}
           className=" h-[500px]  rounded-md p-2 mx-2 bg-white bg-opacity-50 mt-5"
         >
-          {isTeacherLoading ? (
+          {isStudentGroupLoading ? (
             <p className="text-white w-full text-center">Loading...</p>
-          ) : isTeacherError ? (
+          ) : isStudentGroupError ? (
             <p className="text-white w-full text-center">
               Error loading groups.
             </p>

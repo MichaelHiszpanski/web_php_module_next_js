@@ -118,7 +118,6 @@ const PersonalDetailsForm: FC<Props> = ({ onSubmit }) => {
         onSelect={(option: any) => {
           setRole(option);
           setFormData((prev) => ({ ...prev, role: option }));
-          console.log("User role id", formData.role);
         }}
         error={roleError}
       />

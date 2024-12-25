@@ -1,14 +1,14 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 
 export class UserStore {
-  user = {
+  user = observable({
     email: "",
     password: "",
     userId: "",
     name: "",
     dataBaseID: -99,
     isStudent: false,
-  };
+  });
 
   constructor() {
     makeAutoObservable(this);

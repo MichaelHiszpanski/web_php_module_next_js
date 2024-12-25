@@ -121,7 +121,7 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
             aria-label="All Students"
             style={{ overflowY: "auto" }}
           >
-            {studentsAll.length !== null && studentsAll.length === 0 ? (
+            {studentsAll !== null && studentsAll.length === 0 ? (
               <div className="w-full text-center text-2xl font-orbitron_variable">
                 {dictionary.students_content_tab[0].empty}
               </div>

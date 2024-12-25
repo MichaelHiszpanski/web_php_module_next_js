@@ -10,12 +10,14 @@ import {
 } from "@/src/routes/studentNotesRoute";
 import { useQueryClient } from "@tanstack/react-query";
 import StudentNote from "../../components/StudentNote";
+import { observer } from "mobx-react-lite";
 
 const StudentNotes: React.FC = () => {
   const [textInput, setTextInput] = useState("");
   const [description, setDescription] = useState("");
   const queryClient = useQueryClient();
-  const [id, setId] = useState(userStore.user.dataBaseID);
+
+  const [id, setId] = useState(-99);
   const [isAddModal, setIsAddModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const {
@@ -24,6 +26,10 @@ const StudentNotes: React.FC = () => {
     isFetching,
     error,
   } = useStudentNotes(id);
+
+  useEffect(() => {
+    setId(userStore.user.dataBaseID);
+  }, [userStore.user.dataBaseID]);
 
   const handleAddNote = async () => {
     if (textInput.trim() === "") return;
@@ -90,4 +96,4 @@ const StudentNotes: React.FC = () => {
   );
 };
 
-export default StudentNotes;
+export default observer(StudentNotes);

@@ -47,7 +47,6 @@ const SignUp: NextPage = () => {
 
     if (!validateInputs()) return;
 
-    console.log("Validation passed");
     try {
       await signUp.create({
         emailAddress: userData.email,

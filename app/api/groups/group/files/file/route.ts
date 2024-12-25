@@ -32,7 +32,7 @@ export async function POST(req: Request) {
       filePath,
       fileBuffer,
     ]);
-    console.log("FileBuffer:", fileBuffer, "Type:", typeof fileBuffer);
+
     const fileId = result[0]?.FileID;
     return NextResponse.json({
       success: true,
@@ -71,12 +71,6 @@ export async function GET(req: Request) {
     }
     const { filepath, filecontent, filesize } = result[0];
 
-    console.log("Retrieved Data:", {
-      filepath,
-      filesize,
-      filecontent,
-    });
-
     const fileBuffer = Buffer.isBuffer(filecontent)
       ? filecontent
       : Buffer.from(filecontent || "", "binary");
@@ -91,7 +85,6 @@ export async function GET(req: Request) {
       },
     });
   } catch (error) {
-    console.error("Error in GET /api/groups/group/files/file:", error);
     return NextResponse.json(
       { success: false, error: "Something went wrong" },
       { status: 500 }

@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { PersonalDetailModel } from "../models/PersonalDetailsModel";
 import { UserDetailsModel } from "../models/UserDetailsModel";
 
@@ -6,7 +7,15 @@ export const responseGetUser = async (userId: string) => {
     method: "GET",
   });
 
-  return response;
+  const data = await response.json();
+  return data;
+};
+export const useGetUser = (userId: string) => {
+  return useQuery({
+    queryKey: ["User", userId],
+    queryFn: () => responseGetUser(userId),
+    enabled: !!userId,
+  });
 };
 
 export const responsePostUser = async (formData: UserDetailsModel) => {
@@ -15,9 +24,9 @@ export const responsePostUser = async (formData: UserDetailsModel) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       UserID: formData.userid,
-      UserEmail: formData.userEmail,
-      UserPassword: formData.userPassword,
-      RoleId: formData.roleId,
+      UserEmail: formData.useremail,
+      UserPassword: formData.userpassword,
+      RoleId: formData.roleid,
     }),
   });
   return response;

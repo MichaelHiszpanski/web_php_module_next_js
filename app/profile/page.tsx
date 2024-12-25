@@ -12,9 +12,9 @@ const Contact: NextPage = () => {
   const { dictionary } = useTranslation();
   const defaultUserDetails: UserDetailsModel = {
     userid: "",
-    userEmail: "",
-    userPassword: "",
-    roleId: 0,
+    useremail: "",
+    userpassword: "",
+    roleid: 0,
     datecreated: new Date("2024-11-21T16:30:41.392Z"),
   };
   const [userData, setUserData] = useState<any>(defaultUserDetails);
