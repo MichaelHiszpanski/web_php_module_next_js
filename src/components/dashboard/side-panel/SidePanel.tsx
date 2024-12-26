@@ -34,7 +34,7 @@ const SidePanel: FC<Props> = ({
     refetch: refetchStudentGroupGroups,
   } = useGetStudentGroups(userStore.user.userId);
 
-  const groups = studentGroupsX;
+  const groups = studentGroupsX ?? [];
 
   const handleGroupClick = (groupid: number, groupName: string) => {
     setGroupId(groupid);
