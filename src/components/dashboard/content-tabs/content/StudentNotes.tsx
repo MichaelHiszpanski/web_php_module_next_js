@@ -26,7 +26,7 @@ const StudentNotes: React.FC = () => {
     isLoading,
     isFetching,
     error,
-  } = useStudentNotes(id);
+  } = useStudentNotes(userStore.user.dataBaseID);
 
   useEffect(() => {
     setId(userStore.user.dataBaseID);
