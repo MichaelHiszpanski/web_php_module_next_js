@@ -16,17 +16,21 @@ export async function GET(req: Request) {
     }
 
     const studentData = await sql`
-        SELECT Students.*, 
-               Groups.GroupName AS GroupName,
-               Messages.MessageContext AS MessageContext,
-               Files.FilePath AS FilePath
-        FROM Students
-        LEFT JOIN GroupMembers ON Students.StudentID = GroupMembers.StudentID
-        LEFT JOIN Groups ON GroupMembers.GroupID = Groups.GroupID
-        LEFT JOIN Messages ON Groups.GroupID = Messages.GroupID
-        LEFT JOIN Files ON Groups.GroupID = Files.GroupID
-        WHERE Students.StudentID = ${studentId};
-      `;
+      SELECT
+        s.StudentID,
+        s.UserID,
+        s.FirstName,
+        s.LastName,
+        s.City,
+        s.Postcode,
+        s.StreetName,
+        s.HouseNumber,
+        u.UserEmail,
+        u.DateCreated
+      FROM Students s
+      JOIN Users u ON s.UserID = u.UserID
+      WHERE s.StudentID = ${studentId};
+    `;
 
     if (studentData.length === 0) {
       return NextResponse.json(

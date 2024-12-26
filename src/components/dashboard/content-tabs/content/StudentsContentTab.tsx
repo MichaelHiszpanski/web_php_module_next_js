@@ -100,7 +100,7 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
               <div className="w-full text-center text-red-500 font-bold">
                 {dictionary.students_content_tab[0].error_loading_group_users}
               </div>
-            ) : usersInGroup.length === 0 ? (
+            ) : usersInGroup !== null && usersInGroup.length === 0 ? (
               <div className="w-full text-center">
                 {dictionary.students_content_tab[0].empty}
               </div>

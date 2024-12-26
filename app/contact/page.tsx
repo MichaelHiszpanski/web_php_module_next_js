@@ -31,9 +31,7 @@ const Contact: NextPage = () => {
       >
         {dictionary.logo}
       </h1>
-      <div className=" w-[650px] bg-white p-2 rounded-xl ">
-        <PersonalDetailsForm onSubmit={handleFormSubmit} />
-      </div>
+      <div className=" w-[650px] bg-white p-2 rounded-xl "></div>
       <div className="h-[120px]" />
     </div>
   );

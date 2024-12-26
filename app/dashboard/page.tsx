@@ -22,7 +22,7 @@ import {
   responseNewGroup,
   useAddMemberToGroup,
 } from "@/src/routes/groupRoutes";
-import { useGetTeacherId } from "@/src/routes/teacherRoutes";
+import { getTeacherID, useGetTeacherId } from "@/src/routes/teacherRoutes";
 import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
 import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
 import LoaderComponent from "@/src/components/loader/Loader";
@@ -43,7 +43,7 @@ const Dashboard: NextPage = () => {
   const [groupId, setGroupId] = useState<number>(0);
   const [activeTab, setActiveTab] = useState(0);
   const [errors, setErrors] = useState<any>([]);
-  const { data: teacherResponseID } = useGetTeacherId(userData.userId);
+  // const { data: teacherResponseID } = useGetTeacherId(userData.userId);
   const { mutate: addMember } = useAddMemberToGroup();
 
   useEffect(() => {
@@ -53,15 +53,14 @@ const Dashboard: NextPage = () => {
       try {
         const data = await responseGetUser(user.id);
 
-        if (!data.userid) {
-          setIsModal(true);
-          return;
-        }
-
         userStore.setUser({
           userId: user.id,
           name: user?.username ?? "No Name",
         });
+        if (!data.userid) {
+          setIsModal(true);
+          return;
+        }
 
         setUserData({ ...data });
 
@@ -88,11 +87,11 @@ const Dashboard: NextPage = () => {
 
   const fetchTeacherID = useCallback(async () => {
     try {
-      const teacherId = teacherResponseID?.TeacherID;
+      const teacherId = await getTeacherID(userData.userid); //teacherResponseID?.TeacherID;
       if (teacherId) {
         setGroupForm((prev: NewGroupModel | null) => ({
           ...prev,
-          teacherID: teacherId,
+          teacherID: teacherId.TeacherID,
           groupName: prev?.groupName ?? "",
           groupDescription: prev?.groupDescription ?? "",
         }));
@@ -103,7 +102,7 @@ const Dashboard: NextPage = () => {
     } catch (error) {
       setErrors("Error fetching Teacher ID:");
     }
-  }, [teacherResponseID]);
+  }, [userData.userid]);
 
   const fetchStudentID = useCallback(async () => {
     try {
@@ -235,6 +234,7 @@ const Dashboard: NextPage = () => {
             onSubmit={(formData) => {
               handleFormSubmit(formData);
             }}
+            // data={null}
           />
         </div>
       </CustomModal>

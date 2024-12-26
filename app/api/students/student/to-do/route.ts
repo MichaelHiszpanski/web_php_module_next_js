@@ -43,7 +43,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const StudentID = searchParams.get("StudentID");
 
-    if (!StudentID) {
+    if (!StudentID || StudentID === "-99") {
       return NextResponse.json(
         { error: "StudentID is required as a query parameter" },
         { status: 400 }

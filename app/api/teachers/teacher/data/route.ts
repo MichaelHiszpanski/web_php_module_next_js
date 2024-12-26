@@ -16,16 +16,21 @@ export async function GET(req: Request) {
     }
 
     const teacherData = await sql`
-        SELECT Teachers.*, 
-               Subjects.SubjectName AS SubjectName,
-               Classes.ClassName AS ClassName
-        FROM Teachers
-        LEFT JOIN TeacherSubjects ON Teachers.TeacherID = TeacherSubjects.TeacherID
-        LEFT JOIN Subjects ON TeacherSubjects.SubjectID = Subjects.SubjectID
-        LEFT JOIN TeacherClasses ON Teachers.TeacherID = TeacherClasses.TeacherID
-        LEFT JOIN Classes ON TeacherClasses.ClassID = Classes.ClassID
-        WHERE Teachers.TeacherID = ${teacherId};
-      `;
+      SELECT
+        t.TeacherID,
+        t.UserID,
+        t.FirstName,
+        t.LastName,
+        t.City,
+        t.Postcode,
+        t.StreetName,
+        t.HouseNumber,
+        u.UserEmail,
+        u.DateCreated
+      FROM Teachers t
+      JOIN Users u ON t.UserID = u.UserID
+      WHERE t.TeacherID = ${teacherId};
+    `;
 
     if (teacherData.length === 0) {
       return NextResponse.json(

@@ -21,6 +21,7 @@ const PersonalDetailsForm: FC<Props> = ({ onSubmit }) => {
     type: "",
     role: "",
   });
+
   const [role, setRole] = React.useState<string | null>(null);
   const [roleError, setRoleError] = React.useState<string | null>(null);
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +86,7 @@ const PersonalDetailsForm: FC<Props> = ({ onSubmit }) => {
       <CustomInput
         label="Last Name"
         name="lastName"
-        value={formData.lastName}
+        value={formData!.lastName}
         onInputChange={inputChange}
       />
       <CustomInput
