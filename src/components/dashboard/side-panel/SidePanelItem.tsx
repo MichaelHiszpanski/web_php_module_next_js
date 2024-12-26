@@ -11,6 +11,7 @@ interface Props {
   dateCreated: string;
   groupid: number;
   onClick: (groupid: number) => void;
+  isStudent: boolean;
 }
 const SidePanelItem: React.FC<Props> = ({
   groupName,
@@ -18,6 +19,7 @@ const SidePanelItem: React.FC<Props> = ({
   dateCreated,
   groupid,
   onClick,
+  isStudent,
 }) => {
   const { dictionary } = useTranslation();
   const deleteGroup = async (groupID: number) => {
@@ -59,13 +61,15 @@ const SidePanelItem: React.FC<Props> = ({
         <p className={sidePanelItemStyling.field} style={{ fontSize: "12px" }}>
           {dateTimeFormater(dateCreated) || "N/A"}
         </p>
-        <IoTrashBin
-          className=" cursor-pointer"
-          onClick={(e) => {
-            e.stopPropagation();
-            deleteGroup(groupid);
-          }}
-        />
+        {isStudent == false && (
+          <IoTrashBin
+            className=" cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteGroup(groupid);
+            }}
+          />
+        )}
       </div>
     </div>
   );

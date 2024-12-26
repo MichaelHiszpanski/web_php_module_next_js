@@ -103,6 +103,7 @@ const SidePanel: FC<Props> = ({
                 dateCreated={group.datecreated}
                 groupid={group.groupid}
                 onClick={() => handleGroupClick(group.groupid, group.groupname)}
+                isStudent={isStudent}
               />
             ))
           ) : (
