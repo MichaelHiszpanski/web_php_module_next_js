@@ -1,6 +1,6 @@
 "use client";
 import { NextPage } from "next";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { UserDetailsModel } from "@/src/models/UserDetailsModel";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import userStore from "@/src/mobX/user_store";
@@ -12,6 +12,8 @@ import {
   useGetStudentData,
   useGetTeacherData,
 } from "@/src/routes/profileDataRoutes";
+import ProfileDisplay from "@/src/components/dashboard/components/ProfileDisplay";
+import LoaderComponent from "@/src/components/loader/Loader";
 
 const Contact: NextPage = () => {
   const [formData, setFormData] = useState<any>(null);
@@ -128,35 +130,27 @@ const Contact: NextPage = () => {
     (userData.roleid === 2 && teacherLoading) ||
     (userData.roleid === 1 && studentLoading)
   ) {
-    return <div>Loading...</div>;
+    return <LoaderComponent />;
   }
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-red-200  items-center justify-center bg-gradient-to-r from-colorSeven via-colorTwo to-colorNine">
+    <div className="w-full min-h-screen flex flex-col bg-red-200  items-center pt-10 bg-gradient-to-r from-colorSeven via-colorTwo to-colorNine">
       <h1
-        className="text-[40px] md:text-[70px] font-bold font-mono bg-gradient-to-r from-colorSrcThree via-colorSrcTwo to-colorSrcOne 
-                      bg-clip-text text-transparent  mt-5 mb-5 select-none"
+        className="text-[40px] md:text-[70px] font-bold font-orbitron_variable bg-gradient-to-r from-colorSrcThree via-colorSrcTwo to-colorSrcOne 
+                      bg-clip-text text-transparent  mt-5 mb-10 select-none"
       >
         {dictionary.navigation[2]}
       </h1>
-      <div className="w-[650px] bg-white p-2 rounded-xl">
+      <div className="w-[650px] ">
         {!formData || formData.length === 0 ? (
-          <div>Loading Student data ...</div>
+          <LoaderComponent />
         ) : (
           formData.map((user: any, index: number) => (
-            <div key={index} className="p-4 border-b">
-              <p>Student ID: {user.studentid}</p>
-              <p>Teacher ID: {user.teacherid}</p>
-              <p>User ID: {user.userid}</p>
-              <p>First Name: {user.firstname}</p>
-              <p>Last Name: {user.lastname}</p>
-              <p>City: {user.city}</p>
-              <p>Postcode: {user.postcode}</p>
-              <p>Street Name: {user.streetname}</p>
-              <p>House Number: {user.housenumber}</p>
-              <p>Email: {user.useremail}</p>
-              <p>Date Created: {user.datecreated}</p>
-            </div>
+            <ProfileDisplay
+              user={user}
+              key={index}
+              isStudent={userData.roleid === 1}
+            />
           ))
         )}
       </div>
