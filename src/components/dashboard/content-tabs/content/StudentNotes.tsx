@@ -11,12 +11,13 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import StudentNote from "../../components/StudentNote";
 import { observer } from "mobx-react-lite";
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 
 const StudentNotes: React.FC = () => {
   const [textInput, setTextInput] = useState("");
   const [description, setDescription] = useState("");
   const queryClient = useQueryClient();
-
+  const { dictionary } = useTranslation();
   const [id, setId] = useState(-99);
   const [isAddModal, setIsAddModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -60,16 +61,21 @@ const StudentNotes: React.FC = () => {
   if (isLoading || isFetching)
     return (
       <div className="text-white text-2xl w-full mt-10 text-center">
-        Loading Notes...
+        {dictionary.student_notes[0].loading_notes}
       </div>
     );
 
-  if (error) return <div>Error: {error.message}</div>;
+  if (error)
+    return (
+      <div>
+        {dictionary.student_notes[0].error_notes} {error.message}
+      </div>
+    );
 
   return (
     <div className="container mx-auto p-6 h-screen md:px-[150px]">
       <ButtonTab
-        title={"Add Note"}
+        title={dictionary.student_notes[0].add_note}
         className="text-2xl font-orbitron_variable text-white bg-blue-500"
         onClick={() => setIsAddModal(true)}
       />

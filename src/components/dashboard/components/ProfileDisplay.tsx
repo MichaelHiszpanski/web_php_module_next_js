@@ -1,3 +1,4 @@
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import React from "react";
 
 interface Props {
@@ -5,6 +6,7 @@ interface Props {
   isStudent?: boolean;
 }
 const ProfileDisplay: React.FC<Props> = ({ user, isStudent }) => {
+  const { dictionary } = useTranslation();
   const styleP =
     "font-mono text-xl pl-5 border-b-[0.5px] border-colorSrcTwo  bg-white  text-colorOne";
   const styleNames =
@@ -15,49 +17,69 @@ const ProfileDisplay: React.FC<Props> = ({ user, isStudent }) => {
         <tbody>
           {isStudent == true ? (
             <tr>
-              <td className={styleNames}>Student ID:</td>
+              <td className={styleNames}>
+                {dictionary.profile_details[0].student_id}
+              </td>
               <td className={styleP}>{user.studentid}</td>
             </tr>
           ) : (
             <tr>
-              <td className={styleNames}>Teacher ID:</td>
+              <td className={styleNames}>
+                {dictionary.profile_details[0].teacher_id}
+              </td>
               <td className={styleP}>{user.teacherid}</td>
             </tr>
           )}
           <tr>
-            <td className={styleNames}>User ID:</td>
+            <td className={styleNames}>
+              {dictionary.profile_details[0].user_id}
+            </td>
             <td className={styleP}>{user.userid}</td>
           </tr>
           <tr>
-            <td className={styleNames}>First Name:</td>
+            <td className={styleNames}>
+              {dictionary.profile_details[0].first_name}
+            </td>
             <td className={styleP}>{user.firstname}</td>
           </tr>
           <tr>
-            <td className={styleNames}>Last Name:</td>
+            <td className={styleNames}>
+              {dictionary.profile_details[0].last_name}
+            </td>
             <td className={styleP}>{user.lastname}</td>
           </tr>
           <tr>
-            <td className={styleNames}>City:</td>
+            <td className={styleNames}>{dictionary.profile_details[0].city}</td>
             <td className={styleP}>{user.city}</td>
           </tr>
           <tr>
-            <td className={styleNames}>Postcode:</td>
+            <td className={styleNames}>
+              {dictionary.profile_details[0].post_code}
+            </td>
             <td className={styleP}>{user.postcode}</td>
           </tr>
           <tr>
-            <td className={styleNames}>Street Name:</td>
+            <td className={styleNames}>
+              {dictionary.profile_details[0].street}
+            </td>
             <td className={styleP}>{user.streetname}</td>
           </tr>
           <tr>
-            <td className={styleNames}>House Number:</td>
+            <td className={styleNames}>
+              {dictionary.profile_details[0].house_no}
+            </td>
             <td className={styleP}>{user.housenumber}</td>
           </tr>
           <tr>
-            <td className={styleNames}>Email:</td>
+            <td className={styleNames}>
+              {dictionary.profile_details[0].email}
+            </td>
             <td className={styleP}>{user.useremail}</td>
           </tr>
           <tr>
-            <td className={styleNames}>Date Created:</td>
+            <td className={styleNames}>
+              {dictionary.profile_details[0].date_created}
+            </td>
             <td className={styleP}>{user.datecreated}</td>
           </tr>
         </tbody>

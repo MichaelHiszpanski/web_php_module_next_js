@@ -142,5 +142,29 @@
       "no_files_selected": "No files selected",
       "upload_file": "Uplaod File"
     }
+  ],
+  "profile_details": [
+    {
+      "student_id": "Student ID:",
+      "teacher_id": "Teacher ID:",
+      "user_id": "User ID:",
+      "first_name": "First Name:",
+      "last_name": "Lats Name:",
+      "city": "City:",
+      "post_code": "Post Code:",
+      "street": "Street:",
+      "house_no": "House No:",
+      "email": "Email:",
+      "date_created": "Date Created:"
+    }
+  ],
+  "student_notes": [
+    {
+      "due": "Due:",
+      "delete": "Delete",
+      "add_note": "Add Note",
+      "loading_notes": "Loading Notes...",
+      "error_notes": "Error:"
+    }
   ]
 }

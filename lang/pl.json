@@ -144,5 +144,29 @@
       "no_files_selected": "Nie wybrano plików",
       "upload_file": "Prześlij plik"
     }
+  ],
+  "profile_details": [
+    {
+      "student_id": "ID Studenta:",
+      "teacher_id": "ID Nauczyciela:",
+      "user_id": "ID Użytkownika:",
+      "first_name": "Imię:",
+      "last_name": "Nazwisko:",
+      "city": "Miasto:",
+      "post_code": "Kod Pocztowy:",
+      "street": "Ulica:",
+      "house_no": "Numer Domu:",
+      "email": "Email:",
+      "date_created": "Data Utworzenia:"
+    }
+  ],
+  "student_notes": [
+    {
+      "due": "Termin:",
+      "delete": "Usuń",
+      "add_note": "Dodaj Notatkę",
+      "loading_notes": "Ładowanie Notatek...",
+      "error_notes": "Błąd:"
+    }
   ]
 }

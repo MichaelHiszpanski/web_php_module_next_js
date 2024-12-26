@@ -1,3 +1,4 @@
+import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import React from "react";
 
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const StudentNote: React.FC<Props> = ({ item, handleDeleteNote }) => {
+  const { dictionary } = useTranslation();
   return (
     <li
       key={item.todoid}
@@ -16,14 +18,14 @@ const StudentNote: React.FC<Props> = ({ item, handleDeleteNote }) => {
         <h3 className="text-lg font-semibold">{item.tasktitle}</h3>
         <p>{item.taskdescription}</p>
         <p className="text-sm text-gray-500">
-          Due: {dateTimeFormater(item.todoid)}
+          {dictionary.student_notes[0].due} {dateTimeFormater(item.todoid)}
         </p>
       </div>
       <button
         onClick={() => handleDeleteNote(item.todoid)}
         className="text-red-500 hover:underline"
       >
-        Delete
+        {dictionary.student_notes[0].delete}
       </button>
     </li>
   );
