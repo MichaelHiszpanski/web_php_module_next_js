@@ -1,4 +1,5 @@
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
+import { dateTimeFormater } from "@/src/utils/tools/date_formater";
 import React from "react";
 
 interface Props {
@@ -80,7 +81,7 @@ const ProfileDisplay: React.FC<Props> = ({ user, isStudent }) => {
             <td className={styleNames}>
               {dictionary.profile_details[0].date_created}
             </td>
-            <td className={styleP}>{user.datecreated}</td>
+            <td className={styleP}>{dateTimeFormater(user.datecreated)}</td>
           </tr>
         </tbody>
       </table>
