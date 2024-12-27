@@ -1,7 +1,7 @@
 ---
 # The project is being carried out as part of the requirements for passing the Web Design course at The Open University.
 ---
-## Deploy on Vercel
+## Deployed in Vercel
 
 Link: [Check out the Project](https://schoolmanager-mu.vercel.app/)     Desktop version only
 
