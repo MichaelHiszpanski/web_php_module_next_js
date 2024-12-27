@@ -8,7 +8,6 @@ Link: [Check out the Project](https://schoolmanager-mu.vercel.app/)     Desktop 
 
 ---
 
----
 
 ## Technologies Used
 
@@ -25,4 +24,4 @@ Clerk is implemented in this project to handle user authentication and managemen
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-
+---
