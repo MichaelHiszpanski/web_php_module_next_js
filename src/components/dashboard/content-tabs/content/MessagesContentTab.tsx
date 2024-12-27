@@ -52,17 +52,18 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
 
   return (
     <div className="w-full flex flex-col min-h-[700px] items-center mb-[100px]">
-      {/* <h1 className="text-2xl font-orbitron_variable font-bold">Messanger</h1> */}
       <div
         className="w-[90%] h-[700px] rounded-2xl border-2 shadow-xl 
                  border-colorOne bg-white flex flex-col items-start 
                  gap-2 p-4 overflow-y-auto"
         aria-label="Students List"
         style={{ overflowY: "auto" }}
+        key={"2div"}
       >
         <div
           className="w-full h-full flex flex-col-reverse items-start overflow-y-auto"
           style={{ overflowY: "auto" }}
+          key={"1div"}
         >
           {isLoading ? (
             <p>Loading messages...</p>
