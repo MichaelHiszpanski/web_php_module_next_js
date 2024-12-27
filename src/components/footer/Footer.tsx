@@ -14,9 +14,6 @@ const Footer: FC<Props> = ({
 }) => {
   const router = useRouter();
 
-  const handleContactClick = () => {
-    router.push("/contact?scrollTo=bottom");
-  };
   return (
     <footer //
       className={`flex w-full h-[85px] flex-col md:flex-row 
@@ -25,12 +22,16 @@ const Footer: FC<Props> = ({
                    isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
                  }`}
     >
-      <button
-        onClick={handleContactClick}
-        className={`${fontColor} md:ml-16  select-none hover:scale-125 transition font-orbitron_variable`}
+      <Link
+        className={`${fontColor} text-right  ml-10 select-none hover:scale-125 transition  font-orbitron_variable`}
+        href={
+          "https://www.open.ac.uk/courses/choose/the-open-university?ps_kw=open%20university%20uk&cid=sem-9237400975&gad_source=1&gclid=Cj0KCQiAvbm7BhC5ARIsAFjwNHsEZWzvpjqXp8S3bhEgy4ZaUCL-8pvODhIA8SKgBXd2GQ7dytd0byEaAv2NEALw_wcB&gclsrc=aw.ds"
+        }
+        target="_blank"
       >
-        Contact
-      </button>
+        The Open Univeristy
+      </Link>
+
       <Link
         className={`${fontColor} select-none font-jost_variable"`}
         href={"https://dungeon-studio.vercel.app/"}
