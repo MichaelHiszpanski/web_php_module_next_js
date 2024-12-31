@@ -41,13 +41,21 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
   try {
-    const { TeacherID, UserID, FirstName, LastName, Subject, Email } =
-      await req.json();
+    const {
+      TeacherID,
+      FirstName,
+      LastName,
+      City,
+      Postcode,
+      StreetName,
+      HouseNumber,
+    } = await req.json();
 
     const result = await sql`
       UPDATE Teachers
-      SET UserID = ${UserID}, FirstName = ${FirstName}, LastName = ${LastName},
-          Subject = ${Subject}, Email = ${Email}
+      SET FirstName = ${FirstName}, LastName = ${LastName},
+          City = ${City}, Postcode = ${Postcode}, StreetName = ${StreetName},
+          HouseNumber = ${HouseNumber}
       WHERE TeacherID = ${TeacherID}
       RETURNING TeacherID;
     `;

@@ -1,4 +1,6 @@
 export interface PersonalDetailModel {
+  studentId?: string;
+  teacherId?: string;
   name: string;
   lastName: string;
   street: string;

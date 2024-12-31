@@ -9,14 +9,17 @@ import { useUser } from "@clerk/nextjs";
 import { getStudentID } from "@/src/routes/studentRoutes";
 import { getTeacherID } from "@/src/routes/teacherRoutes";
 import {
+  responsePUTStudnetORTeacher,
   useGetStudentData,
   useGetTeacherData,
 } from "@/src/routes/profileDataRoutes";
 import ProfileDisplay from "@/src/components/dashboard/components/ProfileDisplay";
 import LoaderComponent from "@/src/components/loader/Loader";
+import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
 
-const Contact: NextPage = () => {
+const Profile: NextPage = () => {
   const [formData, setFormData] = useState<any>(null);
+  const [updatedFormData, setUpdatedFormData] = useState<any>(null);
   const { dictionary } = useTranslation();
   const defaultUserDetails: UserDetailsModel = {
     userid: "",
@@ -38,6 +41,7 @@ const Contact: NextPage = () => {
   const { data: studentProfile, isLoading: studentLoading } = useGetStudentData(
     studentID ?? 0
   );
+  // const { data: updateProfileData } = usePUTStudentOrTeacher(formData);
   useEffect(() => {
     console.log("Stage 1");
     const fetchUserData = async () => {
@@ -118,12 +122,49 @@ const Contact: NextPage = () => {
   }, [teacherProfile, userData.roleid]);
 
   useEffect(() => {
-    console.log("Stage 7", studentLoading);
+    console.log("Stage 7 D", formData);
     console.log("Stage 7", studentProfile);
     if (studentProfile && userData.roleid === 1) {
       setFormData(studentProfile);
     }
   }, [studentProfile, userData.roleid]);
+
+  const updateFormData = (updatedData: any) => {
+    setUpdatedFormData((prevData: any) => ({
+      ...prevData,
+      ...updatedData,
+    }));
+  };
+
+  const updateData = async () => {
+    if (!updatedFormData) {
+      setErrors("No data to update.");
+      return;
+    }
+    console.log(
+      "Form Data to be Updated:",
+      formData[0].studentid,
+      "  more    ",
+      userData.roleid === 1
+    );
+    // if (!updatedFormData.studentId) {
+    //   setErrors("StudentID is missing.");
+    //   console.error("StudentID is missing in the formData.");
+    //   return;
+    // }
+
+    try {
+      await responsePUTStudnetORTeacher(
+        userData.roleid === 1,
+        updatedFormData,
+        userData.roleid === 1 ? formData[0].studentid : formData[0].teacherid
+      );
+      console.log("Data updated successfully!");
+    } catch (error) {
+      console.error("Error updating data:", error);
+      setErrors("Unexpected error while updating data.");
+    }
+  };
 
   if (
     !isLoaded ||
@@ -145,18 +186,28 @@ const Contact: NextPage = () => {
         {!formData || formData.length === 0 ? (
           <LoaderComponent />
         ) : (
-          formData.map((user: any, index: number) => (
-            <ProfileDisplay
-              user={user}
-              key={index}
-              isStudent={userData.roleid === 1}
-            />
-          ))
+          // formData.map((user: any, index: number) => (
+          //   <ProfileDisplay
+          //     user={user}
+          //     key={index}
+          //     isStudent={userData.roleid === 1}
+          //     onFormDataUpdated={updateFormData}
+          //   />
+          // ))
+
+          <ProfileDisplay
+            user={formData[0]}
+            isStudent={userData.roleid === 1}
+            onFormDataUpdated={updateFormData}
+          />
         )}
+      </div>
+      <div className="w-[650px] mt-5">
+        <ButtonPrimary title={"Update"} onClick={updateData} />
       </div>
       <div className="h-[120px]" />
     </div>
   );
 };
 
-export default Contact;
+export default Profile;

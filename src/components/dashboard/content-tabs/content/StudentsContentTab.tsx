@@ -126,6 +126,7 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
                 {dictionary.students_content_tab[0].empty}
               </div>
             ) : (
+              studentsAll &&
               studentsAll.map((item: any) => (
                 <StudentDisplayInGroup
                   item={item}

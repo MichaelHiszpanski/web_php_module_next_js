@@ -10,6 +10,8 @@ interface Props {
   placeholder?: string;
   keyboardType?: string;
   error?: string | null;
+  isLabel?: boolean;
+  className?: string;
 }
 
 const CustomInput: FC<Props> = ({
@@ -21,6 +23,8 @@ const CustomInput: FC<Props> = ({
   keyboardType = "text",
   error = "",
   onFocus = () => {},
+  isLabel = true,
+  className,
 }) => {
   const [currentKeyboardType, setCurrentKeyboardType] = useState(keyboardType);
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -31,15 +35,18 @@ const CustomInput: FC<Props> = ({
     );
   };
   return (
-    <div className="mb-4 w-full">
-      <label className="block text-sm font-medium text-colorOne bg-white dark:text-white mb-1">
-        {label}
-      </label>
+    <div className={`mb-4 w-full `}>
+      {isLabel && (
+        <label className="block text-sm font-medium text-colorOne bg-white dark:text-white mb-1">
+          {label}
+        </label>
+      )}
       <div className=" relative">
         <input
           type={currentKeyboardType}
           value={value}
           name={name}
+          id={name}
           onChange={onChange}
           placeholder={placeholder}
           onFocus={(e) => {
@@ -49,13 +56,13 @@ const CustomInput: FC<Props> = ({
           onBlur={() => setIsFocused(false)}
           className={`w-full text-colorOne p-2 border rounded ${
             error ? "border-red-500" : "border-gray-300"
-          } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          } focus:outline-none focus:ring-2 focus:ring-blue-500 ${className}`}
         />
         {keyboardType === "password" && (
           <button
             type="button"
             onClick={showPassword}
-            className="absolute right-2 top-2 text-gray-500 hover:text-colorFive focus:outline-none"
+            className={`absolute right-2 top-2 text-gray-500 hover:text-colorFive focus:outline-none `}
           >
             {currentKeyboardType === "password" ? (
               <FaRegEye size={25} />

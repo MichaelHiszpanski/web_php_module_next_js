@@ -52,7 +52,6 @@ export async function PUT(req: Request) {
   try {
     const {
       StudentID,
-      UserID,
       FirstName,
       LastName,
       City,
@@ -63,7 +62,7 @@ export async function PUT(req: Request) {
 
     const result = await sql`
       UPDATE Students
-      SET UserID = ${UserID}, FirstName = ${FirstName}, LastName = ${LastName},
+      SET FirstName = ${FirstName}, LastName = ${LastName},
           City = ${City}, Postcode = ${Postcode}, StreetName = ${StreetName},
           HouseNumber = ${HouseNumber}
       WHERE StudentID = ${StudentID}
