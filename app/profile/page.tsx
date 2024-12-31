@@ -68,7 +68,7 @@ const Contact: NextPage = () => {
   }, [isSignedIn, user]);
   const fetchTeacherID = useCallback(async () => {
     try {
-      const teacherId = await getTeacherID(userData.userid); //teacherResponseID?.TeacherID;
+      const teacherId = await getTeacherID(userData.userid);
       if (teacherId) {
         console.log("Stage 3", teacherId.TeacherID);
         userStore.updateUserDataBaseID(teacherId.TeacherID);

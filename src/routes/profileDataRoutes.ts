@@ -14,7 +14,7 @@ export const responseStudentData = async (StudentID: number) => {
 
 export const useGetStudentData = (StudentID: number) => {
   return useQuery({
-    queryKey: ["groupMessages", StudentID],
+    queryKey: ["studentData", StudentID],
     queryFn: () => responseStudentData(StudentID),
     staleTime: 5 * 60 * 1000,
     enabled: !!StudentID,
@@ -35,7 +35,7 @@ export const responseTeacherData = async (TeacherID: number) => {
 
 export const useGetTeacherData = (TeacherID: number) => {
   return useQuery({
-    queryKey: ["groupMessages", TeacherID],
+    queryKey: ["teacherData", TeacherID],
     queryFn: () => responseTeacherData(TeacherID),
     staleTime: 5 * 60 * 1000,
     enabled: !!TeacherID,

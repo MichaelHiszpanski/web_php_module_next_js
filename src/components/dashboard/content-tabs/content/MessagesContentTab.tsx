@@ -57,13 +57,10 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
                  border-colorOne bg-white flex flex-col items-start 
                  gap-2 p-4 overflow-y-auto"
         aria-label="Students List"
-        style={{ overflowY: "auto" }}
-        key={"2div"}
       >
         <div
           className="w-full h-full flex flex-col-reverse items-start overflow-y-auto"
           style={{ overflowY: "auto" }}
-          key={"1div"}
         >
           {isLoading ? (
             <p>Loading messages...</p>
