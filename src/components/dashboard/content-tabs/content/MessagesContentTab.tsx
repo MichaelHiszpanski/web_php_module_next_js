@@ -51,7 +51,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
   }
 
   return (
-    <div className="w-full flex flex-col min-h-[700px] items-center mb-[100px]">
+    <div className="w-full flex flex-col min-h-[700px] items-center mb-[100px] px-24">
       <div
         className="w-[90%] h-[700px] rounded-2xl border-2 shadow-xl 
                  border-colorOne bg-white flex flex-col items-start 
@@ -59,7 +59,7 @@ const MessagesContentTab: React.FC<Props> = ({ groupId }) => {
         aria-label="Students List"
       >
         <div
-          className="w-full h-full flex flex-col-reverse items-start overflow-y-auto"
+          className="w-full h-full flex flex-col-reverse items-start overflow-y-auto "
           style={{ overflowY: "auto" }}
         >
           {isLoading ? (

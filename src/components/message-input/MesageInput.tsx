@@ -39,10 +39,16 @@ const MessageInput: FC<Props> = ({
           }}
           onBlur={() => setIsFocused(false)}
           rows={3}
-          className={`w-full p-2 border rounded resize-none bg-blue-200 font-mono`}
+          className={`w-full p-2 border rounded resize-none bg-yellow-200 font-mono`}
         />
-        <div className="flex flex-col items-center justify-center ml-2 cursor-pointer">
-          <FaFacebookMessenger size={25} color="colorFive" onClick={onSend} />
+        <div className="flex flex-col items-center justify-center ml-2 cursor-pointer font-orbitron_variable hover:text-blue-500">
+          <FaFacebookMessenger
+            size={25}
+            color="colorFive"
+            className="hover:text-blue-500"
+            onClick={onSend}
+          />{" "}
+          Send
         </div>
       </div>
     </div>
