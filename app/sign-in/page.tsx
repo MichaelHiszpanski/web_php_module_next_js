@@ -96,8 +96,8 @@ const SignIn: NextPage = () => {
   };
 
   return (
-    <div className="flex flex-col bg-white h-screen  items-center z-50">
-      <h1 className="text-3xl md:text-5xl font-orbitron_variable my-10 px-10 z-50">
+    <div className="flex flex-col bg-white h-screen  items-center ">
+      <h1 className="text-3xl text-colorOne md:text-5xl font-orbitron_variable my-10 px-10 ">
         {dictionary.sign_in}
       </h1>
       <form
@@ -123,7 +123,7 @@ const SignIn: NextPage = () => {
         <ButtonPrimary title={dictionary.sign_in} type="submit" />
       </form>
 
-      <div>
+      <div className="text-colorOne">
         {dictionary["don`t_have_account"]}
         <Link href={"/sign-up"}>
           <span className="text-colorFour ml-2 cursor-pointer">

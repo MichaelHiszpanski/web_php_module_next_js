@@ -5,8 +5,8 @@ export async function POST(req: Request) {
   try {
     const dropTeachersTable = `DROP TABLE IF EXISTS Teachers CASCADE;`;
     const dropStudentTable = `DROP TABLE IF EXISTS Students CASCADE;`;
-    const dropUsersTable = `DROP TABLE IF EXISTS Users CASCADE;`;
     const dropRolesTable = `DROP TABLE IF EXISTS Roles CASCADE;`;
+    const dropUsersTable = `DROP TABLE IF EXISTS Users CASCADE;`;
     const dropGroupsTable = `DROP TABLE IF EXISTS Groups CASCADE;`;
     const dropGroupMembersTable = `DROP TABLE IF EXISTS GroupMembers CASCADE;`;
     const dropMessagesTable = `DROP TABLE IF EXISTS Messages CASCADE;`;
@@ -20,6 +20,7 @@ export async function POST(req: Request) {
     await sql(dropGroupMembersTable);
     await sql(dropMessagesTable);
     await sql(dropFilesTable);
+    await sql(dropToDoList);
 
     const createRolesTable = `
       CREATE TABLE IF NOT EXISTS Roles (
