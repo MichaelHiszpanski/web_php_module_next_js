@@ -150,7 +150,7 @@ const SignUp: NextPage = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen  items-center ">
+    <div className="flex flex-col h-screen bg-white items-center ">
       <h1 className="text-3xl md:text-5xl text-colorOne font-orbitron_variable my-10 px-10 ">
         {dictionary.sign_up}
       </h1>
