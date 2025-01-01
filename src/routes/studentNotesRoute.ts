@@ -11,7 +11,6 @@ export const useStudentNotes = (id: number) => {
   return useQuery({
     queryKey: ["studentNotes", id],
     queryFn: () => getStudentNotes(id),
-    staleTime: 1000 * 60 * 5,
     enabled: !!id,
   });
 };

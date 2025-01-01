@@ -18,7 +18,6 @@ export const useGetStudentData = (StudentID: number) => {
   return useQuery({
     queryKey: ["studentData", StudentID],
     queryFn: () => responseStudentData(StudentID),
-    staleTime: 5 * 60 * 1000,
     enabled: !!StudentID,
   });
 };
@@ -39,7 +38,6 @@ export const useGetTeacherData = (TeacherID: number) => {
   return useQuery({
     queryKey: ["teacherData", TeacherID],
     queryFn: () => responseTeacherData(TeacherID),
-    staleTime: 5 * 60 * 1000,
     enabled: !!TeacherID,
   });
 };

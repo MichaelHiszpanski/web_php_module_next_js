@@ -99,6 +99,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
               {dictionary.files_content_tab[0].error_loadoing}
             </p>
           ) : groupFiles.length > 0 ? (
+            groupFiles &&
             groupFiles.map((file: any, index: number) => (
               <FileDisplay
                 file={file}

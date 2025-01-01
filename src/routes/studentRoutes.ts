@@ -27,7 +27,6 @@ export const useGetStudents = () => {
   return useQuery({
     queryKey: ["students"],
     queryFn: responseStudents,
-    staleTime: 5 * 60 * 1000,
     retry: 2,
     refetchOnWindowFocus: true,
   });
@@ -45,7 +44,6 @@ export const useGetStudentGroups = (userId: string) => {
     queryKey: ["studentGroups", userId],
     queryFn: () => responseStudentGroups(userId),
     enabled: !!userId,
-    staleTime: 5 * 60 * 1000,
     retry: 2,
   });
 };

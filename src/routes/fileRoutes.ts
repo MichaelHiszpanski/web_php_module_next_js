@@ -32,7 +32,6 @@ export const useGetGroupFilesList = (groupID: number) => {
     queryKey: ["groupFiles", groupID],
     queryFn: () => responseGetGroupFiles(groupID),
     enabled: !!groupID,
-    staleTime: 5 * 60 * 1000,
   });
 };
 export const responseDownloadFile = async (

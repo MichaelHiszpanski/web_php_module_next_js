@@ -18,7 +18,6 @@ export const useGetMessagesListFromGroup = (groupID: number) => {
   return useQuery({
     queryKey: ["groupMessages", groupID],
     queryFn: () => responseMessagesInGropup(groupID),
-    staleTime: 5 * 60 * 1000,
   });
 };
 

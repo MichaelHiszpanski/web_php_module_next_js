@@ -38,7 +38,6 @@ export const useGetGroups = (teacherID: number) => {
     queryKey: ["groupID", teacherID],
     queryFn: () => responseGetGroups(teacherID),
     enabled: !!teacherID,
-    staleTime: 5 * 60 * 1000,
     retry: 2,
     refetchOnWindowFocus: false,
   });
