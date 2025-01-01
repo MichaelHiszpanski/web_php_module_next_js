@@ -1,6 +1,7 @@
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
 import userStore from "@/src/mobX/user_store";
 import {
+  responseDeleteFile,
   responsePostFileToGroup,
   useGetGroupFilesList,
 } from "@/src/routes/fileRoutes";
@@ -30,6 +31,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
     data: groupFiles = [],
     isLoading,
     isError,
+    refetch,
   } = useGetGroupFilesList(groupId);
 
   const handleFileUpload = async () => {
@@ -55,6 +57,23 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
       }
     } else {
       setUploadStatus(`Error: ${response.error}`);
+    }
+  };
+
+  const deleteFile = async (fileID: number) => {
+    const deleteFileConfirmation = window.confirm(
+      "Are you sure you want to delete this File?"
+    );
+    if (deleteFileConfirmation) {
+      const result = await responseDeleteFile(fileID);
+      if (result.error) {
+        alert(`Error: ${result.error}`);
+      } else {
+        alert("File Deleted successfully!");
+        refetch();
+      }
+    } else {
+      alert("File Deletion cancelled.");
     }
   };
 
@@ -85,6 +104,7 @@ const FilesContentTab: React.FC<Props> = ({ groupId }) => {
                 file={file}
                 index={index}
                 key={index}
+                deleteFile={deleteFile}
                 onDownloadError={(message) =>
                   setErrors((prevErrors: any) => [...prevErrors, message])
                 }

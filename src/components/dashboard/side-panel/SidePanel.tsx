@@ -54,7 +54,7 @@ const SidePanel: FC<Props> = ({
       <div className="flex flex-col w-full items-center text-start px-2 bg-white h-[60px]">
         <span
           style={{ fontSize: "14px" }}
-          className=" font-mono w-full text-start"
+          className=" font-mono w-full text-start text-colorOne"
         >
           {dictionary.side_panel[0].selected}
         </span>

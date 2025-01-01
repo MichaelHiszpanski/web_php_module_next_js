@@ -48,3 +48,14 @@ export const responseDownloadFile = async (
   }
   return response;
 };
+
+export const responseDeleteFile = async (fileID: number) => {
+  const response = await fetch(
+    `/api/groups/group/files/file?FileID=${fileID}`,
+    {
+      method: "DELETE",
+    }
+  );
+  const data = await response.json();
+  return data;
+};

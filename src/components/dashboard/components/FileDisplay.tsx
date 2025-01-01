@@ -1,13 +1,23 @@
-import { responseDownloadFile } from "@/src/routes/fileRoutes";
+import {
+  responseDeleteFile,
+  responseDownloadFile,
+} from "@/src/routes/fileRoutes";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import React, { useState } from "react";
 import { FaDownload, FaFileAlt, FaIcons, FaTruckLoading } from "react-icons/fa";
+import { IoTrashBin } from "react-icons/io5";
 interface Props {
   file: { fileid: number; filepath: string };
   index: number;
   onDownloadError: (message: string) => void;
+  deleteFile: (fileID: number) => Promise<void>;
 }
-const FileDisplay: React.FC<Props> = ({ file, index, onDownloadError }) => {
+const FileDisplay: React.FC<Props> = ({
+  file,
+  index,
+  onDownloadError,
+  deleteFile,
+}) => {
   const [isDownlaodingFile, setIsDownlaodingFile] = useState(false);
   const { dictionary } = useTranslation();
   const downloadFile = async () => {
@@ -29,6 +39,7 @@ const FileDisplay: React.FC<Props> = ({ file, index, onDownloadError }) => {
       setIsDownlaodingFile(false);
     }
   };
+
   return (
     <div className="flex  flex-col items-center justify-between bg-white p-4 rounded-lg shadow-md border-[0.5px]  border-colorFour">
       <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center text-xl font-bold text-white">
@@ -47,8 +58,18 @@ const FileDisplay: React.FC<Props> = ({ file, index, onDownloadError }) => {
         >
           {dictionary.file_display[0].download}
         </p>
-        <div onClick={downloadFile}>
-          {isDownlaodingFile ? <FaTruckLoading /> : <FaDownload />}
+        <div className="flex flex-row">
+          <div onClick={downloadFile} className=" cursor-pointer">
+            {isDownlaodingFile ? <FaTruckLoading /> : <FaDownload />}
+          </div>
+
+          <IoTrashBin
+            className=" cursor-pointer ml-3"
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteFile(file.fileid);
+            }}
+          />
         </div>
       </div>
     </div>

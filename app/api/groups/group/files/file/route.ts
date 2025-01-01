@@ -91,3 +91,35 @@ export async function GET(req: Request) {
     );
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const fileID = parseInt(url.searchParams.get("FileID") || "", 10);
+
+    const deleteFileQuery = `
+      DELETE FROM Files
+      WHERE FileID = $1
+      RETURNING FileID;
+    `;
+
+    const result = await sql(deleteFileQuery, [fileID]);
+
+    if (result.length === 0) {
+      return NextResponse.json(
+        { success: false, error: "Something went wrong. File not deleted." },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: `File with ID ${fileID} has been deleted`,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: "Something went wrong" },
+      { status: 500 }
+    );
+  }
+}
