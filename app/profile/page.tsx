@@ -1,6 +1,6 @@
 "use client";
 import { NextPage } from "next";
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { UserDetailsModel } from "@/src/models/UserDetailsModel";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
 import userStore from "@/src/mobX/user_store";
@@ -16,6 +16,7 @@ import {
 import ProfileDisplay from "@/src/components/dashboard/components/ProfileDisplay";
 import LoaderComponent from "@/src/components/loader/Loader";
 import ButtonPrimary from "@/src/components/buttons/button-primary/ButtonPrimary";
+import CustomErros from "@/src/components/custom-errors/CustomErrors";
 
 const Profile: NextPage = () => {
   const [formData, setFormData] = useState<any>(null);
@@ -41,9 +42,8 @@ const Profile: NextPage = () => {
   const { data: studentProfile, isLoading: studentLoading } = useGetStudentData(
     studentID ?? 0
   );
-  // const { data: updateProfileData } = usePUTStudentOrTeacher(formData);
+
   useEffect(() => {
-    console.log("Stage 1");
     const fetchUserData = async () => {
       if (!user) return;
 
@@ -66,7 +66,6 @@ const Profile: NextPage = () => {
     };
 
     if (isSignedIn) {
-      console.log("Stage 2");
       fetchUserData();
     }
   }, [isSignedIn, user]);
@@ -74,7 +73,6 @@ const Profile: NextPage = () => {
     try {
       const teacherId = await getTeacherID(userData.userid);
       if (teacherId) {
-        console.log("Stage 3", teacherId.TeacherID);
         userStore.updateUserDataBaseID(teacherId.TeacherID);
         setTeacherID(teacherId.TeacherID);
       } else {
@@ -91,7 +89,6 @@ const Profile: NextPage = () => {
       if (response.StudentID) {
         userStore.setUser({ dataBaseID: response.StudentID });
         setStudentID(response.StudentID);
-        console.log("Stage 4", studentID);
       } else {
         setErrors("No Student ID found in DataBase.");
       }
@@ -101,8 +98,7 @@ const Profile: NextPage = () => {
   }, [userData.userid]);
 
   useEffect(() => {
-    console.log("Stage 5");
-    const fetchData = async () => {
+    const fetchProperID = async () => {
       if (userData.roleid === 2) {
         await fetchTeacherID();
       }
@@ -111,19 +107,16 @@ const Profile: NextPage = () => {
       }
     };
 
-    fetchData();
+    fetchProperID();
   }, [userData.roleid, fetchTeacherID, fetchStudentID]);
 
   useEffect(() => {
-    console.log("Stage 6");
     if (teacherProfile && userData.roleid === 2) {
       setFormData(teacherProfile);
     }
   }, [teacherProfile, userData.roleid]);
 
   useEffect(() => {
-    console.log("Stage 7 D", formData);
-    console.log("Stage 7", studentProfile);
     if (studentProfile && userData.roleid === 1) {
       setFormData(studentProfile);
     }
@@ -138,20 +131,9 @@ const Profile: NextPage = () => {
 
   const updateData = async () => {
     if (!updatedFormData) {
-      setErrors("No data to update.");
+      setErrors("No Profile data to update.");
       return;
     }
-    console.log(
-      "Form Data to be Updated:",
-      formData[0].studentid,
-      "  more    ",
-      userData.roleid === 1
-    );
-    // if (!updatedFormData.studentId) {
-    //   setErrors("StudentID is missing.");
-    //   console.error("StudentID is missing in the formData.");
-    //   return;
-    // }
 
     try {
       await responsePUTStudnetORTeacher(
@@ -159,10 +141,8 @@ const Profile: NextPage = () => {
         updatedFormData,
         userData.roleid === 1 ? formData[0].studentid : formData[0].teacherid
       );
-      console.log("Data updated successfully!");
     } catch (error) {
-      console.error("Error updating data:", error);
-      setErrors("Unexpected error while updating data.");
+      setErrors("Something went wrong...");
     }
   };
 
@@ -176,6 +156,7 @@ const Profile: NextPage = () => {
 
   return (
     <div className="w-full min-h-screen flex flex-col bg-red-200  items-center pt-10 bg-gradient-to-r from-colorSeven via-colorTwo to-colorNine">
+      <CustomErros errors={errors} />
       <h1
         className="text-[40px] md:text-[70px] font-bold font-orbitron_variable bg-gradient-to-r from-colorSrcThree via-colorSrcTwo to-colorSrcOne 
                       bg-clip-text text-transparent  mt-5 mb-10 select-none"
@@ -186,15 +167,6 @@ const Profile: NextPage = () => {
         {!formData || formData.length === 0 ? (
           <LoaderComponent />
         ) : (
-          // formData.map((user: any, index: number) => (
-          //   <ProfileDisplay
-          //     user={user}
-          //     key={index}
-          //     isStudent={userData.roleid === 1}
-          //     onFormDataUpdated={updateFormData}
-          //   />
-          // ))
-
           <ProfileDisplay
             user={formData[0]}
             isStudent={userData.roleid === 1}
