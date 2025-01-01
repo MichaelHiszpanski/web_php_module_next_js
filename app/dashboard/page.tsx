@@ -225,7 +225,7 @@ const Dashboard: NextPage = () => {
         onCloseModal={() => setIsModal(false)}
         isCloseButtonavaiable={false}
       >
-        <div className="md:w-[600px]">
+        <div className="md:w-[600px] max-h-[70vh] h-auto overflow-y-auto p-4">
           <h2 className="text-xl font-bold">Register new User</h2>
           <p className="mt-2">
             Please fill all the informations and select your Role.

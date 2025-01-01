@@ -37,7 +37,7 @@ const CustomInput: FC<Props> = ({
   return (
     <div className={`mb-4 w-full `}>
       {isLabel && (
-        <label className="block text-sm font-medium text-colorOne bg-white dark:text-white mb-1">
+        <label className="block text-sm font-medium text-colorOne bg-white  mb-1">
           {label}
         </label>
       )}

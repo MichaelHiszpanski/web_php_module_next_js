@@ -24,7 +24,15 @@ const PersonalDetailsForm: FC<Props> = ({ onSubmit }) => {
 
   const [role, setRole] = React.useState<string | null>(null);
   const [roleError, setRoleError] = React.useState<string | null>(null);
-  const [errors, setErrors] = useState<any>();
+  const [errors, setErrors] = useState<any>({
+    name: "",
+    lastName: "",
+    street: "",
+    city: "",
+    postcode: "",
+    houseNumber: "",
+    department: "",
+  });
 
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

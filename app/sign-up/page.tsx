@@ -24,6 +24,7 @@ const SignUp: NextPage = () => {
     password: "",
     passwordConfirm: "",
   });
+  const [apiError, setApiError] = useState<string | null>(null);
   const [verifying, setVerifying] = React.useState(false);
   const [code, setCode] = React.useState("");
   const { dictionary } = useTranslation();
@@ -60,7 +61,11 @@ const SignUp: NextPage = () => {
 
       setVerifying(true);
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
+      if (err.errors && Array.isArray(err.errors) && err.errors.length > 0) {
+        setApiError(err.errors[0].message);
+      } else {
+        setApiError("Error: Something went wrong!.");
+      }
     }
   };
 
@@ -187,6 +192,11 @@ const SignUp: NextPage = () => {
 
         <ButtonPrimary title={`${dictionary.sign_up} !`} type="submit" />
       </form>
+      {apiError && (
+        <div className="text-red-500 text-sm mt-4">
+          <p>{apiError}</p>
+        </div>
+      )}
     </div>
   );
 };
