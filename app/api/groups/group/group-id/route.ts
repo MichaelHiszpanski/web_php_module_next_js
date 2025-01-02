@@ -20,7 +20,10 @@ export async function GET(req: Request) {
     `;
 
     if (result.length === 0) {
-      return NextResponse.json({ error: "No Group ID f!" }, { status: 404 });
+      return NextResponse.json(
+        { error: "No Group ID table!" },
+        { status: 404 }
+      );
     }
 
     const group = result[0];

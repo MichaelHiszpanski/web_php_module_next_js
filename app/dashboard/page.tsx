@@ -22,7 +22,7 @@ import {
   responseNewGroup,
   useAddMemberToGroup,
 } from "@/src/routes/groupRoutes";
-import { getTeacherID, useGetTeacherId } from "@/src/routes/teacherRoutes";
+import { getTeacherID } from "@/src/routes/teacherRoutes";
 import TopPanel from "@/src/components/dashboard/top-panel/TopPanel";
 import ContentTabs from "@/src/components/dashboard/content-tabs/ContentTabs";
 import LoaderComponent from "@/src/components/loader/Loader";
@@ -43,7 +43,7 @@ const Dashboard: NextPage = () => {
   const [groupId, setGroupId] = useState<number>(0);
   const [activeTab, setActiveTab] = useState(0);
   const [errors, setErrors] = useState<any>([]);
-  // const { data: teacherResponseID } = useGetTeacherId(userData.userId);
+
   const { mutate: addMember } = useAddMemberToGroup();
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const Dashboard: NextPage = () => {
 
   const fetchTeacherID = useCallback(async () => {
     try {
-      const teacherId = await getTeacherID(userData.userid); //teacherResponseID?.TeacherID;
+      const teacherId = await getTeacherID(userData.userid);
       if (teacherId) {
         setGroupForm((prev: NewGroupModel | null) => ({
           ...prev,
@@ -226,15 +226,16 @@ const Dashboard: NextPage = () => {
         isCloseButtonavaiable={false}
       >
         <div className="md:w-[600px] max-h-[70vh] h-auto overflow-y-auto p-4">
-          <h2 className="text-xl font-bold">Register new User</h2>
-          <p className="mt-2">
+          <h2 className="text-2xl font-bold font-orbitron_variable text-colorFour">
+            Register new User
+          </h2>
+          <p className="mt-2  text-colorO">
             Please fill all the informations and select your Role.
           </p>
           <PersonalDetailsForm
             onSubmit={(formData) => {
               handleFormSubmit(formData);
             }}
-            // data={null}
           />
         </div>
       </CustomModal>
@@ -244,8 +245,10 @@ const Dashboard: NextPage = () => {
         isCloseButtonavaiable={true}
       >
         <div className="md:w-[600px]">
-          <h2 className="text-xl font-bold">Create new group</h2>
-          <p className="mt-2">
+          <h2 className="text-xl font-bold font-orbitron_variable text-colorFour">
+            Create new group
+          </h2>
+          <p className="mt-2  text-colorOne">
             This is the second modal attached to the Dashboard component.
           </p>
           <NewGroupForm

@@ -1,9 +1,9 @@
 export const userDisplayCardStyle = {
   container:
-    " cursor-pointer w-full bg-white p-2 rounded-md shadow-sm border border-gray-200",
+    " cursor-pointer w-full bg-white p-2 rounded-md shadow-sm border border-gray-200 text-colorOne",
   fieldContainer: "text-sm text-colo",
   label: "font-semibold text-gray-700",
-  value: "text-gray-600",
+  value: "text-colorOne",
 };
 export const studentDisplayCardStyle = {
   container:
