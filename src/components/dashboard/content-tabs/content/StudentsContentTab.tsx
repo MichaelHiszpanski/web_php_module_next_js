@@ -151,14 +151,14 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
         <CustomErros errors={errors} />
         <div className="w-[97%] h-[600px] bg-white p-4 rounded-lg shadow-md  relative">
           <div className="w-full  border-y border-y-colorOne">
-            <h2 className="text-xl font-bold my-2 font-orbitron_variable">
+            <h2 className="text-xl font-bold my-2 font-orbitron_variable text-colorOne">
               {dictionary.students_content_tab[0].details}
             </h2>
           </div>
 
           {selectedItem ? (
             <div>
-              <p className="text-sm font-semibold font-permanentMarker mt-2">
+              <p className="text-sm font-semibold font-permanentMarker mt-2 text-colorOne">
                 {dictionary.students_content_tab[0].selected_item_details}
               </p>
 
@@ -172,7 +172,7 @@ const StudentsContentTab: React.FC<Props> = ({ groupId }) => {
             </p>
           )}
           <div className="mt-5 border-y border-y-colorOne">
-            <h2 className="text-xl font-bold my-2 font-orbitron_variable">
+            <h2 className="text-xl font-bold my-2 font-orbitron_variable text-colorOne">
               {dictionary.students_content_tab[0].actions}
             </h2>
           </div>
