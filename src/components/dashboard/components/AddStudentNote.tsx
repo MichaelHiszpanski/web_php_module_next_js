@@ -8,6 +8,11 @@ interface Props {
   selectedDate: Date | null;
   handleDateChange: (date: Date | null) => void;
   handleAddNote: () => void;
+  errors?: {
+    textInput?: string;
+    description?: string;
+    selectedDate?: string;
+  };
 }
 const AddStudentNote: React.FC<Props> = ({
   textInput,
@@ -17,35 +22,51 @@ const AddStudentNote: React.FC<Props> = ({
   selectedDate,
   handleAddNote,
   handleDateChange,
+  errors,
 }) => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6">Student To-Do List</h1>
+    <div className="bg-white w-[600px]">
+      <h1
+        className="text-3xl font-bold mb-6 font-orbitron_variable
+              text-colorFour"
+      >
+        Student To-Do List
+      </h1>
 
-      <div className="flex flex-col w-full gap-4 mb-6">
+      <div className="flex flex-col w-full gap-4 mb-3">
         <input
           type="text"
           placeholder="Enter your note Title"
           value={textInput}
           onChange={(e) => setTextInput(e.target.value)}
-          className="flex-1 border border-gray-300 rounded-lg p-2"
+          className="flex-1 border border-gray-300 rounded-lg p-2 text-colorOne"
         />
-        <input
-          type="text"
+        {errors?.textInput && (
+          <p className="text-red-500 text-sm ">{errors.textInput}</p>
+        )}
+        <textarea
           placeholder="Enter your note Description"
           value={description}
           onChange={(e) => setDescriptiont(e.target.value)}
-          className="flex-1 border border-gray-300 rounded-lg p-2"
+          rows={4}
+          className="flex-1 border border-gray-300 rounded-lg p-2 text-colorOne"
         />
+        {errors?.description && (
+          <p className="text-red-500 text-sm ">{errors.description}</p>
+        )}
         <div className="p-4">
-          <h1 className="text-xl font-bold mb-4">Select a Date</h1>
           <CustomDatePicker
             selectedDate={selectedDate}
-            onChange={handleDateChange}
-            label="Pick a date"
+            onChange={(date) => handleDateChange(date)}
+            label="Select a Date"
           />
+          {errors?.selectedDate && (
+            <p className="text-red-500 text-sm mt-1">{errors.selectedDate}</p>
+          )}
           {selectedDate && (
-            <p className="mt-4">Selected Date: {selectedDate.toDateString()}</p>
+            <p className="mt-4 text-colorOne">
+              Selected Date: {selectedDate.toDateString()}
+            </p>
           )}
         </div>
         <button

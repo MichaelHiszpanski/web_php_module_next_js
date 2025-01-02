@@ -19,6 +19,11 @@ const StudentNotes: React.FC = () => {
   const queryClient = useQueryClient();
   const { dictionary } = useTranslation();
   const [id, setId] = useState(-99);
+  const [erros, setErrors] = useState({
+    textInput: "",
+    description: "",
+    selectedDate: "",
+  });
   const [isAddModal, setIsAddModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const {
@@ -33,8 +38,37 @@ const StudentNotes: React.FC = () => {
   }, [userStore.user.dataBaseID]);
 
   const handleAddNote = async () => {
-    if (textInput.trim() === "") return;
+    const newErrors = {
+      textInput: "",
+      description: "",
+      selectedDate: "",
+    };
 
+    if (textInput.trim() === "") {
+      newErrors.textInput = "Title cannot be empty";
+    }
+
+    if (description.trim() === "") {
+      newErrors.description = "Description cannot be empty";
+    }
+
+    if (!selectedDate) {
+      newErrors.selectedDate = "Please select a date";
+    }
+    if (
+      newErrors.textInput.trim() !== "" ||
+      newErrors.description.trim() !== "" ||
+      newErrors.selectedDate.trim() !== ""
+    ) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({
+      textInput: "",
+      description: "",
+      selectedDate: "",
+    });
     await responseAddNote(id, textInput, description, selectedDate!);
     queryClient.invalidateQueries({ queryKey: ["studentNotes", id] });
     setTextInput("");
@@ -81,7 +115,17 @@ const StudentNotes: React.FC = () => {
       />
       <CustomModal
         isModalOpen={isAddModal}
-        onCloseModal={() => setIsAddModal(false)}
+        onCloseModal={() => {
+          setIsAddModal(false);
+          setErrors({
+            textInput: "",
+            description: "",
+            selectedDate: "",
+          });
+          setTextInput("");
+          setSelectedDate(null);
+          setDescription("");
+        }}
       >
         <AddStudentNote
           textInput={textInput}
@@ -91,6 +135,7 @@ const StudentNotes: React.FC = () => {
           handleAddNote={handleAddNote}
           description={description}
           setDescriptiont={setDescription}
+          errors={erros}
         />
       </CustomModal>
 

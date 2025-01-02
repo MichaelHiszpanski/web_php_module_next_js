@@ -18,7 +18,7 @@ const StudentNote: React.FC<Props> = ({ item, handleDeleteNote }) => {
         <h3 className="text-lg font-semibold">{item.tasktitle}</h3>
         <p>{item.taskdescription}</p>
         <p className="text-sm text-gray-500">
-          {dictionary.student_notes[0].due} {dateTimeFormater(item.todoid)}
+          {dictionary.student_notes[0].due} {dateTimeFormater(item.duedate)}
         </p>
       </div>
       <button

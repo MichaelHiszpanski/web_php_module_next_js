@@ -15,11 +15,15 @@ const CustomDatePicker: React.FC<Props> = ({
 }) => {
   return (
     <div className="flex flex-col gap-2">
-      {label && <label className="font-medium">{label}</label>}
+      {label && (
+        <label className="font-medium font-orbitron_variable text-2xl text-colorOne">
+          {label}
+        </label>
+      )}
       <DatePicker
         selected={selectedDate}
         onChange={onChange}
-        className="p-2 border rounded-md w-full"
+        className="p-2 border rounded-md w-full text-colorOne"
         dateFormat="yyyy-MM-dd"
       />
     </div>
