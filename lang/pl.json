@@ -166,7 +166,20 @@
       "delete": "Usuń",
       "add_note": "Dodaj Notatkę",
       "loading_notes": "Ładowanie Notatek...",
-      "error_notes": "Błąd:"
+      "error_notes": "Błąd:",
+      "error_title": "Tytuł nie może być pusty",
+      "error_description": "Opis nie może być pusty",
+      "error_selected_date": "Proszę wybrać datę"
+    }
+  ],
+  "add_student_note": [
+    {
+      "list_title": "Lista Zadań Studenta",
+      "title_placeholder": "Wpisz tytuł notatki",
+      "description_placeholder": "Wpisz opis notatki",
+      "select_date": "Wybierz datę",
+      "selected_date": "Wybrana data:",
+      "add_note": "Dodaj notatkę"
     }
   ]
 }

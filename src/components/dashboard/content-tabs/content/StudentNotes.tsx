@@ -45,15 +45,15 @@ const StudentNotes: React.FC = () => {
     };
 
     if (textInput.trim() === "") {
-      newErrors.textInput = "Title cannot be empty";
+      newErrors.textInput = dictionary.student_notes[0].error_title;
     }
 
     if (description.trim() === "") {
-      newErrors.description = "Description cannot be empty";
+      newErrors.description = dictionary.student_notes[0].error_description;
     }
 
     if (!selectedDate) {
-      newErrors.selectedDate = "Please select a date";
+      newErrors.selectedDate = dictionary.student_notes[0].error_selected_date;
     }
     if (
       newErrors.textInput.trim() !== "" ||

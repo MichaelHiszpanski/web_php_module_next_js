@@ -164,7 +164,20 @@
       "delete": "Delete",
       "add_note": "Add Note",
       "loading_notes": "Loading Notes...",
-      "error_notes": "Error:"
+      "error_notes": "Error:",
+      "error_title": "Title cannot be empty",
+      "error_description": "Description cannot be empty",
+      "error_selected_date": "Please select a date"
+    }
+  ],
+  "add_student_note": [
+    {
+      "list_title": "Student To-Do List",
+      "title_placeholder": "Enter your note Title",
+      "description_placeholder": "Enter your note Description",
+      "select_date": "Select a Date",
+      "selected_date": "Selected Date:",
+      "add_note": "Add Note"
     }
   ]
 }
