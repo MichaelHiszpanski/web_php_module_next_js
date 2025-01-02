@@ -89,6 +89,10 @@ const SignIn: NextPage = () => {
     } catch (err: any) {
       if (err.errors && err.errors.length > 0) {
         setError(err.errors[0].message || dictionary.errors[0].error_login);
+
+        if (err.errors[0].message === "Session already exists") {
+          router.push("/dashboard");
+        }
       } else {
         setError(dictionary.errors[0].error_unknown ?? "");
       }
