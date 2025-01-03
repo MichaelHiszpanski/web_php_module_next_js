@@ -27,6 +27,7 @@ const SignIn: NextPage = () => {
     email: "",
     password: "",
   });
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData((prev) => ({
@@ -38,6 +39,7 @@ const SignIn: NextPage = () => {
       setErrors((prev: any) => ({ ...prev, [name]: "" }));
     }
   };
+
   const validateInputs = () => {
     let isValid = true;
     const errorsList: any = {};
@@ -82,7 +84,11 @@ const SignIn: NextPage = () => {
           password: userData.password,
           userId: "3",
         });
-        router.push("/dashboard");
+
+        const redirectUrl =
+          new URLSearchParams(window.location.search).get("redirect_url") ||
+          "/dashboard";
+        router.push(redirectUrl);
       } else {
         setError(dictionary.errors[0].something ?? "");
       }
