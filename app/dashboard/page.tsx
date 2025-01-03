@@ -183,13 +183,6 @@ const Dashboard: NextPage = () => {
     setActiveTab(index);
   };
 
-  // if (!isSignedIn) {
-  //   if (typeof window !== "undefined") {
-  //     window.location.href = "/sign-in";
-  //   }
-  //   return null;
-  // }
-
   if (isLoading) return <LoaderComponent />;
 
   if (!isLoaded) return <LoaderComponent />;

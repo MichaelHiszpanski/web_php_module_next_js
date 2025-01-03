@@ -33,7 +33,6 @@ const AnimatedDropdown: React.FC<DropdownProps> = ({
       </label>
       <div
         onClick={toggleDropdown}
-        //   className="cursor-pointer p-2 border rounded bg-white shadow-md text-gray-700 focus:outline-none"
         className={`w-full p-2 border rounded ${
           error ? "border-red-500" : "border-gray-300"
         } focus:outline-none focus:ring-2 focus:ring-blue-500`}

@@ -81,11 +81,3 @@ export const responsePUTStudnetORTeacher = async (
     window.location.reload();
   }
 };
-
-// export const usePUTStudentOrTeacher = (formData: PersonalDetailModel) => {
-//   return useQuery({
-//     queryKey: ["TeacherOrStudentPUT", formData],
-//     queryFn: () => responsePUTStudnetORTeacher(formData),
-//     enabled: !!formData,
-//   });
-// };
