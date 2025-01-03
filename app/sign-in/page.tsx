@@ -84,11 +84,7 @@ const SignIn: NextPage = () => {
           password: userData.password,
           userId: "3",
         });
-
-        const redirectUrl =
-          new URLSearchParams(window.location.search).get("redirect_url") ||
-          "/dashboard";
-        router.push(redirectUrl);
+        router.push("/dashboard");
       } else {
         setError(dictionary.errors[0].something ?? "");
       }

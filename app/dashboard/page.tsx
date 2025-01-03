@@ -59,6 +59,7 @@ const Dashboard: NextPage = () => {
         });
         if (!data.userid) {
           setIsModal(true);
+          setUserData(defaultUserDetails);
           return;
         }
 
