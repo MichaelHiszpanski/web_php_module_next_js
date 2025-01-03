@@ -18,7 +18,7 @@ const CustomModal: FC<Props> = ({
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg w-max">
-        <div className="flex justify-end p-4">
+        <div className="flex justify-end p-4 ">
           {isCloseButtonavaiable && (
             <button
               type="button"
@@ -30,7 +30,7 @@ const CustomModal: FC<Props> = ({
           )}
         </div>
 
-        <div className="p-6">{children}</div>
+        <div className="px-6 py-2">{children}</div>
       </div>
     </div>
   );

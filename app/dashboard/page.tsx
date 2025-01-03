@@ -245,12 +245,10 @@ const Dashboard: NextPage = () => {
         isCloseButtonavaiable={true}
       >
         <div className="md:w-[600px]">
-          <h2 className="text-xl font-bold font-orbitron_variable text-colorFour">
+          <h2 className="text-2xl font-bold font-orbitron_variable text-colorFour">
             Create new group
           </h2>
-          <p className="mt-2  text-colorOne">
-            This is the second modal attached to the Dashboard component.
-          </p>
+
           <NewGroupForm
             onSubmit={(groupForm) => handleSubmit(groupForm)}
             groupForm={groupForm}

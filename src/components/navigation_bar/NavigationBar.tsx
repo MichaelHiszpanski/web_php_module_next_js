@@ -1,11 +1,12 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { logoSrc } from "@/src/consts/images";
 import Image from "next/image";
 import NavigationLinkButton from "../buttons/NavigationLinkButton";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { UserButton, useClerk, useUser } from "@clerk/nextjs";
 import { LanguageSelect } from "../language/LanguageSelect";
 import { useTranslation } from "@/src/utils/hooks/useTranslation";
+import userStore from "@/src/mobX/user_store";
 
 interface NavigationItem {
   hrefLink: string;
@@ -15,6 +16,7 @@ interface NavigationItem {
 const NavigationBar: FC = () => {
   const { dictionary } = useTranslation();
   const { isSignedIn } = useUser();
+  const { session } = useClerk();
 
   const navigationItems: NavigationItem[] = [
     { hrefLink: "/", name: dictionary.navigation[0] },
@@ -22,6 +24,12 @@ const NavigationBar: FC = () => {
 
     { hrefLink: "/profile", name: dictionary.navigation[2] },
   ];
+
+  useEffect(() => {
+    if (!session) {
+      userStore.clearUser();
+    }
+  }, [session]);
 
   return (
     <nav
