@@ -11,7 +11,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json(roles);
   } catch (error: any) {
-    console.error("Error getting roles:", error);
     return NextResponse.json(
       {
         error: "Failed to get roles",

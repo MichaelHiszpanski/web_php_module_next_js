@@ -10,7 +10,6 @@ export async function GET(req: Request) {
     `;
     return NextResponse.json(allUsers);
   } catch (error: any) {
-    console.error("Error retrieving all users from DB:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve all users from DB",

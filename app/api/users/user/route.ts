@@ -18,7 +18,6 @@ export async function POST(req: Request) {
       userId: result[0].UserID,
     });
   } catch (error: any) {
-    console.error("Error adding user to DB:", error);
     return NextResponse.json(
       {
         error: "Failed to add user to DB.",
@@ -46,7 +45,6 @@ export async function PUT(req: Request) {
 
     return NextResponse.json({ message: "success" });
   } catch (error: any) {
-    console.error("Error updating user to DB:", error);
     return NextResponse.json(
       {
         error: "Failed to update user to DB.",
@@ -73,7 +71,6 @@ export async function DELETE(req: Request) {
 
     return NextResponse.json({ message: "success" });
   } catch (error: any) {
-    console.error("Error deleting user to DB:", error);
     return NextResponse.json(
       {
         error: "Failed to delete user to DB.",
@@ -106,7 +103,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json(user[0]);
   } catch (error: any) {
-    console.error("Error retrieving user from DB:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve user from DB.",

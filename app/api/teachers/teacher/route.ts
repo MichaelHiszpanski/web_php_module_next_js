@@ -28,7 +28,6 @@ export async function POST(req: Request) {
       teacherId: result[0].TeacherID,
     });
   } catch (error: any) {
-    console.error("Error adding teacher:", error);
     return NextResponse.json(
       {
         error: "Failed to add teacher",
@@ -69,7 +68,6 @@ export async function PUT(req: Request) {
 
     return NextResponse.json({ message: "success" });
   } catch (error: any) {
-    console.error("Error updating teacher:", error);
     return NextResponse.json(
       {
         error: "Failed to update teacher",
@@ -99,7 +97,6 @@ export async function DELETE(req: Request) {
 
     return NextResponse.json({ message: "Teacher deleted successfully!" });
   } catch (error: any) {
-    console.error("Error deleting teacher:", error);
     return NextResponse.json(
       {
         error: "Failed to delete teacher",
@@ -135,7 +132,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json(teacher[0]);
   } catch (error: any) {
-    console.error("Error retrieving teacher:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve teacher",

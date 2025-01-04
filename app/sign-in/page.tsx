@@ -103,7 +103,7 @@ const SignIn: NextPage = () => {
 
   return (
     <div className="flex flex-col bg-white h-screen  items-center ">
-      <h1 className="text-3xl text-colorOne md:text-5xl font-orbitron_variable my-10 px-10 ">
+      <h1 className="text-3xl text-colorOne md:text-5xl font-bold font-orbitron_variable my-10 px-10 ">
         {dictionary.sign_in}
       </h1>
       <form
@@ -125,7 +125,9 @@ const SignIn: NextPage = () => {
           onInputChange={handleInputChange}
           error={errors.password}
         />
-        {error && <div className="text-red-500">{error}</div>}
+        <div className="w-full min-h-14">
+          {error && <div className="text-red-500">{error}</div>}
+        </div>
         <ButtonPrimary title={dictionary.sign_in} type="submit" />
       </form>
 

@@ -37,7 +37,6 @@ export async function POST(req: Request) {
       studentId: result[0].StudentID,
     });
   } catch (error: any) {
-    console.error("Error adding student:", error);
     return NextResponse.json(
       {
         error: "Failed to add student",
@@ -78,7 +77,6 @@ export async function PUT(req: Request) {
 
     return NextResponse.json({ message: "Student updated successfully!" });
   } catch (error: any) {
-    console.error("Error updating student:", error);
     return NextResponse.json(
       {
         error: "Failed to update student",
@@ -108,7 +106,6 @@ export async function DELETE(req: Request) {
 
     return NextResponse.json({ message: "Student deleted successfully!" });
   } catch (error: any) {
-    console.error("Error deleting student:", error);
     return NextResponse.json(
       {
         error: "Failed to delete student",
@@ -144,7 +141,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json(student[0]);
   } catch (error: any) {
-    console.error("Error getting student:", error);
     return NextResponse.json(
       {
         error: "Failed to get student",

@@ -149,7 +149,6 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ message: "All Tables created successfully!" });
   } catch (error: any) {
-    console.error("Error:", error);
     return NextResponse.json(
       {
         error: "Failed to create tables... !",

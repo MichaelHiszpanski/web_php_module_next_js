@@ -41,7 +41,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json(studentData);
   } catch (error: any) {
-    console.error("Error retrieving student data:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve student data",

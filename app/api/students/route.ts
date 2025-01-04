@@ -10,7 +10,6 @@ export async function GET(req: Request) {
     `;
     return NextResponse.json(students);
   } catch (error: any) {
-    console.error("Error retrieving students:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve students",

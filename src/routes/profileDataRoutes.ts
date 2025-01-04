@@ -48,7 +48,7 @@ export const responsePUTStudnetORTeacher = async (
   id: number
 ): Promise<any> => {
   const setPath = isStudnet ? "students/student" : "teachers/teacher";
-  console.log("responsePUTStudnetORTeacher ID", formData.userId);
+
   const studentBody = {
     StudentID: id,
     FirstName: formData.name,

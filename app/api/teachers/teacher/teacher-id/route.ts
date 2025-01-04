@@ -31,7 +31,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json({ TeacherID: teacherId });
   } catch (error: any) {
-    console.error("Error retrieving TeacherID:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve TeacherID",

@@ -31,7 +31,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json({ StudentID: studentId });
   } catch (error: any) {
-    console.error("Error retrieving StudentD:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve StudnetID",

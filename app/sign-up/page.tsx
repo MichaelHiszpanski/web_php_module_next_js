@@ -118,8 +118,6 @@ const SignUp: NextPage = () => {
         await setActive({ session: signUpAttempt.createdSessionId });
 
         router.push("/");
-      } else {
-        console.error(JSON.stringify(signUpAttempt, null, 2));
       }
     } catch (err: any) {
       console.error("Error:", JSON.stringify(err, null, 2));
@@ -151,7 +149,7 @@ const SignUp: NextPage = () => {
 
   return (
     <div className="flex flex-col h-screen bg-white items-center ">
-      <h1 className="text-3xl md:text-5xl text-colorOne font-orbitron_variable my-10 px-10 ">
+      <h1 className="text-3xl md:text-5xl text-colorOne font-bold font-orbitron_variable my-10 px-10 ">
         {dictionary.sign_up}
       </h1>
       <form
@@ -192,11 +190,13 @@ const SignUp: NextPage = () => {
 
         <ButtonPrimary title={`${dictionary.sign_up} !`} type="submit" />
       </form>
-      {apiError && (
-        <div className="text-red-500 text-sm mt-4">
-          <p>{apiError}</p>
-        </div>
-      )}
+      <div className="w-full min-h-14">
+        {apiError && (
+          <div className="text-red-500 text-sm mt-4">
+            <p>{apiError}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

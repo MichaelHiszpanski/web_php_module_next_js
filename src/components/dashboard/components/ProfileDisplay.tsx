@@ -31,7 +31,7 @@ const ProfileDisplay: React.FC<Props> = ({
       [name]: value,
     };
     setDataForm(updatedData);
-    console.log("Profiel Display data:", updatedData);
+
     onFormDataUpdated(updatedData);
   };
 

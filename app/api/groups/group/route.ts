@@ -24,7 +24,6 @@ export async function GET(req: Request) {
 
     return NextResponse.json(groups);
   } catch (error: any) {
-    console.error("Error retrieving groups:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve groups",
@@ -75,7 +74,6 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (error: any) {
-    console.error("Error creating Group:", error);
     return NextResponse.json(
       {
         error: "Failed to create Group",

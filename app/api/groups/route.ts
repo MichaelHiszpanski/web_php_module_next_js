@@ -10,7 +10,6 @@ export async function GET(req: Request) {
     `;
     return NextResponse.json(teachers);
   } catch (error: any) {
-    console.error("Error retrieving Groups:", error);
     return NextResponse.json(
       {
         error: "Failed to retrieve Groups",
