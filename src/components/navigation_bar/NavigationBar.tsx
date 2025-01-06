@@ -57,7 +57,7 @@ const NavigationBar: FC = () => {
             className=" hidden md:flex"
           />
         ))}
-        {isSignedIn && <UserButton afterSignOutUrl="/" />}
+        {isSignedIn && <UserButton />}
         {isSignedIn ? (
           <></>
         ) : (
